@@ -19,7 +19,6 @@ export class Character{
 }
 
 export class StatSheet{
-    id: number;
     base: StatTypes;
 }
 
@@ -39,7 +38,6 @@ export class RawStats{
 }
 
 export class GuildInventory{
-    id: number;
     equippableItems: Item;
     nonEquippableItems: Item;
     characterCards: CharacterCard[];

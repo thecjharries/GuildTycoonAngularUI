@@ -1,11 +1,13 @@
 import { Injectable }    from '@angular/core';
 import { ApiService } from './api.service';
 
+import { Guild } from './models/guild'
+
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class GuildService {
-    private guild;
+    private guild: Guild;
 
     constructor(private apiService: ApiService) {
     }
@@ -14,7 +16,6 @@ export class GuildService {
         var parameters = ["guildId"];
         var values = [id];
         this.guild = await this.apiService.get('GetGuild', parameters, values);
-        console.log(this.guild);
         return this.guild;
     }
 
