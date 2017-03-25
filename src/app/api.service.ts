@@ -15,7 +15,7 @@ export class ApiService {
     private apiBase = 'http://guildtycoon-api-dev.azurewebsites.net/';  // URL to web api
 
     constructor(private http: Http, private tokenService: TokenService) {
-        
+        this.token = new Token();
     }
 
     async get(endpoint: string, parameters?: string[], values?: string[]){
@@ -29,18 +29,17 @@ export class ApiService {
             }
         }
         if (!this.headers.has("Authorization")){
-            this.createAuthorizationHeader(this.headers);
+            await this.createAuthorizationHeader(this.headers);
         }
         await this.http.get(this.apiBase + endpoint + stringParameters, {headers: this.headers})
                     .toPromise().then(data => this.response = data.json());
         return this.response;
     }
 
-    createAuthorizationHeader(headers: Headers) {
-        if (this.token == null){
-            this.token = this.tokenService.token;
-        }
+    async createAuthorizationHeader(headers: Headers) {
+        this.token.token = await this.tokenService.getToken();
         if(this.token.token != null){
+            console.log("adding TOken" + this.token.token)
             headers.append('Authorization', 'Bearer ' + this.token.token); 
         }
         else {

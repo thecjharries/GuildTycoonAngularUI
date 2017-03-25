@@ -8,6 +8,7 @@ import 'rxjs/add/operator/toPromise';
 
 import { TokenService } from './token.service'
 import { ApiService } from './api.service'
+import { CookieService } from 'angular2-cookie/core';
 
 
 @Component({
@@ -23,10 +24,16 @@ export class AppComponent {
   expandGuildBool = false;
   userData: UserData;
 
-  constructor(private tokenService: TokenService, private apiService: ApiService, private http: Http){
+  constructor(private tokenService: TokenService, private apiService: ApiService, private http: Http, private _cookieService: CookieService){
     this.userData = new UserData();
-    if (this.token == null){
-      this.loginStatus = true;
+    this.token = new Token();
+    this.token.token = this._cookieService.get("id_token"); 
+    console.log(this.token.token);
+    if (this.token.token != null){
+      this.userData = this.tokenService.decodeToken(this.token.token);
+    }   
+    else {
+      this.loginStatus = false;
     };
   };
   
@@ -37,10 +44,10 @@ export class AppComponent {
   }
 
   async getToken(){
-    this.token = await this.tokenService.getToken();
+    this.token.token = await this.tokenService.getToken();
     this.userData = this.tokenService.decodeToken(this.token.token);
-    if (this.token != null){
-      this.loginStatus = false;
+    if (this.token.token != null){
+      this.loginStatus = true;
     };
   };
 

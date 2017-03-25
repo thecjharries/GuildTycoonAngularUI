@@ -13,7 +13,8 @@ import { GuildsComponent } from './guilds.component';
 
 import { TokenService } from './token.service';
 import { ApiService } from './api.service';
-import { GuildService } from './guild.service'
+import { GuildService } from './guild.service';
+import { CookieService } from 'angular2-cookie/services/cookies.service';
 
 @NgModule({
   declarations: [ AppComponent,
@@ -29,7 +30,8 @@ import { GuildService } from './guild.service'
                TokenService,
                JwtHelper,
                ApiService,
-               GuildService ],
+               GuildService,
+               CookieService ],
   bootstrap: [ AppComponent ]
 })
 
