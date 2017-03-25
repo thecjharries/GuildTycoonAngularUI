@@ -1,5 +1,5 @@
 <h1>
-  <button *ngIf="loginStatus" (click)="getToken()">Sign In with Facebook</button>
+  <button *ngIf="!loginStatus" (click)="getToken()">Sign In with Facebook</button>
   <button (click)="testButton()">Test Something</button>
   {{userData.Chronicle1}}
   <ul class="token">

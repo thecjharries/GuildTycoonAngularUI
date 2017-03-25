@@ -29,8 +29,9 @@ export class AppComponent {
     this.token = new Token();
     this.token.token = this._cookieService.get("id_token"); 
     console.log(this.token.token);
-    if (this.token.token != null){
+    if (this.token.token != undefined){
       this.userData = this.tokenService.decodeToken(this.token.token);
+      this.loginStatus = true;
     }   
     else {
       this.loginStatus = false;
