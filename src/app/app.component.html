@@ -1,3 +1,62 @@
 <h1>
-  {{title}}
+  <button *ngIf="loginStatus" (click)="getToken()">Sign In with Facebook</button>
+  <button (click)="testButton()">Test Something</button>
+  {{userData.Chronicle1}}
+  <ul class="token">
+    <li *ngFor="let guild of chronicles">
+          <span>{{guild}}</span>>
+    </li>
+  </ul>
 </h1>
+
+<nav class="navbar navbar-inverse visible-xs">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">{{title}}</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></li>
+        <li>
+          <a (click)="expandGuild()">Guilds</a>
+            <ul *ngIf="expandGuildBool">
+              <li><a [routerLink]="['/guild', userData.chronicle1]" routerLinkActive="active">{{userData.chronicle1}}</a></li>
+              <li><a [routerLink]="['/guild', userData.chronicle2]" routerLinkActive="active">{{userData.chronicle2}}</a></li>
+              <li><a [routerLink]="['/guild', userData.chronicle3]" routerLinkActive="active">{{userData.chronicle3}}</a></li>
+              <li><a [routerLink]="['/guild', userData.chronicle4]" routerLinkActive="active">{{userData.chronicle4}}</a></li>
+              <li><a [routerLink]="['/guild', userData.chronicle5]" routerLinkActive="active">{{userData.chronicle5}}</a></li>
+            </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid">
+  <div class="row content">
+    <div class="col-sm-3 sidenav hidden-xs">
+      <h2>{{title}}</h2>
+      <ul class="nav nav-pills nav-stacked">
+        <li class="active"><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></li>
+        <li>
+          <a (click)="expandGuild()">Guilds</a>
+            <ul *ngIf="expandGuildBool">
+              <li><a [routerLink]="['/guild', userData.chronicle1]" routerLinkActive="active">{{userData.chronicle1}}</a></li>
+              <li><a [routerLink]="['/guild', userData.chronicle2]" routerLinkActive="active">{{userData.chronicle2}}</a></li>
+              <li><a [routerLink]="['/guild', userData.chronicle3]" routerLinkActive="active">{{userData.chronicle3}}</a></li>
+              <li><a [routerLink]="['/guild', userData.chronicle4]" routerLinkActive="active">{{userData.chronicle4}}</a></li>
+              <li><a [routerLink]="['/guild', userData.chronicle5]" routerLinkActive="active">{{userData.chronicle5}}</a></li>
+            </ul>
+        </li>
+      </ul><br>
+    </div>
+    <br>
+    <router-outlet></router-outlet>
+
+  </div>
+</div>
