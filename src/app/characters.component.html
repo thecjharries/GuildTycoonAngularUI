@@ -1,0 +1,129 @@
+<div class="col-sm-9">
+    <!--List of characters-->
+    <div class="col-sm-3 col-md-3 col-lg-3" style="background-color:blue">
+        <li *ngFor="let character of guild.characters" (click)="onSelect(character)"
+            [class.selected]="character === selectedCharacter">
+            <span>{{character.unitId}}</span>
+            <span>{{character.name}}</span>
+        </li>
+    </div>
+    <br>
+    <!--Details-->
+    <div class="col-sm-8 col-sm-offset-1 col-md-8 col-md-offset-1 col-lg-8 col-lg-offset-1">
+        <div class="row">
+        <!--Equipment Layout-->
+            <div class="panel-heading">Name: {{selectedCharacter.unitId}}</div>
+            <div class="col-sm-3 col-md-3 col-lg-3">
+                <ul>
+                    <li><p>Mainhand</p></li>
+                    <li><p>Head</p></li>
+                    <li><p>Body</p></li>
+                    <li><p>Waist</p></li>
+                    <li><p>Feet</p></li>
+                    <li><p>LeftFinger</p></li>
+                    <li><p>LeftEar</p></li>
+                    <li><p>Ranged</p></li>
+                </ul>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6">
+                <p style="text-align:center">Picture of character</p>
+            </div>
+            <div class="col-sm-3 col-md-3 col-lg-3">
+                <ul>
+                    <li><p>Offhand</p></li>
+                    <li><p>Neck</p></li>
+                    <li><p>Wrist</p></li>
+                    <li><p>Legs</p></li>
+                    <li><p>RightFinger</p></li>
+                    <li><p>RigthEar</p></li>
+                    <li><p>Ranged</p></li>
+                </ul>
+            </div>
+        </div>
+        <!--Stats-->
+        <div class="row">
+            <ul>
+                <li>{{selectedCharacter.Level}}</li>
+                <li>{{selectedCharacter.TeamId}}</li>
+            </ul>
+            <!--<div>
+                <div style="text-align:center"><p>Effective Stats</p></div>
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                    <ul>
+                        <li>{{value: MaximumHP}}</li>
+                        <li>{{value: Speed}}</li>
+                        <li>{{value: Armor}}</li>
+                        <li>{{value: Evasion}}</li>
+                    </ul>
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                    <p>Physical</p>
+                    <ul>
+                        <li>{{value: PhysicalAttack}}</li>
+                        <li>{{value: PhysicalAttackAccuracy}}</li>
+                        <li>{{value: PhysicalSkillMultiplier}}</li>
+                        <li>{{value: PhysicalSkillAccuracy}}</li>
+                    </ul>
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                    <p>Magical</p>
+                    <ul>
+                        <li>{{value: MagicalAccuracy}}</li>
+                        <li>{{value: MagicalResistance}}</li>
+                        <li>{{value: MagicalMultiplier}}</li>
+                    </ul>
+                </div>
+            </div>-->
+        </div>
+        <div class="row">
+            <div>
+                <div style="text-align:center"><p>Base</p></div>
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                    <ul>
+                        <li>{{selectedCharacter.stats.base.strength}}</li>
+                        <li>{{selectedCharacter.stats.base.agility}}</li>
+                        <li>{{selectedCharacter.stats.base.dexterity}}</li>
+                    </ul>
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                    <ul>
+                        <li>{{selectedCharacter.stats.base.intelligence}}</li>
+                        <li>{{selectedCharacter.stats.base.vitality}}</li>
+                        <li>{{selectedCharacter.stats.base.focus}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--Regimen-->
+<!--        <div class="row" DataContext="{value: Regimen}">
+            <ul>
+                <dot:Repeater DataSource="{value: RegimenStack}">
+                        <ItemTemplate>
+                            <li>
+                                <div class="col-sm-3 col-md-3 col-lg-3">{{value: TargetEnum}}</div>
+                                <div class="col-sm-3 col-md-3 col-lg-3">{{value: TargetCondition}}</div>
+                                <div class="col-sm-3 col-md-3 col-lg-3">{{value: UsingSelection}}</div>
+                            </li>
+                        </ItemTemplate>
+                </dot:Repeater>
+            </ul>
+        </div>
+        <div class="row" DataContext="{value: _root.EditingRegimenAction}">
+            <li>
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    <dot:ComboBox DataSource="{value: _root.TargetOptions}"
+                                    SelectedValue="{value: _root.selectedTargetOption}"/>
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    <dot:ComboBox DataSource="{value: _root.ConditionOptions}"
+                                    SelectedValue="{value: _root.selectedConditionOption}" />
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                <dot:ComboBox DataSource="{value: _root.UsingOptions}"
+                                SelectedValue="{value: _root.selectedUsingOption}" />
+                </div>
+            </li>
+            <dot:Button class="btn btn-default" Text="Add Action" Click="{{command: _root.AddRegimenAction()}}"></dot:Button>
+            <dot:Button class="btn btn-default" Text="Save Action" Click="{{command: _root.SaveRegimenAction()}}"></dot:Button>-->
+    </div>
+</div>

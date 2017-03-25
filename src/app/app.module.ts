@@ -10,6 +10,7 @@ import { JwtHelper } from 'angular2-jwt';
 import { AppComponent } from './app.component';
 import { DashboardComponent }   from './dashboard.component';
 import { GuildsComponent } from './guilds.component';
+import { CharactersComponent } from './characters.component'
 
 import { TokenService } from './token.service';
 import { ApiService } from './api.service';
@@ -19,7 +20,8 @@ import { CookieService } from 'angular2-cookie/services/cookies.service';
 @NgModule({
   declarations: [ AppComponent,
                   DashboardComponent,
-                  GuildsComponent ],
+                  GuildsComponent,
+                  CharactersComponent ],
   imports: [ 
     BrowserModule,
     AlertModule.forRoot(),

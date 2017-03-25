@@ -19,6 +19,10 @@ export class GuildService {
         return this.guild;
     }
 
+    getCurrentGuild(){
+        return this.guild;
+    }
+
     updateGuild(guild){
         return this.guild = guild;
     }

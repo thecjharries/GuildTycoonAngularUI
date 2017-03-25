@@ -38,7 +38,7 @@ export class RawStats{
 }
 
 export class GuildInventory{
-    equippableItems: Item;
+    equippableItems: Item[];
     nonEquippableItems: Item;
     characterCards: CharacterCard[];
     currency: number;
