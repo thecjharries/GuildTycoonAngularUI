@@ -13,11 +13,13 @@ export class CharactersComponent implements OnInit {
     guild: Guild;
     selectedCharacter: Character;
     selectedCharacterEquipment : Map<string, Item>;
+    itemsForEquipmentSlot: Item[];
 
     constructor(private _guildService: GuildService) {
         this.selectedCharacter = new Character();
         this.guild = new Guild();
         this.selectedCharacterEquipment = new Map<string, Item>();
+        this.itemsForEquipmentSlot = []
         this.guild = _guildService.getCurrentGuild();
         
         console.log(this.guild.characters);
@@ -38,5 +40,9 @@ export class CharactersComponent implements OnInit {
             var value = this.guild.guildInventory.equippableItems.find(x => x.itemId == character.equipmentSheet[equipment]);
             this.selectedCharacterEquipment.set(equipment, value);
         }
+    }
+
+    getItemsForEquipmentSlot(slot: string){
+        this.itemsForEquipmentSlot = this.guild.guildInventory.equippableItems.filter(x => x.itemTypeId.startsWith('01-01'));
     }
 }
