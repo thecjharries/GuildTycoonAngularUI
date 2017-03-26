@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Pipe } from '@angular/core';
 
-import { Guild, Character, Item } from './models/guild'
+import { Guild, Character, Item } from './models/guild';
 
-import { GuildService } from './guild.service'
+import { GuildService } from './guild.service';
 
 @Component({
     selector: 'characters',
@@ -12,13 +12,13 @@ import { GuildService } from './guild.service'
 export class CharactersComponent implements OnInit {
     guild: Guild;
     selectedCharacter: Character;
-    selectedCharacterEquipment: Item[];
+    selectedCharacterEquipment : Map<string, Item>;
 
     constructor(private _guildService: GuildService) {
         this.selectedCharacter = new Character();
         this.guild = new Guild();
+        this.selectedCharacterEquipment = new Map<string, Item>();
         this.guild = _guildService.getCurrentGuild();
-
         
         console.log(this.guild.characters);
     }
@@ -35,8 +35,8 @@ export class CharactersComponent implements OnInit {
 
     getEquipment(character: Character){
         for ( let equipment in character.equipmentSheet){
-            var value = this.guild.guildInventory.equippableItems.find(x => x.itemId == equipment);
-            this.selectedCharacterEquipment.push(value);
+            var value = this.guild.guildInventory.equippableItems.find(x => x.itemId == character.equipmentSheet[equipment]);
+            this.selectedCharacterEquipment.set(equipment, value);
         }
     }
 }
