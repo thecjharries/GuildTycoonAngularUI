@@ -12,10 +12,18 @@ export class GuildService {
     constructor(private apiService: ApiService) {
     }
 
-    async getGuild(id: string){
+    async getGuild(guildId: string){
         var parameters = ["guildId"];
-        var values = [id];
+        var values = [guildId];
         this.guild = await this.apiService.get('GetGuild', parameters, values);
+        return this.guild;
+    }
+
+    async pullCharacterCard(guildId: string){
+        var parameters = ["guildId"];
+        var values = [guildId];
+        this.guild = await this.apiService.get('PullCharacterCard', parameters, values);
+        console.log(this.guild);
         return this.guild;
     }
 

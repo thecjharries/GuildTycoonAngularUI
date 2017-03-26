@@ -15,16 +15,14 @@ import 'rxjs/add/operator/switchMap';
 })
 
 export class GuildsComponent implements OnInit {
-    guild: Guild;
+    guild = new Guild();
     sub;
 
     constructor(
         private guildService: GuildService,
         private route: ActivatedRoute,
         private location: Location
-    ){
-        this.guild = new Guild;
-    }
+    ){ }
 
     ngOnInit(): void{
         this.sub = this.route.params.subscribe(params => {
@@ -37,9 +35,11 @@ export class GuildsComponent implements OnInit {
             .then(guild => this.guild = guild);*/
     }
 
+    async pullCharacterCard(){
+        this.guild = await this.guildService.pullCharacterCard(this.guild.guildId);
+    }
+
     async paramsChanged(id) {
-        console.log('getting new guild');
         this.guild = await this.guildService.getGuild(id);
-        console.log(this.guild.guildId)
     }
 }
