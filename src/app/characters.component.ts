@@ -10,15 +10,12 @@ import { GuildService } from './guild.service';
     styleUrls: ['./characters.component.css']
 })
 export class CharactersComponent implements OnInit {
-    guild: Guild;
-    selectedCharacter: Character;
-    selectedCharacterEquipment : Map<string, Item>;
+    guild = new Guild();
+    selectedCharacter = new Character();
+    selectedCharacterEquipment = new Map<string, Item>();
     itemsForEquipmentSlot: Item[];
 
     constructor(private _guildService: GuildService) {
-        this.selectedCharacter = new Character();
-        this.guild = new Guild();
-        this.selectedCharacterEquipment = new Map<string, Item>();
         this.itemsForEquipmentSlot = []
         this.guild = _guildService.getCurrentGuild();
         
@@ -28,7 +25,7 @@ export class CharactersComponent implements OnInit {
     ngOnInit() {
         this.selectedCharacter = this.guild.characters[0];
         this.getEquipment(this.selectedCharacter);
-        console.log(this.selectedCharacterEquipment)
+        console.log(this.selectedCharacterEquipment);
      }
 
     onSelect(character: Character): void {
@@ -43,6 +40,13 @@ export class CharactersComponent implements OnInit {
     }
 
     getItemsForEquipmentSlot(slot: string){
-        this.itemsForEquipmentSlot = this.guild.guildInventory.equippableItems.filter(x => x.itemTypeId.startsWith('01-01'));
+        var searchTerm = '01-' + slot;
+        this.itemsForEquipmentSlot = this.guild.guildInventory.equippableItems.filter(x => x.itemTypeId.startsWith(searchTerm));
+    }
+
+    equipItem(item: Item){
+        var slot = item.itemTypeId.split('-');
+        this.selectedCharacter.equipmentSheet[slot[1]] = item.itemId;
+        this.getEquipment(this.selectedCharacter);
     }
 }

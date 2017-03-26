@@ -20,7 +20,7 @@
                             <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" (click)="getItemsForEquipmentSlot('01')">
                                 {{selectedCharacterEquipment.get("01").name}}</button>
                             <ul class="dropdown-menu">
-                                <li *ngFor="let item of itemsForEquipmentSlot">
+                                <li *ngFor="let item of itemsForEquipmentSlot" (click)="equipItem(item)">
                                     {{item.name}}
                                 </li>
                             </ul>
