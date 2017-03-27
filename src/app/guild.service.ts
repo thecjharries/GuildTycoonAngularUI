@@ -23,7 +23,13 @@ export class GuildService {
         var parameters = ["guildId"];
         var values = [guildId];
         this.guild = await this.apiService.get('PullCharacterCard', parameters, values);
-        console.log(this.guild);
+        return this.guild;
+    }
+
+    async redeemCharacterCard(guildId: string, cardId: string){
+        var parameters = ['guildId', 'cardId'];
+        var values = [guildId, cardId];
+        this.guild = await this.apiService.get('redeemCharacterCard', parameters, values);
         return this.guild;
     }
 

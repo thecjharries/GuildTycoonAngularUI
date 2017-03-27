@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { Guild } from './models/guild'
+import { Guild, CharacterCard } from './models/guild'
 
 import { GuildService } from './guild.service'
 
@@ -37,6 +37,10 @@ export class GuildsComponent implements OnInit {
 
     async pullCharacterCard(){
         this.guild = await this.guildService.pullCharacterCard(this.guild.guildId);
+    }
+
+    async redeemCharacterCard(card: CharacterCard){
+        this.guild = await this.guildService.redeemCharacterCard(this.guild.guildId, card.cardId);
     }
 
     async paramsChanged(id) {

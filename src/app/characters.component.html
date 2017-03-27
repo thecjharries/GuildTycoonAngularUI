@@ -3,8 +3,8 @@
     <div class="col-sm-3 col-md-3 col-lg-3" style="background-color:blue">
         <li *ngFor="let character of guild.characters" (click)="onSelect(character)"
             [class.selected]="character === selectedCharacter">
-            <span>{{character.unitId}}</span>
-            <span>{{character.name}}</span>
+            <span>{{character?.unitId}}</span>
+            <span>{{character?.name}}</span>
         </li>
     </div>
     <br>
@@ -12,16 +12,16 @@
     <div class="col-sm-8 col-sm-offset-1 col-md-8 col-md-offset-1 col-lg-8 col-lg-offset-1">
         <div class="row">
         <!--Equipment Layout-->
-            <div class="panel-heading">Name: {{selectedCharacter.unitId}}</div>
+            <div class="panel-heading">Name: {{selectedCharacter?.unitId}}</div>
             <div class="col-sm-3 col-md-3 col-lg-3">
                 <ul>
                     <li>
                         <div class="dropdown">
                             <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" (click)="getItemsForEquipmentSlot('01')">
-                                {{selectedCharacterEquipment.get("01").name}}</button>
+                                {{selectedCharacterEquipment?.get("01")?.name}}</button>
                             <ul class="dropdown-menu">
                                 <li *ngFor="let item of itemsForEquipmentSlot" (click)="equipItem(item)">
-                                    {{item.name}}
+                                    {{item?.name}}
                                 </li>
                             </ul>
                         </div>

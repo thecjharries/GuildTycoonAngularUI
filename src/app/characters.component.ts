@@ -30,6 +30,7 @@ export class CharactersComponent implements OnInit {
 
     onSelect(character: Character): void {
         this.selectedCharacter = character;
+        this.getEquipment(this.selectedCharacter);
     }
 
     getEquipment(character: Character){
