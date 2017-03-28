@@ -39,9 +39,6 @@ export class AppComponent {
   };
   
   async testButton(){
-    var parameters = ["guildId"];
-    var values = [this.userData.chronicle3];
-    console.log(await this.apiService.get('GetGuild', parameters, values));
   }
 
   async getToken(){

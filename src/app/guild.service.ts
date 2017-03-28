@@ -13,23 +13,24 @@ export class GuildService {
     }
 
     async getGuild(guildId: string){
-        var parameters = ["guildId"];
-        var values = [guildId];
-        this.guild = await this.apiService.get('GetGuild', parameters, values);
+        var params = new Map<string, string>();
+        params.set("guildId", guildId);
+        this.guild = await this.apiService.get('GetGuild', params);
         return this.guild;
     }
 
     async pullCharacterCard(guildId: string){
-        var parameters = ["guildId"];
-        var values = [guildId];
-        this.guild = await this.apiService.get('PullCharacterCard', parameters, values);
+        var params = new Map<string, string>();
+        params.set("guildId", guildId);
+        this.guild = await this.apiService.get('PullCharacterCard', params);
         return this.guild;
     }
 
     async redeemCharacterCard(guildId: string, cardId: string){
-        var parameters = ['guildId', 'cardId'];
-        var values = [guildId, cardId];
-        this.guild = await this.apiService.get('redeemCharacterCard', parameters, values);
+        var params = new Map<string, string>();
+        params.set('guildId', guildId);
+        params.set('cardId', cardId);
+        this.guild = await this.apiService.get('redeemCharacterCard', params);
         return this.guild;
     }
 
@@ -37,7 +38,12 @@ export class GuildService {
         return this.guild;
     }
 
-    updateGuild(guild){
-        return this.guild = guild;
+    async equipItem(guildId: string, itemId: string, unitId: string){
+        var params = new Map<string, string>();
+        params.set('guildId', guildId);
+        params.set('itemId', itemId);
+        params.set('unitId', unitId);
+        this.guild = await this.apiService.get('EquipItem', params);
+        return this.guild;
     }
 }

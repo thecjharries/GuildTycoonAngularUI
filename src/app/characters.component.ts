@@ -50,4 +50,5 @@ export class CharactersComponent implements OnInit {
         this.selectedCharacter.equipmentSheet[slot[1]] = item.itemId;
         this.getEquipment(this.selectedCharacter);
     }
+
 }

@@ -18,15 +18,23 @@ export class ApiService {
         this.token = new Token();
     }
 
-    async get(endpoint: string, parameters?: string[], values?: string[]){
+    async get(endpoint: string, parameters: Map<string, string>){
         if(parameters != null){
             var stringParameters = '?';
-            for (var i = 0; i < parameters.length; i++){
+            var index = 1;
+            parameters.forEach((value: string, key: string) => {
+                stringParameters = stringParameters + key + '=' + value;
+                index++;
+                if(index < parameters.size - 1){
+                    stringParameters = stringParameters + '&';
+                }
+            })
+            /*for (var i = 0; i < parameters.length; i++){
                 stringParameters = stringParameters + parameters[i] + '=' + values[i];
                 if(i < parameters.length - 1){
                     stringParameters = stringParameters + '&';
                 }
-            }
+            }*/
         }
         if (!this.headers.has("Authorization")){
             await this.createAuthorizationHeader(this.headers);
