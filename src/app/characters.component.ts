@@ -45,10 +45,11 @@ export class CharactersComponent implements OnInit {
         this.itemsForEquipmentSlot = this.guild.guildInventory.equippableItems.filter(x => x.itemTypeId.startsWith(searchTerm));
     }
 
-    equipItem(item: Item){
+    async equipItem(item: Item){
         var slot = item.itemTypeId.split('-');
         this.selectedCharacter.equipmentSheet[slot[1]] = item.itemId;
         this.getEquipment(this.selectedCharacter);
+        await this._guildService.equipItem(this.guild.guildId, item.itemId, this.selectedCharacter.unitId);
     }
 
 }

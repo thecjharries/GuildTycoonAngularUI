@@ -21,11 +21,11 @@ export class ApiService {
     async get(endpoint: string, parameters: Map<string, string>){
         if(parameters != null){
             var stringParameters = '?';
-            var index = 1;
+            var index = 0;
             parameters.forEach((value: string, key: string) => {
                 stringParameters = stringParameters + key + '=' + value;
                 index++;
-                if(index < parameters.size - 1){
+                if(index < parameters.size){
                     stringParameters = stringParameters + '&';
                 }
             })
