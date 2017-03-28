@@ -40,7 +40,33 @@ export class ApiService {
             await this.createAuthorizationHeader(this.headers);
         }
         await this.http.get(this.apiBase + endpoint + stringParameters, {headers: this.headers})
-                    .toPromise().then(data => this.response = data.json());
+                       .toPromise().then(data => this.response = data.json());
+        return this.response;
+    }
+
+    async post(body: any, endpoint: string, parameters: Map<string, string>){
+        if(parameters != null){
+            var stringParameters = '?';
+            var index = 0;
+            parameters.forEach((value: string, key: string) => {
+                stringParameters = stringParameters + key + '=' + value;
+                index++;
+                if(index < parameters.size){
+                    stringParameters = stringParameters + '&';
+                }
+            })
+            /*for (var i = 0; i < parameters.length; i++){
+                stringParameters = stringParameters + parameters[i] + '=' + values[i];
+                if(i < parameters.length - 1){
+                    stringParameters = stringParameters + '&';
+                }
+            }*/
+        }
+        if (!this.headers.has("Authorization")){
+            await this.createAuthorizationHeader(this.headers);
+        }
+        await this.http.post(this.apiBase + endpoint + stringParameters, body, {headers: this.headers})
+                       .toPromise().then(data => this.response = data.json());
         return this.response;
     }
 

@@ -1,7 +1,7 @@
 import { Injectable }    from '@angular/core';
 import { ApiService } from './api.service';
 
-import { Guild } from './models/guild'
+import { Guild, Team } from './models/guild'
 
 import 'rxjs/add/operator/toPromise';
 
@@ -44,6 +44,13 @@ export class GuildService {
         params.set('itemId', itemId);
         params.set('unitId', unitId);
         this.guild = await this.apiService.get('EquipItem', params);
+        return this.guild;
+    }
+
+    async setTeam(guildId: string, teams: Team[]){
+        var params = new Map<string, string>();
+        params.set('guildId', guildId);
+        this.guild = await this.apiService.post(teams, 'SetTeams', params);
         return this.guild;
     }
 }

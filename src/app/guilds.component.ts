@@ -43,6 +43,10 @@ export class GuildsComponent implements OnInit {
         this.guild = await this.guildService.redeemCharacterCard(this.guild.guildId, card.cardId);
     }
 
+    async setTeams(){
+        this.guild = await this.guildService.setTeam(this.guild.guildId, this.guild.teams);
+    }
+
     async paramsChanged(id) {
         this.guild = await this.guildService.getGuild(id);
     }

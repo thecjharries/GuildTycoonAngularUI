@@ -57,7 +57,7 @@ export class Team{
     currentZone: string;
     teamId: number;
     name: string;
-    units: string[];
+    units: Map<number, string>;
     primaryActionFinish: Date;
     actionType: number;
 }
