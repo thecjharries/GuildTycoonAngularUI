@@ -1,4 +1,8 @@
 export class Guild{
+    constructor(){
+        this.teams = [];
+        this.characters = [];
+    }
     guildId: string;
     teams: Team[];
     characters: Character[];
@@ -54,6 +58,9 @@ export class Item{
 }
 
 export class Team{
+    constructor(){
+        this.units = new Map<number, string>();
+    }
     currentZone: string;
     teamId: number;
     name: string;
