@@ -58,7 +58,8 @@ export class Item{
 }
 
 export class Team{
-    constructor(){
+    constructor(teamId: number){
+        this.teamId = teamId;
         this.units = new Map<number, string>();
     }
     currentZone: string;

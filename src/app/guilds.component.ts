@@ -44,31 +44,29 @@ export class GuildsComponent implements OnInit {
         this.guild = await this.guildService.redeemCharacterCard(this.guild.guildId, card.cardId);
     }
 
-    selectTeam(id: number){
-        var targetTeam = this.guild.teams.find(x => x.teamId == id);
-        if (targetTeam != null){
-            this.selectedTeam = this.guild.teams.find(x => x.teamId == id);
+    selectTeam(teamId: number){
+        var targetTeam = this.guild.teams.find(x => x.teamId == teamId);
+        if (targetTeam == null){
+            this.selectedTeam = new Team(teamId);
         }
         else{
-            this.selectedTeam = new Team();
+            this.selectedTeam = targetTeam;
         }
-        console.log(this.selectedTeam);
     }
 
-    assignCharacter(character: Character, id: number){
-        this.selectedTeam.units.set(id, character.unitId);
+    assignCharacter(character: Character, slotId: number){
+        this.selectedTeam.units.set(slotId, character.unitId);
     }
 
     async setTeam(){
-        var targetTeam = this.guild.teams.find(x => x.teamId == this.selectedTeam.teamId)
-        console.log(targetTeam);
-        if (targetTeam != null){
-            this.guild.teams.find(x => x.teamId == this.selectedTeam.teamId).units = this.selectedTeam.units;
+        console.log(this.selectedTeam.teamId);
+        if (this.guild.teams[this.selectedTeam.teamId - 1] == null){
+            this.guild.teams[this.selectedTeam.teamId - 1] = new Team(this.selectedTeam.teamId);
+            this.guild.teams[this.selectedTeam.teamId - 1].units = new Map<number, string>();
+            this.guild.teams[this.selectedTeam.teamId - 1].units = this.selectedTeam.units;
         }else{
-            this.guild.teams.find(x => x.teamId == this.selectedTeam.teamId).units = new Map<number, string>();
-            this.guild.teams.find(x => x.teamId == this.selectedTeam.teamId).units = this.selectedTeam.units;
+            this.guild.teams[this.selectedTeam.teamId - 1].units = this.selectedTeam.units;
         }
-        console.log(this.guild.teams.find(x => x.teamId == this.selectedTeam.teamId).units);
         this.guild = await this.guildService.setTeam(this.guild.guildId, this.guild.teams);
     }
 

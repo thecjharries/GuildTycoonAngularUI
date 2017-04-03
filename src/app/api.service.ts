@@ -12,7 +12,8 @@ export class ApiService {
     private token: Token;
     response;
     private headers = new Headers({'Content-Type': 'application/json'});
-    private apiBase = 'http://guildtycoon-api-dev.azurewebsites.net/';  // URL to web api
+/*    private apiBase = 'http://guildtycoon-api-dev.azurewebsites.net/';  // URL to web api*/
+    private apiBase = 'http://localhost:5000/';  // URL to web api
 
     constructor(private http: Http, private tokenService: TokenService) {
         this.token = new Token();
@@ -38,6 +39,7 @@ export class ApiService {
         }
         if (!this.headers.has("Authorization")){
             await this.createAuthorizationHeader(this.headers);
+            this.headers.append('Access-Control-Allow-Origin','*');
         }
         await this.http.get(this.apiBase + endpoint + stringParameters, {headers: this.headers})
                        .toPromise().then(data => this.response = data.json());

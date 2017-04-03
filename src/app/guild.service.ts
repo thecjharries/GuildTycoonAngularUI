@@ -50,8 +50,8 @@ export class GuildService {
     async setTeam(guildId: string, teams: Team[]){
         var params = new Map<string, string>();
         params.set('guildId', guildId);
-        console.log(teams);
-        this.guild = await this.apiService.post(teams, 'SetTeams', params);
+        console.log(JSON.stringify(teams));
+        this.guild = await this.apiService.post(JSON.stringify(teams), 'SetTeams', params);
         return this.guild;
     }
 }
