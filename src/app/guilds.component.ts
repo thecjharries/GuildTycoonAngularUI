@@ -55,8 +55,7 @@ export class GuildsComponent implements OnInit {
     }
 
     assignCharacter(character: Character, slotId: number){
-        this.selectedTeam.unitsMap.set(slotId, character.unitId);
-        this.selectedTeam.units = map_to_object(this.selectedTeam.unitsMap);
+        this.selectedTeam.units[slotId] = character.unitId;
     }
 
     async setTeam(){
@@ -72,7 +71,7 @@ export class GuildsComponent implements OnInit {
 
     async paramsChanged(id) {
         this.guild = await this.guildService.getGuild(id);
-        console.log(this.guild);
+        this.selectedTeam = this.guild.teams[0];
     }
 }
 
