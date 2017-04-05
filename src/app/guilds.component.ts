@@ -55,14 +55,14 @@ export class GuildsComponent implements OnInit {
     }
 
     assignCharacter(character: Character, slotId: number){
-        this.selectedTeam.units.set(slotId, character.unitId);
+        this.selectedTeam.unitsMap.set(slotId, character.unitId);
+        this.selectedTeam.units = map_to_object(this.selectedTeam.unitsMap);
     }
 
     async setTeam(){
         console.log(this.selectedTeam.teamId);
         if (this.guild.teams[this.selectedTeam.teamId - 1] == null){
             this.guild.teams[this.selectedTeam.teamId - 1] = new Team(this.selectedTeam.teamId);
-            this.guild.teams[this.selectedTeam.teamId - 1].units = new Map<number, string>();
             this.guild.teams[this.selectedTeam.teamId - 1].units = this.selectedTeam.units;
         }else{
             this.guild.teams[this.selectedTeam.teamId - 1].units = this.selectedTeam.units;
@@ -73,4 +73,17 @@ export class GuildsComponent implements OnInit {
     async paramsChanged(id) {
         this.guild = await this.guildService.getGuild(id);
     }
+}
+
+function map_to_object(map) {
+    const out = Object.create(null)
+    map.forEach((value, key) => {
+        if (value instanceof Map) {
+        out[key] = map_to_object(value)
+        }
+        else {
+        out[key] = value
+        }
+    })
+    return out
 }

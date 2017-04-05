@@ -21,7 +21,7 @@
     <ul>
         <li *ngFor="let i of [1, 2, 3, 4, 5]">
             <div class="dropdown">
-                <li data-toggle="dropdown">Character {{i}}: {{selectedTeam?.units?.get(i)}}</li>
+                <li data-toggle="dropdown">Character {{i}}: {{selectedTeam?.unitsMap?.get(i)}}</li>
                 <ul class="dropdown-menu">
                     <li *ngFor="let character of guild?.characters" (click)="assignCharacter(character, i)">
                         {{character?.unitId}}

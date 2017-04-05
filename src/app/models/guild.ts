@@ -60,12 +60,13 @@ export class Item{
 export class Team{
     constructor(teamId: number){
         this.teamId = teamId;
-        this.units = new Map<number, string>();
+        this.unitsMap = new Map<number, string>();
     }
     currentZone: string;
     teamId: number;
     name: string;
-    units: Map<number, string>;
+    unitsMap: Map<number, string>;
+    units: string;
     primaryActionFinish: Date;
     actionType: number;
 }
