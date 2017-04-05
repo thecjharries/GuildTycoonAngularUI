@@ -66,7 +66,7 @@ export class Team{
     teamId: number;
     name: string;
     unitsMap: Map<number, string>;
-    units: string;
+    units: string[];
     primaryActionFinish: Date;
     actionType: number;
 }

@@ -72,6 +72,7 @@ export class GuildsComponent implements OnInit {
 
     async paramsChanged(id) {
         this.guild = await this.guildService.getGuild(id);
+        console.log(this.guild);
     }
 }
 
