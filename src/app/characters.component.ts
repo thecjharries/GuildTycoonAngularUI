@@ -1,8 +1,9 @@
 import { Component, OnInit, Pipe } from '@angular/core';
 
-import { Guild, Character, Item } from './models/guild';
+import { Guild, Character, Item, RegimenAction } from './models/guild';
 
 import { GuildService } from './guild.service';
+import { RegimenService } from './regimen.service';
 
 @Component({
     selector: 'characters',
@@ -15,16 +16,23 @@ export class CharactersComponent implements OnInit {
     selectedCharacterEquipment = new Map<string, Item>();
     itemsForEquipmentSlot: Item[];
 
-    constructor(private _guildService: GuildService) {
+    regimenActionProperties = [];
+    regimenActionOperators = [];
+    regimenAction: RegimenAction;
+
+    constructor(private _guildService: GuildService, private _regimenService: RegimenService) {
         this.itemsForEquipmentSlot = []
         this.guild = _guildService.getCurrentGuild();
         
         console.log(this.guild.characters);
     }
 
-    ngOnInit() {
+    async ngOnInit() {
         this.selectedCharacter = this.guild.characters[0];
         this.getEquipment(this.selectedCharacter);
+        this.regimenAction = new RegimenAction();
+        this.regimenActionProperties = await this._regimenService.getRegimenActionBlock("Property");
+        this.regimenActionOperators = await this._regimenService.getRegimenActionBlock("Operator");
         console.log(this.selectedCharacterEquipment);
      }
 
@@ -50,6 +58,13 @@ export class CharactersComponent implements OnInit {
         this.selectedCharacter.equipmentSheet[slot[1]] = item.itemId;
         this.getEquipment(this.selectedCharacter);
         await this._guildService.equipItem(this.guild.guildId, item.itemId, this.selectedCharacter.unitId);
+    }
+
+    setRegimenActionTargetProperty(property: string){
+        this.regimenAction.TargetProperty = property;
+    }
+    setRegimenActionTargetOperator(operator: string){
+        this.regimenAction.TargetOperator = operator;
     }
 
 }

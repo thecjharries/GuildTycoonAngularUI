@@ -16,24 +16,29 @@ import { TokenService } from './token.service';
 import { ApiService } from './api.service';
 import { GuildService } from './guild.service';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
+import { EncounterService } from  './encounter.service';
+import { RegimenService } from './regimen.service';
 
 @NgModule({
   declarations: [ AppComponent,
                   DashboardComponent,
                   GuildsComponent,
                   CharactersComponent ],
-  imports: [ 
-    BrowserModule,
-    AlertModule.forRoot(),
-    HttpModule,
-    AppRoutingModule
-  ],
+
+  imports: [ BrowserModule,
+             AlertModule.forRoot(),
+             HttpModule,
+             AppRoutingModule ],
+
   providers: [ FacebookService,
                TokenService,
                JwtHelper,
                ApiService,
                GuildService,
-               CookieService ],
+               CookieService,
+               EncounterService,
+               RegimenService ],
+
   bootstrap: [ AppComponent ]
 })
 

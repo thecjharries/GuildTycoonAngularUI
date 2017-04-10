@@ -18,7 +18,7 @@ export class Character{
     name: string;
     teamId: number;
     teamSlotNumber: number;
-    regimen: string[];
+    regimen: Regimen;
     skills: string[];
 }
 
@@ -79,4 +79,49 @@ export class CharacterCard{
     vitality: number;
     focus: number;
     name: string;
+}
+
+export class Regimen
+{
+    constructor(){
+        this.RegimenStack = [];
+    }
+    RegimenStack: RegimenAction[];
+}
+export enum TargetEnumConst{
+    Ally,
+    Enemy,
+    Both
+}
+export class RegimenAction
+{
+
+    TargetEnum: TargetEnumConst;
+    TargetProperty: String;
+    TargetOperator: string;
+    TargetValue: string;
+    isActive: boolean;
+    UsingSelection: Using;
+}
+
+export enum Using
+{
+    NormalAttack,
+    Consumable,
+    Skill
+}
+
+export class RegimenActionBlock
+{
+    RegimenactionBlockId: number;
+    Name: string;
+    Type: string;
+}
+
+export class Consumable{
+
+}
+
+export class Skill{
+
 }

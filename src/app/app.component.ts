@@ -6,8 +6,9 @@ import { UserData } from './models/user-data'
 
 import 'rxjs/add/operator/toPromise';
 
-import { TokenService } from './token.service'
-import { ApiService } from './api.service'
+import { TokenService } from './token.service';
+import { ApiService } from './api.service';
+import { EncounterService } from './encounter.service';
 import { CookieService } from 'angular2-cookie/core';
 
 
@@ -24,11 +25,17 @@ export class AppComponent {
   expandGuildBool = false;
   userData: UserData;
 
-  constructor(private tokenService: TokenService, private apiService: ApiService, private http: Http, private _cookieService: CookieService){
+  constructor(
+      private tokenService: TokenService, 
+      private apiService: ApiService,
+      private encounterService: EncounterService, 
+      private http: Http, 
+      private _cookieService: CookieService
+    ){
     this.userData = new UserData();
     this.token = new Token();
     this.token.token = this._cookieService.get("id_token"); 
-    console.log(this.token.token);
+
     if (this.token.token != undefined){
       this.userData = this.tokenService.decodeToken(this.token.token);
       this.loginStatus = true;
@@ -39,6 +46,7 @@ export class AppComponent {
   };
   
   async testButton(){
+    await this.encounterService.dofight();
   }
 
   async getToken(){
