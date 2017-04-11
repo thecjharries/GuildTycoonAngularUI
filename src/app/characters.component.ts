@@ -20,6 +20,8 @@ export class CharactersComponent implements OnInit {
     regimenActionOperators = [];
     regimenAction: RegimenAction;
 
+    targetValueArray = [];
+
     constructor(private _guildService: GuildService, private _regimenService: RegimenService) {
         this.itemsForEquipmentSlot = []
         this.guild = _guildService.getCurrentGuild();
@@ -62,9 +64,34 @@ export class CharactersComponent implements OnInit {
 
     setRegimenActionTargetProperty(property: string){
         this.regimenAction.TargetProperty = property;
+        this.setTargetValueArray();
     }
     setRegimenActionTargetOperator(operator: string){
         this.regimenAction.TargetOperator = operator;
+        this.setTargetValueArray();
+    }
+    setRegimenActionTargetValue(value: number){
+        this.regimenAction.TargetValue = value.toString();
+    }
+
+    setTargetValueArray(){
+        if(this.regimenAction.TargetOperator.endsWith("Percent")){
+            this.targetValueArray = this.generateArrayValues(100, 10);
+        }
+        else if(this.regimenAction.TargetProperty.endsWith("Multiplier")){
+            this.targetValueArray = this.generateArrayValues(35, 1);
+        }
+        else{
+            this.targetValueArray = this.generateArrayValues(4000, 100);
+        }
+    }
+
+    generateArrayValues(max: number, interval:number){
+        var valueArray = [];
+        for(var _i = 0; _i <= max; _i= _i + interval){
+            valueArray.push(_i);
+        }
+        return valueArray;
     }
 
 }

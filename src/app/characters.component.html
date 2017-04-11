@@ -106,15 +106,41 @@
         </div>
         <!--Regimen-->
         <div class="row">
-            <div class="dropdown">
+            <div class="dropdown col-sm-2 col-md-2 col-lg-2">
                 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                    Property</button>
+                    Target Property</button>
                 <ul class="dropdown-menu">
-                    <li *ngFor="let property of regimenActionProperties" (click)="setProperty(property)">
+                    <li *ngFor="let property of regimenActionProperties" (click)="setRegimenActionTargetProperty(property.name)">
                         {{property.name}}
                     </li>
                 </ul>
+                {{regimenAction?.TargetProperty}}
             </div>
+            <div class="dropdown col-sm-2 col-md-2 col-lg-2">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                    Target Operator</button>
+                <ul class="dropdown-menu">
+                    <li *ngFor="let operator of regimenActionOperators" (click)="setRegimenActionTargetOperator(operator.name)">
+                        {{operator.name}}
+                    </li>
+                </ul>
+                {{regimenAction?.TargetOperator}}
+            </div>
+            <div class="dropdown col-sm-2 col-md-2 col-lg-2">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                    Target Value</button>
+                <ul class="dropdown-menu">
+                    <li *ngFor="let value of targetValueArray" (click)="setRegimenActionTargetValue(value)">
+                        {{value}}
+                    </li>
+                </ul>
+                {{regimenAction?.TargetValue}}
+            </div>
+            <div class="col-sm-2 col-md-2 col-lg-2">
+                 <button class="btn btn-primary" type="button" (click)="addRegimenAction()">
+                    Add</button>
+            </div>
+            
         </div>
        <!-- <div class="row" DataContext="{value: _root.EditingRegimenAction}">
             <li>
