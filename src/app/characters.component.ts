@@ -1,6 +1,6 @@
 import { Component, OnInit, Pipe } from '@angular/core';
 
-import { Guild, Character, Item, RegimenAction } from './models/guild';
+import { Guild, Character, Item, RegimenAction, Regimen } from './models/guild';
 
 import { GuildService } from './guild.service';
 import { RegimenService } from './regimen.service';
@@ -18,6 +18,8 @@ export class CharactersComponent implements OnInit {
 
     regimenActionProperties = [];
     regimenActionOperators = [];
+    regimenActionTargets = [];
+    regimenActionUsing = [];
     regimenAction: RegimenAction;
 
     targetValueArray = [];
@@ -35,7 +37,8 @@ export class CharactersComponent implements OnInit {
         this.regimenAction = new RegimenAction();
         this.regimenActionProperties = await this._regimenService.getRegimenActionBlock("Property");
         this.regimenActionOperators = await this._regimenService.getRegimenActionBlock("Operator");
-        console.log(this.selectedCharacterEquipment);
+        this.regimenActionTargets = await this._regimenService.getRegimenActionBlock("Target");
+        this.regimenActionUsing = await this._regimenService.getRegimenActionBlock("Using");
      }
 
     onSelect(character: Character): void {
@@ -62,6 +65,10 @@ export class CharactersComponent implements OnInit {
         await this._guildService.equipItem(this.guild.guildId, item.itemId, this.selectedCharacter.unitId);
     }
 
+    setRegimenActionTarget(target: string){
+        this.regimenAction.Target = target;
+    }
+
     setRegimenActionTargetProperty(property: string){
         this.regimenAction.TargetProperty = property;
         this.setTargetValueArray();
@@ -72,6 +79,10 @@ export class CharactersComponent implements OnInit {
     }
     setRegimenActionTargetValue(value: number){
         this.regimenAction.TargetValue = value.toString();
+    }
+
+    setRegimenActionUsing(using: string){
+        this.regimenAction.UsingSelection = using;
     }
 
     setTargetValueArray(){
@@ -92,6 +103,14 @@ export class CharactersComponent implements OnInit {
             valueArray.push(_i);
         }
         return valueArray;
+    }
+
+    addRegimenAction(){
+        if(this.selectedCharacter.regimen == null){
+            this.selectedCharacter.regimen = new Regimen();
+        }
+        this.selectedCharacter.regimen.RegimenStack.push(this.regimenAction)
+        this.regimenAction = new RegimenAction();
     }
 
 }

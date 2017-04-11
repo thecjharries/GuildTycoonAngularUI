@@ -95,20 +95,12 @@ export enum TargetEnumConst{
 }
 export class RegimenAction
 {
-
-    TargetEnum: TargetEnumConst;
+    Target: string;
     TargetProperty: String;
     TargetOperator: string;
     TargetValue: string;
     isActive: boolean;
-    UsingSelection: Using;
-}
-
-export enum Using
-{
-    NormalAttack,
-    Consumable,
-    Skill
+    UsingSelection: string;
 }
 
 export class RegimenActionBlock

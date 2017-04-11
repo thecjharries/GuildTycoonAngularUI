@@ -108,6 +108,16 @@
         <div class="row">
             <div class="dropdown col-sm-2 col-md-2 col-lg-2">
                 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                    Target</button>
+                <ul class="dropdown-menu">
+                    <li *ngFor="let target of regimenActionTargets" (click)="setRegimenActionTarget(target.name)">
+                        {{target.name}}
+                    </li>
+                </ul>
+                {{regimenAction?.Target}}
+            </div>
+            <div class="dropdown col-sm-2 col-md-2 col-lg-2">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
                     Target Property</button>
                 <ul class="dropdown-menu">
                     <li *ngFor="let property of regimenActionProperties" (click)="setRegimenActionTargetProperty(property.name)">
@@ -136,11 +146,44 @@
                 </ul>
                 {{regimenAction?.TargetValue}}
             </div>
+            <div class="dropdown col-sm-2 col-md-2 col-lg-2">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                    Using</button>
+                <ul class="dropdown-menu">
+                    <li *ngFor="let using of regimenActionUsing" (click)="setRegimenActionUsing(using.name)">
+                        {{using.name}}
+                    </li>
+                </ul>
+                {{regimenAction?.UsingSelection}}
+            </div>
             <div class="col-sm-2 col-md-2 col-lg-2">
                  <button class="btn btn-primary" type="button" (click)="addRegimenAction()">
                     Add</button>
             </div>
             
+        </div>
+        <div class="row">
+            <div class="col-sm-2 col-md-2 col-lg-2">
+                <ul class="regimenStack">
+                    <li *ngFor="let action of selectedCharacter.regimen?.RegimenStack">
+                        <div>
+                            {{action?.Target}}
+                        </div>
+                        <div>
+                            {{action?.TargetProperty}}
+                        </div>
+                        <div>
+                            {{action?.TargetOperator}}
+                        </div>
+                        <div>
+                            {{action?.TargetValue}}
+                        </div>
+                        <div>
+                            {{action?.UsingSelection}}
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
        <!-- <div class="row" DataContext="{value: _root.EditingRegimenAction}">
             <li>
