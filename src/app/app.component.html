@@ -1,7 +1,6 @@
 <h1>
   <button *ngIf="!loginStatus" (click)="getToken()">Sign In with Facebook</button>
   <button (click)="testButton()">Test Something</button>
-  {{userData.Chronicle1}}
   <ul class="token">
     <li *ngFor="let guild of chronicles">
           <span>{{guild}}</span>>
@@ -25,11 +24,11 @@
         <li>
           <a (click)="expandGuild()">Guilds</a>
             <ul *ngIf="expandGuildBool">
-              <li><a [routerLink]="['/guild', userData.chronicle1]" routerLinkActive="active">{{userData.chronicle1}}</a></li>
-              <li><a [routerLink]="['/guild', userData.chronicle2]" routerLinkActive="active">{{userData.chronicle2}}</a></li>
-              <li><a [routerLink]="['/guild', userData.chronicle3]" routerLinkActive="active">{{userData.chronicle3}}</a></li>
-              <li><a [routerLink]="['/guild', userData.chronicle4]" routerLinkActive="active">{{userData.chronicle4}}</a></li>
-              <li><a [routerLink]="['/guild', userData.chronicle5]" routerLinkActive="active">{{userData.chronicle5}}</a></li>
+              <li><a [routerLink]="['/guild', userData.guild1Id]" routerLinkActive="active">{{userData.guild1Name}}</a></li>
+              <li><a [routerLink]="['/guild', userData.guild2Id]" routerLinkActive="active">{{userData.guild2Name}}</a></li>
+              <li><a [routerLink]="['/guild', userData.guild3Id]" routerLinkActive="active">{{userData.guild3Name}}</a></li>
+              <li><a [routerLink]="['/guild', userData.guild4Id]" routerLinkActive="active">{{userData.guild4Name}}</a></li>
+              <li><a [routerLink]="['/guild', userData.guild5Id]" routerLinkActive="active">{{userData.guild5Name}}</a></li>
             </ul>
         </li>
         <li><a routerLink="/characters" routerLinkActive="active">Characters</a></li>
@@ -47,11 +46,11 @@
         <li>
           <a (click)="expandGuild()">Guilds</a>
             <ul *ngIf="expandGuildBool">
-              <li><a [routerLink]="['/guild', userData.chronicle1]" routerLinkActive="active">{{userData.chronicle1}}</a></li>
-              <li><a [routerLink]="['/guild', userData.chronicle2]" routerLinkActive="active">{{userData.chronicle2}}</a></li>
-              <li><a [routerLink]="['/guild', userData.chronicle3]" routerLinkActive="active">{{userData.chronicle3}}</a></li>
-              <li><a [routerLink]="['/guild', userData.chronicle4]" routerLinkActive="active">{{userData.chronicle4}}</a></li>
-              <li><a [routerLink]="['/guild', userData.chronicle5]" routerLinkActive="active">{{userData.chronicle5}}</a></li>
+              <li><a [routerLink]="['/guild', userData.guild1Id]" routerLinkActive="active">{{userData.guild1Name}}</a></li>
+              <li><a [routerLink]="['/guild', userData.guild2Id]" routerLinkActive="active">{{userData.guild2Name}}</a></li>
+              <li><a [routerLink]="['/guild', userData.guild3Id]" routerLinkActive="active">{{userData.guild3Name}}</a></li>
+              <li><a [routerLink]="['/guild', userData.guild4Id]" routerLinkActive="active">{{userData.guild4Name}}</a></li>
+              <li><a [routerLink]="['/guild', userData.guild5Id]" routerLinkActive="active">{{userData.guild5Name}}</a></li>
             </ul>
         </li>
         <li><a routerLink="/characters" routerLinkActive="active">Characters</a></li>

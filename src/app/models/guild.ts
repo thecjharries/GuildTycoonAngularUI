@@ -4,6 +4,7 @@ export class Guild{
         this.characters = [];
     }
     guildId: string;
+    name: string;
     teams: Team[];
     characters: Character[];
     guildInventory: GuildInventory;

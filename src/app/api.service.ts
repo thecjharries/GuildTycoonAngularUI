@@ -1,7 +1,7 @@
 import { Injectable }    from '@angular/core';
 import { Headers, Http, RequestOptions } from '@angular/http';
 import { JwtHelper } from 'angular2-jwt';
-import { TokenService } from './token.service'
+import { CookieService } from 'angular2-cookie/core';
 
 import { Token } from './models/token';
 
@@ -15,7 +15,7 @@ export class ApiService {
     /*private apiBase = 'http://guildtycoon-api-dev.azurewebsites.net/';  // URL to web api*/
     private apiBase = 'http://localhost:5000/';  // URL to web api*/
 
-    constructor(private http: Http, private tokenService: TokenService) {
+    constructor(private http: Http, private _cookieService: CookieService) {
         this.token = new Token();
     }
 
@@ -42,6 +42,29 @@ export class ApiService {
             this.headers.append('Access-Control-Allow-Origin','*');
         }
         await this.http.get(this.apiBase + endpoint + stringParameters, {headers: this.headers})
+                       .toPromise().then(data => this.response = data.json());
+        return this.response;
+    }
+
+    async getNoAuth(endpoint:string, parameters: Map<string,string>){
+        if(parameters != null){
+            var stringParameters = '?';
+            var index = 0;
+            parameters.forEach((value: string, key: string) => {
+                stringParameters = stringParameters + key + '=' + value;
+                index++;
+                if(index < parameters.size){
+                    stringParameters = stringParameters + '&';
+                }
+            })
+            /*for (var i = 0; i < parameters.length; i++){
+                stringParameters = stringParameters + parameters[i] + '=' + values[i];
+                if(i < parameters.length - 1){
+                    stringParameters = stringParameters + '&';
+                }
+            }*/
+        }
+        await this.http.get(this.apiBase + endpoint + stringParameters)
                        .toPromise().then(data => this.response = data.json());
         return this.response;
     }
@@ -73,13 +96,12 @@ export class ApiService {
     }
 
     async createAuthorizationHeader(headers: Headers) {
-        this.token.token = await this.tokenService.getToken();
+        this.token.token = this._cookieService.get('id_token');
         if(this.token.token != null){
-            console.log("adding TOken" + this.token.token)
             headers.append('Authorization', 'Bearer ' + this.token.token); 
         }
         else {
-            console.log("Token is null")
+            console.log("Error: missing user authentication token")
         }
     }
 }

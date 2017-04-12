@@ -1,7 +1,10 @@
-<h2>Guilds</h2>
-<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" (click)="pullCharacterCard()">
-    Pull New Character</button>
+<h2 *ngIf="!editMode">{{guild.name}}</h2>
+<input *ngIf="editMode" #name (keyup)="onKey(name.value)">
+<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" (click)="editModeToggle()">
+            Edit</button>
 <div class="col-sm-3 col-md-3 col-lg-3">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" (click)="pullCharacterCard()">
+        Pull New Character</button>
     <li *ngFor="let card of guild?.guildInventory?.characterCards">
         <span>{{card.name}}</span>
         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" (click)="redeemCharacterCard(card)">

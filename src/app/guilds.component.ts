@@ -16,6 +16,7 @@ import 'rxjs/add/operator/switchMap';
 
 export class GuildsComponent implements OnInit {
     guild = new Guild();
+    editMode = false;
     sub;
     selectedTeam: Team;
 
@@ -29,11 +30,6 @@ export class GuildsComponent implements OnInit {
         this.sub = this.route.params.subscribe(params => {
             this.paramsChanged(params['id']);
         });
-/*        console.log("initing");
-        this.route.params
-            .switchMap((params: Params) => this.guildService.getGuild(params['id']))
-            .toPromise()
-            .then(guild => this.guild = guild);*/
     }
 
     async pullCharacterCard(){
@@ -73,7 +69,22 @@ export class GuildsComponent implements OnInit {
         this.guild = await this.guildService.getGuild(id);
         this.selectedTeam = this.guild.teams[0];
     }
+
+    onKey(name: string) {
+        this.guild.name = name;
+    }
+    
+    async editModeToggle(){
+        if (this.editMode == false){
+            this.editMode = true;
+        }
+        else{
+            this.editMode = false;
+            await this.guildService.updateGuild(this.guild);
+        }
+    }
 }
+
 
 function map_to_object(map) {
     const out = Object.create(null)
