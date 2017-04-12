@@ -4,6 +4,7 @@ import { Guild, Character, Item, RegimenAction, Regimen } from './models/guild';
 
 import { GuildService } from './guild.service';
 import { RegimenService } from './regimen.service';
+import { EncounterService } from './encounter.service';
 
 @Component({
     selector: 'characters',
@@ -24,7 +25,7 @@ export class CharactersComponent implements OnInit {
 
     targetValueArray = [];
 
-    constructor(private _guildService: GuildService, private _regimenService: RegimenService) {
+    constructor(private _guildService: GuildService, private _regimenService: RegimenService, private _encounterService: EncounterService) {
         this.itemsForEquipmentSlot = []
         this.guild = _guildService.getCurrentGuild();
         
@@ -39,6 +40,9 @@ export class CharactersComponent implements OnInit {
         this.regimenActionOperators = await this._regimenService.getRegimenActionBlock("Operator");
         this.regimenActionTargets = await this._regimenService.getRegimenActionBlock("Target");
         this.regimenActionUsing = await this._regimenService.getRegimenActionBlock("Using");
+     }
+     fight(){
+        this._encounterService.dofight();
      }
 
     onSelect(character: Character): void {
@@ -66,30 +70,30 @@ export class CharactersComponent implements OnInit {
     }
 
     setRegimenActionTarget(target: string){
-        this.regimenAction.Target = target;
+        this.regimenAction.target = target;
     }
 
     setRegimenActionTargetProperty(property: string){
-        this.regimenAction.TargetProperty = property;
+        this.regimenAction.targetProperty = property;
         this.setTargetValueArray();
     }
     setRegimenActionTargetOperator(operator: string){
-        this.regimenAction.TargetOperator = operator;
+        this.regimenAction.targetOperator = operator;
         this.setTargetValueArray();
     }
     setRegimenActionTargetValue(value: number){
-        this.regimenAction.TargetValue = value.toString();
+        this.regimenAction.targetValue = value.toString();
     }
 
     setRegimenActionUsing(using: string){
-        this.regimenAction.UsingSelection = using;
+        this.regimenAction.usingSelection = using;
     }
 
     setTargetValueArray(){
-        if(this.regimenAction.TargetOperator.endsWith("Percent")){
+        if(this.regimenAction.targetOperator.endsWith("Percent")){
             this.targetValueArray = this.generateArrayValues(100, 10);
         }
-        else if(this.regimenAction.TargetProperty.endsWith("Multiplier")){
+        else if(this.regimenAction.targetProperty.endsWith("Multiplier")){
             this.targetValueArray = this.generateArrayValues(35, 1);
         }
         else{
@@ -105,12 +109,13 @@ export class CharactersComponent implements OnInit {
         return valueArray;
     }
 
-    addRegimenAction(){
+    async addRegimenAction(){
         if(this.selectedCharacter.regimen == null){
             this.selectedCharacter.regimen = new Regimen();
         }
-        this.selectedCharacter.regimen.RegimenStack.push(this.regimenAction)
+        this.selectedCharacter.regimen.regimenStack.push(this.regimenAction)
         this.regimenAction = new RegimenAction();
+        await this._guildService.updateCharacter(this.guild.guildId, this.selectedCharacter);
     }
 
 }

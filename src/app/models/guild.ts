@@ -84,9 +84,9 @@ export class CharacterCard{
 export class Regimen
 {
     constructor(){
-        this.RegimenStack = [];
+        this.regimenStack = [];
     }
-    RegimenStack: RegimenAction[];
+    regimenStack: RegimenAction[];
 }
 export enum TargetEnumConst{
     Ally,
@@ -95,12 +95,12 @@ export enum TargetEnumConst{
 }
 export class RegimenAction
 {
-    Target: string;
-    TargetProperty: String;
-    TargetOperator: string;
-    TargetValue: string;
+    target: string;
+    targetProperty: String;
+    targetOperator: string;
+    targetValue: string;
     isActive: boolean;
-    UsingSelection: string;
+    usingSelection: string;
 }
 
 export class RegimenActionBlock
@@ -116,4 +116,12 @@ export class Consumable{
 
 export class Skill{
 
+}
+
+export class UpdateCharacterMessage
+{
+    GuildId: string;
+    UnitId: string;
+    Name: string;
+    Regimen: Regimen;
 }
