@@ -54,8 +54,9 @@ export class GuildService {
         return this.guild;
     }
 
-    async updateGuild(guild:Guild){
+    async updateGuild(guildId:string, guild:Guild){
         var params = new Map<string,string>();
+        params.set('guildId', guildId);
         this.guild = await this.apiService.post(JSON.stringify(guild), 'UpdateGuild', params);
         return this.guild;
     }

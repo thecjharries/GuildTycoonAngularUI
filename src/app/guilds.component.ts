@@ -80,7 +80,7 @@ export class GuildsComponent implements OnInit {
         }
         else{
             this.editMode = false;
-            await this.guildService.updateGuild(this.guild);
+            await this.guildService.updateGuild(this.guild.guildId, this.guild);
         }
     }
 }

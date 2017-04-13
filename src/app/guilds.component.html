@@ -11,31 +11,32 @@
             Redeem</button>
     </li>
 </div>
-<div>
-    
-    <button type="button" class="btn btn-default" (click)="selectTeam(1)">Team 1</button>
-    <button type="button" class="btn btn-default" (click)="selectTeam(2)">Team 2</button>
-    <button type="button" class="btn btn-default" (click)="selectTeam(3)">Team 3</button>
-    <button type="button" class="btn btn-default" (click)="selectTeam(4)">Team 4</button>
-    <button type="button" class="btn btn-default" (click)="selectTeam(5)">Team 5</button>
+<div class="col-sm-9 col-md-9 col-lg-9">
+    <div>
+        <button type="button" class="btn btn-default" (click)="selectTeam(1)">Team 1</button>
+        <button type="button" class="btn btn-default" (click)="selectTeam(2)">Team 2</button>
+        <button type="button" class="btn btn-default" (click)="selectTeam(3)">Team 3</button>
+        <button type="button" class="btn btn-default" (click)="selectTeam(4)">Team 4</button>
+        <button type="button" class="btn btn-default" (click)="selectTeam(5)">Team 5</button>
 
-</div>
-<div>
-    <ul>
-        <li *ngFor="let i of [1, 2, 3, 4, 5]">
-            <div class="dropdown">
-                <li data-toggle="dropdown">Character {{i}}: {{selectedTeam?.units[i]}}</li>
-                <ul class="dropdown-menu">
-                    <li *ngFor="let character of guild?.characters" (click)="assignCharacter(character, i)">
-                        {{character?.unitId}}
-                    </li>
-                </ul>
-            </div>
-        </li>
-        <li>
-            
-            <button type="button" class="btn btn-default" (click)="setTeam()">Save</button>
-            
-        </li>
-    </ul>
+    </div>
+    <div>
+        <ul>
+            <li *ngFor="let i of [1, 2, 3, 4, 5]">
+                <div class="dropdown">
+                    <li data-toggle="dropdown">Character {{i}}: {{selectedTeam?.units[i]}}</li>
+                    <ul class="dropdown-menu">
+                        <li *ngFor="let character of guild?.characters" (click)="assignCharacter(character, i)">
+                            {{character?.unitId}}
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                
+                <button type="button" class="btn btn-default" (click)="setTeam()">Save</button>
+                
+            </li>
+        </ul>
+    </div>
 </div>
