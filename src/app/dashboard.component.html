@@ -4,28 +4,74 @@
         <p>Some text..</p>
       </div>
       <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm-2">
           <div class="well">
-            <h4>Users</h4>
-            <p>1 Million</p> 
+            <input *ngIf="enteringName1" #name (keyup)="onKey(name.value)">
+            <h4 *ngIf="!enteringName1">{{userData?.guild1Name}}</h4>
+            <p *ngIf="!enteringName1">{{userData?.guild1Id}}</p>
+            
+            <button *ngIf="userData?.guild1Id == '00000000-0000-0000-0000-000000000000' && !enteringName1" (click)="toggleEditing(1)" 
+              type="button" class="btn btn-default">Create</button>
+            <button *ngIf="enteringName1" (click)="createGuild(1)" type="button" class="btn btn-default">Save</button>
+            <button *ngIf="enteringName1" (click)="toggleEditing(1)" type="button" class="btn btn-default">Cancel</button>
+            <button *ngIf="userData?.guild1Id != '00000000-0000-0000-0000-000000000000'" (click)="deleteGuild(userData.guild1Id)" 
+              type="button" class="btn btn-default">Delete</button> 
           </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
           <div class="well">
-            <h4>Pages</h4>
-            <p>100 Million</p> 
+            <input *ngIf="enteringName2" #name (keyup)="onKey(name.value)">
+            <h4 *ngIf="!enteringName2">{{userData?.guild2Name}}</h4>
+            <p *ngIf="!enteringName2">{{userData?.guild2Id}}</p>
+            
+            <button *ngIf="userData?.guild2Id == '00000000-0000-0000-0000-000000000000' && !enteringName2" (click)="toggleEditing(2)" 
+              type="button" class="btn btn-default">Create</button>
+            <button *ngIf="enteringName2" (click)="createGuild(2)" type="button" class="btn btn-default">Save</button>
+            <button *ngIf="enteringName2" (click)="toggleEditing(2)" type="button" class="btn btn-default">Cancel</button>
+            <button *ngIf="userData?.guild2Id != '00000000-0000-0000-0000-000000000000'" (click)="deleteGuild(userData.guild2Id)" 
+              type="button" class="btn btn-default">Delete</button> 
           </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
           <div class="well">
-            <h4>Sessions</h4>
-            <p>10 Million</p> 
+            <input *ngIf="enteringName3" #name (keyup)="onKey(name.value)">
+            <h4 *ngIf="!enteringName3">{{userData?.guild3Name}}</h4>
+            <p *ngIf="!enteringName3">{{userData?.guild3Id}}</p>
+              
+            <button *ngIf="userData?.guild3Id == '00000000-0000-0000-0000-000000000000' && !enteringName3" (click)="toggleEditing(3)" 
+              type="button" class="btn btn-default">Create</button>
+            <button *ngIf="enteringName3" (click)="createGuild(3)" type="button" class="btn btn-default">Save</button>
+            <button *ngIf="enteringName3" (click)="toggleEditing(3)" type="button" class="btn btn-default">Cancel</button>
+            <button *ngIf="userData?.guild3Id != '00000000-0000-0000-0000-000000000000'" (click)="deleteGuild(userData.guild3Id)" 
+              type="button" class="btn btn-default">Delete</button> 
           </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
           <div class="well">
-            <h4>Bounce</h4>
-            <p>30%</p> 
+            <input *ngIf="enteringName4" #name (keyup)="onKey(name.value)">
+            <h4 *ngIf="!enteringName4">{{userData?.guild4Name}}</h4>
+            <p *ngIf="!enteringName4">{{userData?.guild4Id}}</p>
+            
+            <button *ngIf="userData?.guild4Id == '00000000-0000-0000-0000-000000000000' && !enteringName4" (click)="toggleEditing(4)" 
+              type="button" class="btn btn-default">Create</button>
+            <button *ngIf="enteringName4" (click)="createGuild(4)" type="button" class="btn btn-default">Save</button>
+            <button *ngIf="enteringName4" (click)="toggleEditing(4)" type="button" class="btn btn-default">Cancel</button>
+            <button *ngIf="userData?.guild4Id != '00000000-0000-0000-0000-000000000000'" (click)="deleteGuild(userData.guild4Id)" 
+              type="button" class="btn btn-default">Delete</button> 
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="well">
+            <input *ngIf="enteringName5" #name (keyup)="onKey(name.value)">
+            <h4 *ngIf="!enteringName5">{{userData?.guild5Name}}</h4>
+            <p *ngIf="!enteringName5">{{userData?.guild5Id}}</p>
+            
+            <button *ngIf="userData?.guild5Id == '00000000-0000-0000-0000-000000000000' && !enteringName5" (click)="toggleEditing(5)" 
+              type="button" class="btn btn-default">Create</button>
+            <button *ngIf="enteringName5" (click)="createGuild(5)" type="button" class="btn btn-default">Save</button>
+            <button *ngIf="enteringName5" (click)="toggleEditing(5)" type="button" class="btn btn-default">Cancel</button>
+            <button *ngIf="userData?.guild5Id != '00000000-0000-0000-0000-000000000000'" (click)="deleteGuild(userData.guild5Id)" 
+              type="button" class="btn btn-default">Delete</button> 
           </div>
         </div>
       </div>

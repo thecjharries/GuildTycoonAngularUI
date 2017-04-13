@@ -19,7 +19,7 @@ export class ApiService {
         this.token = new Token();
     }
 
-    async get(endpoint: string, parameters: Map<string, string>){
+    async get(endpoint: string, parameters?: Map<string, string>){
         if(parameters != null){
             var stringParameters = '?';
             var index = 0;

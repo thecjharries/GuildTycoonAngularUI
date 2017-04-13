@@ -24,11 +24,11 @@
         <li>
           <a (click)="expandGuild()">Guilds</a>
             <ul *ngIf="expandGuildBool">
-              <li><a [routerLink]="['/guild', userData.guild1Id]" routerLinkActive="active">{{userData.guild1Name}}</a></li>
-              <li><a [routerLink]="['/guild', userData.guild2Id]" routerLinkActive="active">{{userData.guild2Name}}</a></li>
-              <li><a [routerLink]="['/guild', userData.guild3Id]" routerLinkActive="active">{{userData.guild3Name}}</a></li>
-              <li><a [routerLink]="['/guild', userData.guild4Id]" routerLinkActive="active">{{userData.guild4Name}}</a></li>
-              <li><a [routerLink]="['/guild', userData.guild5Id]" routerLinkActive="active">{{userData.guild5Name}}</a></li>
+              <li *ngIf="userData?.guild1Id != '00000000-0000-0000-0000-000000000000'"><a [routerLink]="['/guild', userData?.guild1Id]" routerLinkActive="active">{{userData.guild1Name}}</a></li>
+              <li *ngIf="userData?.guild2Id != '00000000-0000-0000-0000-000000000000'"><a [routerLink]="['/guild', userData?.guild2Id]" routerLinkActive="active">{{userData.guild2Name}}</a></li>
+              <li *ngIf="userData?.guild3Id != '00000000-0000-0000-0000-000000000000'"><a [routerLink]="['/guild', userData?.guild3Id]" routerLinkActive="active">{{userData.guild3Name}}</a></li>
+              <li *ngIf="userData?.guild4Id != '00000000-0000-0000-0000-000000000000'"><a [routerLink]="['/guild', userData?.guild4Id]" routerLinkActive="active">{{userData.guild4Name}}</a></li>
+              <li *ngIf="userData?.guild5Id != '00000000-0000-0000-0000-000000000000'"><a [routerLink]="['/guild', userData?.guild5Id]" routerLinkActive="active">{{userData.guild5Name}}</a></li>
             </ul>
         </li>
         <li><a routerLink="/characters" routerLinkActive="active">Characters</a></li>
@@ -46,11 +46,11 @@
         <li>
           <a (click)="expandGuild()">Guilds</a>
             <ul *ngIf="expandGuildBool">
-              <li><a [routerLink]="['/guild', userData.guild1Id]" routerLinkActive="active">{{userData.guild1Name}}</a></li>
-              <li><a [routerLink]="['/guild', userData.guild2Id]" routerLinkActive="active">{{userData.guild2Name}}</a></li>
-              <li><a [routerLink]="['/guild', userData.guild3Id]" routerLinkActive="active">{{userData.guild3Name}}</a></li>
-              <li><a [routerLink]="['/guild', userData.guild4Id]" routerLinkActive="active">{{userData.guild4Name}}</a></li>
-              <li><a [routerLink]="['/guild', userData.guild5Id]" routerLinkActive="active">{{userData.guild5Name}}</a></li>
+              <li *ngIf="userData?.guild1Id != '00000000-0000-0000-0000-000000000000'"><a [routerLink]="['/guild', userData?.guild1Id]" routerLinkActive="active">{{userData.guild1Name}}</a></li>
+              <li *ngIf="userData?.guild2Id != '00000000-0000-0000-0000-000000000000'"><a [routerLink]="['/guild', userData?.guild2Id]" routerLinkActive="active">{{userData.guild2Name}}</a></li>
+              <li *ngIf="userData?.guild3Id != '00000000-0000-0000-0000-000000000000'"><a [routerLink]="['/guild', userData?.guild3Id]" routerLinkActive="active">{{userData.guild3Name}}</a></li>
+              <li *ngIf="userData?.guild4Id != '00000000-0000-0000-0000-000000000000'"><a [routerLink]="['/guild', userData?.guild4Id]" routerLinkActive="active">{{userData.guild4Name}}</a></li>
+              <li *ngIf="userData?.guild5Id != '00000000-0000-0000-0000-000000000000'"><a [routerLink]="['/guild', userData?.guild5Id]" routerLinkActive="active">{{userData.guild5Name}}</a></li>
             </ul>
         </li>
         <li><a routerLink="/characters" routerLinkActive="active">Characters</a></li>
