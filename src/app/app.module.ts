@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { DashboardComponent }   from './dashboard.component';
 import { GuildsComponent } from './guilds.component';
 import { CharactersComponent } from './characters.component'
+import { MapToIterablePipe } from './mapToIterable.pipe'
 
 
 import { ApiService } from './api.service';
@@ -26,7 +27,8 @@ import { TokenService } from './token.service';
   declarations: [ AppComponent,
                   DashboardComponent,
                   GuildsComponent,
-                  CharactersComponent ],
+                  CharactersComponent,
+                  MapToIterablePipe ],
 
   imports: [ BrowserModule,
              AlertModule.forRoot(),

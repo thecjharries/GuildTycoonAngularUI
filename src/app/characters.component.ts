@@ -1,4 +1,4 @@
-import { Component, OnInit, Pipe } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Guild, Character, Item, RegimenAction, Regimen } from './models/guild';
 
@@ -9,13 +9,15 @@ import { EncounterService } from './encounter.service';
 @Component({
     selector: 'characters',
     templateUrl: './characters.component.html',
-    styleUrls: ['./characters.component.css']
+    styleUrls: ['./characters.component.css'],
 })
+
 export class CharactersComponent implements OnInit {
     guild = new Guild();
     selectedCharacter = new Character();
     selectedCharacterEquipment = new Map<string, Item>();
     itemsForEquipmentSlot: Item[];
+    itemSlotNames= new Map<string, string>();
 
     regimenActionProperties = [];
     regimenActionOperators = [];
@@ -28,9 +30,9 @@ export class CharactersComponent implements OnInit {
     constructor(private _guildService: GuildService, private _regimenService: RegimenService, private _encounterService: EncounterService) {
         this.itemsForEquipmentSlot = []
         this.guild = _guildService.getCurrentGuild();
-        
-        console.log(this.guild.characters);
+        this.generateSlotNamesMap();
     }
+
 
     async ngOnInit() {
         this.selectedCharacter = this.guild.characters[0];
@@ -107,6 +109,23 @@ export class CharactersComponent implements OnInit {
             valueArray.push(_i);
         }
         return valueArray;
+    }
+    
+    generateSlotNamesMap(){
+        this.itemSlotNames.set("01", "Main Hand");
+        this.itemSlotNames.set("02", "Off-hand");
+        this.itemSlotNames.set("03", "Head");
+        this.itemSlotNames.set("04", "Neck");
+        this.itemSlotNames.set("05", "Body");
+        this.itemSlotNames.set("06", "Waist");
+        this.itemSlotNames.set("07", "Legs");
+        this.itemSlotNames.set("08", "Feet");
+        this.itemSlotNames.set("09", "Right Finger");
+        this.itemSlotNames.set("10", "Right Ear");
+        this.itemSlotNames.set("11", "Left Finger");
+        this.itemSlotNames.set("12", "Left Ear");
+        this.itemSlotNames.set("13", "Ranged");
+        this.itemSlotNames.set("14", "Ammo");
     }
 
     async addRegimenAction(){

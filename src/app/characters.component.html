@@ -1,61 +1,60 @@
 <div class="col-sm-9">
     <!--List of characters-->
-    <div class="col-sm-3 col-md-3 col-lg-3" style="background-color:blue">
+    <div class="col-sm-3 col-md-3 col-lg-3">
         <li *ngFor="let character of guild.characters" (click)="onSelect(character)"
             [class.selected]="character === selectedCharacter">
-            <span>{{character?.unitId}}</span>
             <span>{{character?.name}}</span>
         </li>
+        <button class="btn btn-primary" type="button" (click)="fight()">Fight</button>
     </div>
-    <button class="btn btn-primary" type="button" (click)="fight()">Fight</button>
-    <br>
     <!--Details-->
     <div class="col-sm-8 col-sm-offset-1 col-md-8 col-md-offset-1 col-lg-8 col-lg-offset-1">
         <div class="row">
         <!--Equipment Layout-->
-            <div class="panel-heading">Name: {{selectedCharacter?.unitId}}</div>
+            <div>Name: {{selectedCharacter?.name}}</div>
             <div class="col-sm-3 col-md-3 col-lg-3">
                 <ul>
-                    <li>
-                        <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" (click)="getItemsForEquipmentSlot('01')">
-                                {{selectedCharacterEquipment?.get("01")?.name}}</button>
-                            <ul class="dropdown-menu">
-                                <li *ngFor="let item of itemsForEquipmentSlot" (click)="equipItem(item)">
-                                    {{item?.name}}
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li><p>Head</p></li>
-                    <li><p>Body</p></li>
-                    <li><p>Waist</p></li>
-                    <li><p>Feet</p></li>
-                    <li><p>LeftFinger</p></li>
-                    <li><p>LeftEar</p></li>
-                    <li><p>Ranged</p></li>
+                    <div *ngFor="let itemSlot of itemSlotNames | mapToIterable">
+                        <li *ngIf="itemSlot.key % 2 != 0">
+                            <span>{{itemSlot.value}}: </span>
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" (click)="getItemsForEquipmentSlot(itemSlot.key)">
+                                    {{selectedCharacterEquipment?.get(itemSlot.key)?.name}}</button>
+                                <ul class="dropdown-menu">
+                                    <li *ngFor="let item of itemsForEquipmentSlot" (click)="equipItem(item)">
+                                        {{item?.name}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>                    
+                    </div>
                 </ul>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <p style="text-align:center">Picture of character</p>
             </div>
             <div class="col-sm-3 col-md-3 col-lg-3">
-                <ul>
-                    <li><p>Offhand</p></li>
-                    <li><p>Neck</p></li>
-                    <li><p>Wrist</p></li>
-                    <li><p>Legs</p></li>
-                    <li><p>RightFinger</p></li>
-                    <li><p>RigthEar</p></li>
-                    <li><p>Ranged</p></li>
-                </ul>
+                <div *ngFor="let itemSlot of itemSlotNames | mapToIterable">
+                    <li *ngIf="itemSlot.key % 2 == 0">
+                        <span>{{itemSlot.value}}: </span>
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" (click)="getItemsForEquipmentSlot(itemSlot.key)">
+                                {{selectedCharacterEquipment?.get(itemSlot.key)?.name}}</button>
+                            <ul class="dropdown-menu">
+                                <li *ngFor="let item of itemsForEquipmentSlot" (click)="equipItem(item)">
+                                    {{item?.name}}
+                                </li>
+                            </ul>
+                        </div>
+                    </li>                    
+                </div>
             </div>
         </div>
         <!--Stats-->
         <div class="row">
             <ul>
-                <li>{{selectedCharacter.Level}}</li>
-                <li>{{selectedCharacter.TeamId}}</li>
+                <li>{{selectedCharacter.level}}</li>
+                <li>{{selectedCharacter.teamId}}</li>
             </ul>
         </div>
         <div class="row">
