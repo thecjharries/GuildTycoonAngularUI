@@ -1,42 +1,61 @@
-<h2 *ngIf="!editMode">{{guild.name}}</h2>
-<input *ngIf="editMode" #name (keyup)="onKey(name.value)">
-<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" (click)="editModeToggle()">
-            Edit</button>
-<div class="col-sm-3 col-md-3 col-lg-3">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" (click)="pullCharacterCard()">
-        Pull New Character</button>
-    <li *ngFor="let card of guild?.guildInventory?.characterCards">
-        <span>{{card.name}}</span>
-        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" (click)="redeemCharacterCard(card)">
-            Redeem</button>
-    </li>
-</div>
 <div class="col-sm-9 col-md-9 col-lg-9">
-    <div>
-        <button type="button" class="btn btn-default" (click)="selectTeam(1)">Team 1</button>
-        <button type="button" class="btn btn-default" (click)="selectTeam(2)">Team 2</button>
-        <button type="button" class="btn btn-default" (click)="selectTeam(3)">Team 3</button>
-        <button type="button" class="btn btn-default" (click)="selectTeam(4)">Team 4</button>
-        <button type="button" class="btn btn-default" (click)="selectTeam(5)">Team 5</button>
-
+    <div class="row">
+        <h2>
+            <span *ngIf="!editMode">
+                {{guild.name}}
+            </span>
+            <input *ngIf="editMode" #name (keyup)="onKey(name.value)">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" (click)="editModeToggle()">
+                        Edit</button>
+        </h2>
     </div>
-    <div>
-        <ul>
-            <li *ngFor="let i of [1, 2, 3, 4, 5]">
-                <div class="dropdown">
-                    <li data-toggle="dropdown">Character {{i}}: {{selectedTeam?.units[i]}}</li>
-                    <ul class="dropdown-menu">
-                        <li *ngFor="let character of guild?.characters" (click)="assignCharacter(character, i)">
-                            {{character?.unitId}}
-                        </li>
-                    </ul>
-                </div>
+    <div class="col-sm-5 col-md-5 col-lg-5">
+        <div class="row">
+            <li *ngFor="let character of guild.characters">
+                <span *ngIf="!character.editMode">{{character?.name}}</span>
+                <input *ngIf="character.editMode" #characterName (keyup)="onKeyCharacter(characterName.value)">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" (click)="editModeToggleCharacter(character.unitId)">
+                        Edit</button>
             </li>
-            <li>
-                
-                <button type="button" class="btn btn-default" (click)="setTeam()">Save</button>
-                
+        </div>
+        <div class="row">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" (click)="pullCharacterCard()">
+                Pull New Character</button>
+            <li *ngFor="let card of guild?.guildInventory?.characterCards">
+                <span>{{card.name}}</span>
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" (click)="redeemCharacterCard(card)">
+                    Redeem</button>
             </li>
-        </ul>
+        </div>
+    </div>
+    <div class="col-sm-7 col-md-7 col-lg-7">
+        <div class="row">
+            <button type="button" class="btn btn-default" (click)="selectTeam(1)">Team 1</button>
+            <button type="button" class="btn btn-default" (click)="selectTeam(2)">Team 2</button>
+            <button type="button" class="btn btn-default" (click)="selectTeam(3)">Team 3</button>
+            <button type="button" class="btn btn-default" (click)="selectTeam(4)">Team 4</button>
+            <button type="button" class="btn btn-default" (click)="selectTeam(5)">Team 5</button>
+
+        </div>
+        <div class="row">
+            <ul>
+                <li *ngFor="let i of [1, 2, 3, 4, 5]">
+                    <div class="dropdown">
+                        <li data-toggle="dropdown">Character {{i}}: {{selectedTeamCharacters[i]?.name}}</li>
+                        <ul class="dropdown-menu">
+                            <li (click)="assignCharacter(null, i)">Remove</li>
+                            <li *ngFor="let character of guild?.characters" (click)="assignCharacter(character, i)">
+                                {{character?.name}}
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    
+                    <button type="button" class="btn btn-default" (click)="setTeam()">Save</button>
+                    
+                </li>
+            </ul>
+        </div>
     </div>
 </div>

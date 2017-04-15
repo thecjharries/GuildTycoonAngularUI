@@ -68,6 +68,7 @@ export class GuildService {
         updateCharacterMessage.UnitId = character.unitId;
         updateCharacterMessage.Regimen = character.regimen;
         var params = new Map<string, string>();
+        params.set("guildId", guildId);
         this.guild = await this.apiService.post(JSON.stringify(updateCharacterMessage), 'UpdateCharacter', params );
         return this.guild;
     }

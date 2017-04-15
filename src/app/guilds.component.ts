@@ -19,12 +19,18 @@ export class GuildsComponent implements OnInit {
     editMode = false;
     sub;
     selectedTeam: Team;
+    selectedTeamCharacters: Character[];
+    selectedCharacter: Character;
+    
 
     constructor(
         private guildService: GuildService,
         private route: ActivatedRoute,
         private location: Location
-    ){ }
+    )
+    {
+        this.selectedTeamCharacters = [];
+    }
 
     ngOnInit(): void{
         this.sub = this.route.params.subscribe(params => {
@@ -48,14 +54,21 @@ export class GuildsComponent implements OnInit {
         else{
             this.selectedTeam = targetTeam;
         }
+       this.rebuildTeam();
     }
 
     assignCharacter(character: Character, slotId: number){
-        this.selectedTeam.units[slotId] = character.unitId;
+        if(character == null){
+            this.selectedTeam.units[slotId] = "00000000-0000-0000-0000-000000000000";
+        }
+        else{
+            this.selectedTeam.units[slotId] = character.unitId;
+        }
+        this.rebuildTeam();
     }
 
     async setTeam(){
-        console.log(this.selectedTeam.teamId);
+
         if (this.guild.teams[this.selectedTeam.teamId - 1] == null){
             this.guild.teams[this.selectedTeam.teamId - 1] = new Team(this.selectedTeam.teamId);
             this.guild.teams[this.selectedTeam.teamId - 1].units = this.selectedTeam.units;
@@ -73,6 +86,10 @@ export class GuildsComponent implements OnInit {
     onKey(name: string) {
         this.guild.name = name;
     }
+
+    onKeyCharacter(characterName: string) {
+        this.selectedCharacter.name = characterName;
+    }
     
     async editModeToggle(){
         if (this.editMode == false){
@@ -81,6 +98,27 @@ export class GuildsComponent implements OnInit {
         else{
             this.editMode = false;
             await this.guildService.updateGuild(this.guild.guildId, this.guild);
+        }
+    }
+
+    async editModeToggleCharacter(unitId: string){
+        this.selectedCharacter = this.guild.characters.find(x => x.unitId == unitId);
+        if(this.selectedCharacter.editMode == null){
+            this.selectedCharacter.editMode = false;
+        }
+        if (this.selectedCharacter.editMode == false){
+            this.selectedCharacter.editMode = true;
+        }
+        else{
+            this.selectedCharacter.editMode = false;
+            await this.guildService.updateCharacter(this.guild.guildId, this.selectedCharacter);
+        }
+    }
+
+    rebuildTeam(){
+        this.selectedTeamCharacters = []
+        for(var i=1;i<=Object.keys(this.selectedTeam.units).length;i++){
+            this.selectedTeamCharacters[i]= this.guild.characters.find(x => x.unitId == this.selectedTeam.units[i]);
         }
     }
 }

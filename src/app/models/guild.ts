@@ -11,6 +11,9 @@ export class Guild{
 }
 
 export class Character{
+    constructor(){
+        this.editMode = false;
+    }
     unitId: string;
     baseCharacterId: string;
     level: number;
@@ -21,6 +24,7 @@ export class Character{
     teamSlotNumber: number;
     regimen: Regimen;
     skills: string[];
+    editMode: boolean;
 }
 
 export class StatSheet{
