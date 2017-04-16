@@ -30,12 +30,9 @@ export class ApiService {
                     stringParameters = stringParameters + '&';
                 }
             })
-            /*for (var i = 0; i < parameters.length; i++){
-                stringParameters = stringParameters + parameters[i] + '=' + values[i];
-                if(i < parameters.length - 1){
-                    stringParameters = stringParameters + '&';
-                }
-            }*/
+        }
+        else{
+            var stringParameters="";
         }
         if (!this.headers.has("Authorization")){
             await this.createAuthorizationHeader(this.headers);

@@ -12,8 +12,9 @@ import { JwtHelper } from 'angular2-jwt';
 import { AppComponent } from './app.component';
 import { DashboardComponent }   from './dashboard.component';
 import { GuildsComponent } from './guilds.component';
-import { CharactersComponent } from './characters.component'
-import { MapToIterablePipe } from './mapToIterable.pipe'
+import { CharactersComponent } from './characters.component';
+import { ZonesComponent } from './zones.component';
+import { MapToIterablePipe } from './mapToIterable.pipe';
 
 
 import { ApiService } from './api.service';
@@ -22,12 +23,14 @@ import { EncounterService } from  './encounter.service';
 import { RegimenService } from './regimen.service';
 import { UserService } from './user.service';
 import { TokenService } from './token.service';
+import { ZoneService } from './zone.service';
 
 @NgModule({
   declarations: [ AppComponent,
                   DashboardComponent,
                   GuildsComponent,
                   CharactersComponent,
+                  ZonesComponent,
                   MapToIterablePipe ],
 
   imports: [ BrowserModule,
@@ -43,7 +46,8 @@ import { TokenService } from './token.service';
                EncounterService,
                RegimenService,
                UserService,
-               TokenService ],
+               TokenService,
+               ZoneService ],
 
   bootstrap: [ AppComponent ]
 })

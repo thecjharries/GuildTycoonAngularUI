@@ -130,3 +130,24 @@ export class UpdateCharacterMessage
     Name: string;
     Regimen: Regimen;
 }
+
+export class Zone{
+    zoneId: string;
+    name: string;
+    regionId: string;
+    parentZoneId: string;
+    dungeonIds: number[];
+    mobCardIds: string;
+    coordX: number;
+    coordY: number;
+}
+
+export class Dungeon{
+    dungeonId: number;
+    zoneId: string;
+    name: string;
+    difficultyRating: number;
+    waves: string[];
+    loot: Item[];
+    dungeomMobCardIds: string[];           
+}
