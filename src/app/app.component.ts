@@ -43,9 +43,6 @@ export class AppComponent {
     };
   };
   
-  async testButton(){
-  }
-
   async getToken(){
     this.token.token = await this.tokenService.getToken();
     if (this.token.token != null){

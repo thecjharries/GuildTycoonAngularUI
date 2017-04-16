@@ -19,7 +19,10 @@
                             <span>{{itemSlot.value}}: </span>
                             <div class="dropdown">
                                 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" (click)="getItemsForEquipmentSlot(itemSlot.key)">
-                                    {{selectedCharacterEquipment?.get(itemSlot.key)?.name}}</button>
+                                    <span *ngIf="selectedCharacterEquipment?.get(itemSlot.key)?.name != null">
+                                        {{selectedCharacterEquipment?.get(itemSlot.key)?.name}}</span>
+                                    <span *ngIf="selectedCharacterEquipment?.get(itemSlot.key)?.name == null">Empty</span>
+                                </button>
                                 <ul class="dropdown-menu">
                                     <li *ngFor="let item of itemsForEquipmentSlot" (click)="equipItem(item)">
                                         {{item?.name}}
@@ -39,7 +42,10 @@
                         <span>{{itemSlot.value}}: </span>
                         <div class="dropdown">
                             <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" (click)="getItemsForEquipmentSlot(itemSlot.key)">
-                                {{selectedCharacterEquipment?.get(itemSlot.key)?.name}}</button>
+                                <span *ngIf="selectedCharacterEquipment?.get(itemSlot.key)?.name != null">
+                                    {{selectedCharacterEquipment?.get(itemSlot.key)?.name}}</span>
+                                <span *ngIf="selectedCharacterEquipment?.get(itemSlot.key)?.name == null">Empty</span>
+                            </button>
                             <ul class="dropdown-menu">
                                 <li *ngFor="let item of itemsForEquipmentSlot" (click)="equipItem(item)">
                                     {{item?.name}}
@@ -53,8 +59,8 @@
         <!--Stats-->
         <div class="row">
             <ul>
-                <li>{{selectedCharacter.level}}</li>
-                <li>{{selectedCharacter.teamId}}</li>
+                <li>Level: {{selectedCharacter.level}}</li>
+                <li>Team #: {{selectedCharacter.teamId}}</li>
             </ul>
         </div>
         <div class="row">
@@ -62,16 +68,16 @@
                 <div style="text-align:center"><p>Base</p></div>
                 <div class="col-sm-2 col-md-2 col-lg-2">
                     <ul>
-                        <li>{{selectedCharacter.stats.base.strength}}</li>
-                        <li>{{selectedCharacter.stats.base.agility}}</li>
-                        <li>{{selectedCharacter.stats.base.dexterity}}</li>
+                        <li>Strength: {{selectedCharacter.stats.base.strength}}</li>
+                        <li>Agility: {{selectedCharacter.stats.base.agility}}</li>
+                        <li>Dexterity: {{selectedCharacter.stats.base.dexterity}}</li>
                     </ul>
                 </div>
                 <div class="col-sm-2 col-md-2 col-lg-2">
                     <ul>
-                        <li>{{selectedCharacter.stats.base.intelligence}}</li>
-                        <li>{{selectedCharacter.stats.base.vitality}}</li>
-                        <li>{{selectedCharacter.stats.base.focus}}</li>
+                        <li>Intelligence: {{selectedCharacter.stats.base.intelligence}}</li>
+                        <li>Vitality: {{selectedCharacter.stats.base.vitality}}</li>
+                        <li>Focus: {{selectedCharacter.stats.base.focus}}</li>
                     </ul>
                 </div>
             </div>
@@ -90,7 +96,7 @@
             </div>
             <div class="dropdown col-sm-2 col-md-2 col-lg-2">
                 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                    Target Property</button>
+                    Property</button>
                 <ul class="dropdown-menu">
                     <li *ngFor="let property of regimenActionProperties" (click)="setRegimenActionTargetProperty(property.name)">
                         {{property.name}}
@@ -100,7 +106,7 @@
             </div>
             <div class="dropdown col-sm-2 col-md-2 col-lg-2">
                 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                    Target Operator</button>
+                    Operator</button>
                 <ul class="dropdown-menu">
                     <li *ngFor="let operator of regimenActionOperators" (click)="setRegimenActionTargetOperator(operator.name)">
                         {{operator.name}}
@@ -110,7 +116,7 @@
             </div>
             <div class="dropdown col-sm-2 col-md-2 col-lg-2">
                 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                    Target Value</button>
+                    Value</button>
                 <ul class="dropdown-menu">
                     <li *ngFor="let value of targetValueArray" (click)="setRegimenActionTargetValue(value)">
                         {{value}}
@@ -135,26 +141,38 @@
             
         </div>
         <div class="row">
-            <div class="col-sm-2 col-md-2 col-lg-2">
-                <ul class="regimenStack">
-                    <li *ngFor="let action of selectedCharacter.regimen?.regimenStack">
-                        <div>
+            <!--<table>
+                <tr *ngFor="let action of selectedCharacter.regimen?.regimenStack">
+                    <td>{{action?.target}} </td>
+                    <td>{{action?.targetProperty}} </td>
+                    <td>{{action?.targetOperator}} </td>
+                    <td>{{action?.targetValue}} </td>
+                    <td>{{action?.usingSelection}} </td>
+                </tr>
+            </table>-->
+            <ul class="regimenStack">
+                <li *ngFor="let action of selectedCharacter.regimen?.regimenStack; let idx = index">
+                    <div class="row">
+                        <div class="col-sm-2 col-md-2 col-lg-2">
                             {{action?.target}}
                         </div>
-                        <div>
+                        <div class="col-sm-2 col-md-2 col-lg-2">
                             {{action?.targetProperty}}
                         </div>
-                        <div>
+                        <div class="col-sm-2 col-md-2 col-lg-2">
                             {{action?.targetOperator}}
                         </div>
-                        <div>
+                        <div class="col-sm-2 col-md-2 col-lg-2">
                             {{action?.targetValue}}
                         </div>
-                        <div>
+                        <div class="col-sm-2 col-md-2 col-lg-2">
                             {{action?.usingSelection}}
                         </div>
-                    </li>
-                </ul>
-            </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            <button type="button" class="btn btn-default" (click)="removeRegimenAction(idx)">Remove</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
 </div>

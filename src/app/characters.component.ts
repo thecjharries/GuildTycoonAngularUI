@@ -137,4 +137,9 @@ export class CharactersComponent implements OnInit {
         await this._guildService.updateCharacter(this.guild.guildId, this.selectedCharacter);
     }
 
+    async removeRegimenAction(index: number){
+        this.selectedCharacter.regimen.regimenStack.splice(index, 1);
+        await this._guildService.updateCharacter(this.guild.guildId, this.selectedCharacter);
+    }
+
 }
