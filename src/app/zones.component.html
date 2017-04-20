@@ -17,6 +17,9 @@
             <ul>
                 <li *ngFor="let dungeon of selectedZoneDungeons">
                     {{dungeon?.name}}
+                    
+                    <button type="button" class="btn btn-default" (click)="sendTeam(1, dungeon.dungeonId)">Send Team 1</button>
+                    
                 </li>
             </ul>
         </div>

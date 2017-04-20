@@ -57,5 +57,17 @@
                 </li>
             </ul>
         </div>
+
+        <div class="row">
+            <ul>
+                <li>{{selectedTeam?.teamId}}</li>
+                <li>{{selectedTeam?.currentZone}}</li>
+                <li>{{selectedTeam?.dungeonId}}</li>
+                <li>{{timeRemaining}}</li>
+                
+                <button type="button" class="btn btn-default" (click)="completeDungeon(selectedTeam?.teamId)">Complete</button>
+                
+            </ul>
+        </div>
     </div>
 </div>

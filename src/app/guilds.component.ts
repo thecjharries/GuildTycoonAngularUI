@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, OnDestroy } from '@angular/core'
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { Guild, Character, CharacterCard, Team } from './models/guild'
+import { Guild, Character, CharacterCard, Team } from './models/guild';
 
-import { GuildService } from './guild.service'
+import { GuildService } from './guild.service';
+import { ZoneService } from './zone.service';
 
 import 'rxjs/add/operator/switchMap';
 
@@ -14,28 +15,43 @@ import 'rxjs/add/operator/switchMap';
     styleUrls: ['./guilds.component.css']
 })
 
-export class GuildsComponent implements OnInit {
+export class GuildsComponent implements OnInit, OnDestroy {
     guild = new Guild();
     editMode = false;
+    date: number;
+    timeRemaining: number;
+    timerId;
     sub;
     selectedTeam: Team;
     selectedTeamCharacters: Character[];
     selectedCharacter: Character;
-    
 
     constructor(
         private guildService: GuildService,
+        private _zoneService: ZoneService,
         private route: ActivatedRoute,
         private location: Location
     )
     {
         this.selectedTeamCharacters = [];
+        this.date = (new Date()).valueOf();
+    }
+  
+    updateDate() {
+        var now = (new Date()).valueOf();
+        var end = (new Date(this.selectedTeam.primaryActionFinish)).valueOf();
+        this.timeRemaining = Math.floor((end-now) / 1000);
+    }
+    
+    ngOnDestroy() {
+        clearInterval(this.timerId)
     }
 
     ngOnInit(): void{
         this.sub = this.route.params.subscribe(params => {
             this.paramsChanged(params['id']);
         });
+        this.timerId = setInterval(() => this.updateDate(), 1000);
     }
 
     async pullCharacterCard(){
@@ -89,6 +105,10 @@ export class GuildsComponent implements OnInit {
 
     onKeyCharacter(characterName: string) {
         this.selectedCharacter.name = characterName;
+    }
+
+    async completeDungeon(teamId:number){
+        this.guild = await this._zoneService.completeDungeon(this.guild.guildId, teamId);
     }
     
     async editModeToggle(){

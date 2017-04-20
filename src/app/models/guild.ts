@@ -68,6 +68,7 @@ export class Team{
         this.units = [];
     }
     currentZone: string;
+    dungeonId: number;
     teamId: number;
     name: string;
     units: string[];

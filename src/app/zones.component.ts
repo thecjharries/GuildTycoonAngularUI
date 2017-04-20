@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { UserData } from './models/user-data';
-import { Zone, Dungeon } from './models/guild';
+import { Zone, Dungeon, Guild } from './models/guild';
 import { ZoneService } from './zone.service';
+import { GuildService } from './guild.service';
 
 @Component({
     selector: 'zones',
@@ -14,12 +15,14 @@ export class ZonesComponent implements OnInit{
     zones: Zone[];
     selectedZone: Zone;
     selectedZoneDungeons: Dungeon[];
-    constructor(private _zoneService: ZoneService){
+    guild = new Guild();
+    constructor(private _zoneService: ZoneService, private _guildService: GuildService){
         this.zones = [];
         this.selectedZoneDungeons = [];
     }
     async ngOnInit() {
         this.zones = await this._zoneService.getZones();
+        this.guild = await this._guildService.getCurrentGuild();
     }
 
     async setSelectedZone(zone: Zone){
@@ -29,4 +32,9 @@ export class ZonesComponent implements OnInit{
             this.selectedZoneDungeons.push(dungeon);
         }
     }
+
+    async sendTeam(teamId: number, dungeonId: number){
+        this.guild = await this._zoneService.sendTeam(this.guild.guildId, teamId, dungeonId, this.selectedZone.zoneId);
+    }
+
 }
