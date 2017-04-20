@@ -10,20 +10,20 @@ import { CookieService } from 'angular2-cookie/services/cookies.service';
 import { JwtHelper } from 'angular2-jwt';
 
 import { AppComponent } from './app.component';
-import { DashboardComponent }   from './dashboard.component';
-import { GuildsComponent } from './guilds.component';
-import { CharactersComponent } from './characters.component';
-import { ZonesComponent } from './zones.component';
+import { DashboardComponent }   from './pages/dashboard/dashboard.component';
+import { GuildsComponent } from './pages/guilds/guilds.component';
+import { CharactersComponent } from './pages/characters/characters.component';
+import { ZonesComponent } from './pages/zones/zones.component';
 import { MapToIterablePipe, TimeRemainingPipe } from './custom.pipes';
 
 
-import { ApiService } from './api.service';
-import { GuildService } from './guild.service';
-import { EncounterService } from  './encounter.service';
-import { RegimenService } from './regimen.service';
-import { UserService } from './user.service';
-import { TokenService } from './token.service';
-import { ZoneService } from './zone.service';
+import { ApiService } from './services/api.service';
+import { GuildService } from './services/guild.service';
+import { EncounterService } from  './services/encounter.service';
+import { RegimenService } from './services/regimen.service';
+import { UserService } from './services/user.service';
+import { TokenService } from './services/token.service';
+import { ZoneService } from './services/zone.service';
 
 @NgModule({
   declarations: [ AppComponent,

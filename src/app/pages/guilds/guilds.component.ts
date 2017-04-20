@@ -2,10 +2,10 @@ import { Component, OnInit, OnDestroy } from '@angular/core'
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { Guild, Character, CharacterCard, Team } from './models/guild';
+import { Guild, Character, CharacterCard, Team } from '../../models/guild';
 
-import { GuildService } from './guild.service';
-import { ZoneService } from './zone.service';
+import { GuildService } from '../../services/guild.service';
+import { ZoneService } from '../../services/zone.service';
 
 import 'rxjs/add/operator/switchMap';
 

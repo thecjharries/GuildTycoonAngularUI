@@ -6,9 +6,9 @@ import { UserData } from './models/user-data'
 
 import 'rxjs/add/operator/toPromise';
 
-import { TokenService } from './token.service';
+import { TokenService } from './services/token.service';
 import { CookieService } from 'angular2-cookie/core';
-import { UserService } from './user.service';
+import { UserService } from './services/user.service';
 
 
 @Component({

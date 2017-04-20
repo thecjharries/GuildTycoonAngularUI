@@ -1,7 +1,7 @@
 import { Injectable }    from '@angular/core';
 import { ApiService } from './api.service';
 
-import { Guild, Team, Character, UpdateCharacterMessage } from './models/guild'
+import { Guild, Team, Character, UpdateCharacterMessage } from '../models/guild'
 
 import 'rxjs/add/operator/toPromise';
 

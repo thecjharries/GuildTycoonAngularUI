@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
-import { UserData } from './models/user-data';
-import { Zone, Dungeon, Guild } from './models/guild';
-import { ZoneService } from './zone.service';
-import { GuildService } from './guild.service';
+import { UserData } from '../../models/user-data';
+import { Zone, Dungeon, Guild } from '../../models/guild';
+import { ZoneService } from '../../services/zone.service';
+import { GuildService } from '../../services/guild.service';
 
 @Component({
     selector: 'zones',

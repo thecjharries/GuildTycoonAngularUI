@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Guild, Character, Item, RegimenAction, Regimen } from './models/guild';
+import { Guild, Character, Item, RegimenAction, Regimen } from '../../models/guild';
 
-import { GuildService } from './guild.service';
-import { RegimenService } from './regimen.service';
-import { EncounterService } from './encounter.service';
+import { GuildService } from '../../services/guild.service';
+import { RegimenService } from '../../services/regimen.service';
+import { EncounterService } from '../../services/encounter.service';
 
 @Component({
     selector: 'characters',

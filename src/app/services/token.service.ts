@@ -2,9 +2,9 @@ import { Injectable }    from '@angular/core';
 import { ApiService } from './api.service';
 import { Headers, Http } from '@angular/http';
 import { JwtHelper } from 'angular2-jwt';
-import { UserData } from './models/user-data';
+import { UserData } from '../models/user-data';
 
-import { Token } from './models/token';
+import { Token } from '../models/token';
 
 import {FacebookService, FacebookInitParams, FacebookLoginResponse, FacebookAuthResponse} from 'ng2-facebook-sdk';
 import {CookieService} from 'angular2-cookie/core';

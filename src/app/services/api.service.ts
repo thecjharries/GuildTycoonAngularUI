@@ -3,7 +3,7 @@ import { Headers, Http, RequestOptions } from '@angular/http';
 import { JwtHelper } from 'angular2-jwt';
 import { CookieService } from 'angular2-cookie/core';
 
-import { Token } from './models/token';
+import { Token } from '../models/token';
 
 import 'rxjs/add/operator/toPromise';
 

@@ -1,7 +1,7 @@
 import { Injectable }    from '@angular/core';
 import { ApiService } from './api.service';
 
-import { UserData } from './models/user-data'
+import { UserData } from '../models/user-data'
 
 import 'rxjs/add/operator/toPromise';
 
