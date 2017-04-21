@@ -33,3 +33,11 @@ export class TimeRemainingPipe implements PipeTransform{
         return timeRemaining;
     }
 }
+
+@Pipe({ name: 'vitToHp'})
+export class VitToHpPipe implements PipeTransform{
+    transform(value:number, args?: any[]): number{
+        var result = 0.5 * Math.pow(value, 2);
+        return result;
+    }
+}

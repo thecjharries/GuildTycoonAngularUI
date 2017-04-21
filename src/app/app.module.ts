@@ -14,7 +14,7 @@ import { DashboardComponent }   from './pages/dashboard/dashboard.component';
 import { GuildsComponent } from './pages/guilds/guilds.component';
 import { CharactersComponent } from './pages/characters/characters.component';
 import { ZonesComponent } from './pages/zones/zones.component';
-import { MapToIterablePipe, TimeRemainingPipe } from './custom.pipes';
+import { MapToIterablePipe, TimeRemainingPipe, VitToHpPipe } from './custom.pipes';
 
 
 import { ApiService } from './services/api.service';
@@ -32,7 +32,8 @@ import { ZoneService } from './services/zone.service';
                   CharactersComponent,
                   ZonesComponent,
                   MapToIterablePipe,
-                  TimeRemainingPipe ],
+                  TimeRemainingPipe,
+                  VitToHpPipe ],
 
   imports: [ BrowserModule,
              AlertModule.forRoot(),

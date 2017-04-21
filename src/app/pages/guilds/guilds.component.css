@@ -5,3 +5,7 @@
 h2, span, .glyphicon{
     display:inline;
 }
+
+.well{
+    margin: 10px
+}
