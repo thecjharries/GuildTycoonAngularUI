@@ -1,0 +1,32 @@
+.app{
+    background-color: grey;
+}
+.content{
+    padding: 10px 0 0 0;
+}
+.navigation{
+    background-color: lightgray;
+    padding: 10px 0 0 0;
+    height: 100vh;
+}
+.top{
+    background-color: darkgrey;
+    box-shadow: 0 0 20px black;
+    z-index: 1;
+}
+.valignlogin{
+    position: relative;
+    top: 50%;
+    transform: translateY(50%);
+}
+
+.valign{
+    position: relative;
+    top: 50%;
+}
+
+@media (max-width: 770px){
+   .navigation{
+        height: auto;
+    } 
+}

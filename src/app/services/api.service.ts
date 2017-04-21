@@ -35,12 +35,20 @@ export class ApiService {
             var stringParameters="";
         }
         if (!this.headers.has("Authorization")){
-            await this.createAuthorizationHeader(this.headers);
+            var success = await this.createAuthorizationHeader(this.headers);
             this.headers.append('Access-Control-Allow-Origin','*');
+
+            if (success){
+                await this.http.get(this.apiBase + endpoint + stringParameters, {headers: this.headers})
+                            .toPromise().then(data => this.response = data.json());
+                return this.response;
+            }
         }
-        await this.http.get(this.apiBase + endpoint + stringParameters, {headers: this.headers})
-                       .toPromise().then(data => this.response = data.json());
-        return this.response;
+        else{
+            await this.http.get(this.apiBase + endpoint + stringParameters, {headers: this.headers})
+                        .toPromise().then(data => this.response = data.json());
+            return this.response;
+        }
     }
 
     async getNoAuth(endpoint:string, parameters: Map<string,string>){
@@ -54,12 +62,6 @@ export class ApiService {
                     stringParameters = stringParameters + '&';
                 }
             })
-            /*for (var i = 0; i < parameters.length; i++){
-                stringParameters = stringParameters + parameters[i] + '=' + values[i];
-                if(i < parameters.length - 1){
-                    stringParameters = stringParameters + '&';
-                }
-            }*/
         }
         await this.http.get(this.apiBase + endpoint + stringParameters)
                        .toPromise().then(data => this.response = data.json());
@@ -77,28 +79,31 @@ export class ApiService {
                     stringParameters = stringParameters + '&';
                 }
             })
-            /*for (var i = 0; i < parameters.length; i++){
-                stringParameters = stringParameters + parameters[i] + '=' + values[i];
-                if(i < parameters.length - 1){
-                    stringParameters = stringParameters + '&';
-                }
-            }*/
         }
         if (!this.headers.has("Authorization")){
-            await this.createAuthorizationHeader(this.headers);
+            var success = await this.createAuthorizationHeader(this.headers);
+            if (success){
+                await this.http.post(this.apiBase + endpoint + stringParameters, body, {headers: this.headers})
+                            .toPromise().then(data => this.response = data.json());
+                return this.response;
+            }
         }
-        await this.http.post(this.apiBase + endpoint + stringParameters, body, {headers: this.headers})
-                       .toPromise().then(data => this.response = data.json());
-        return this.response;
+        else{
+            await this.http.get(this.apiBase + endpoint + stringParameters, {headers: this.headers})
+                        .toPromise().then(data => this.response = data.json());
+            return this.response;    
+        }
     }
 
     async createAuthorizationHeader(headers: Headers) {
         this.token.token = this._cookieService.get('id_token');
         if(this.token.token != null){
-            headers.append('Authorization', 'Bearer ' + this.token.token); 
+            headers.append('Authorization', 'Bearer ' + this.token.token);
+            return true; 
         }
         else {
             console.log("Error: missing user authentication token")
+            return false;
         }
     }
 }

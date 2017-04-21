@@ -1,64 +1,99 @@
-<h1>
-  <button *ngIf="!loginStatus" (click)="getToken()">Sign In with Facebook</button>
-  <ul class="token">
-    <li *ngFor="let guild of chronicles">
-          <span>{{guild}}</span>>
-    </li>
-  </ul>
-</h1>
+<!--<div class="container-fluid">
+  <div class="row">
+    <nav class="navbar navbar-inverse visible-xs">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>                        
+          </button>
+          <a class="navbar-brand" href="#">{{title}}</a>
+          
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav">
+            <li><button type="button" class="btn btn-default" *ngIf="!loginStatus" (click)="getToken()">Sign in with Facebook</button></li>
+            <li class="active"><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></li>
+            <li>
+              <a (click)="expandGuild()">Guilds</a>
+                <ul *ngIf="expandGuildBool">
+                  <li *ngIf="userData?.guild1Id != '00000000-0000-0000-0000-000000000000'"><a [routerLink]="['/guild', userData?.guild1Id]" routerLinkActive="active">{{userData.guild1Name}}</a></li>
+                  <li *ngIf="userData?.guild2Id != '00000000-0000-0000-0000-000000000000'"><a [routerLink]="['/guild', userData?.guild2Id]" routerLinkActive="active">{{userData.guild2Name}}</a></li>
+                  <li *ngIf="userData?.guild3Id != '00000000-0000-0000-0000-000000000000'"><a [routerLink]="['/guild', userData?.guild3Id]" routerLinkActive="active">{{userData.guild3Name}}</a></li>
+                  <li *ngIf="userData?.guild4Id != '00000000-0000-0000-0000-000000000000'"><a [routerLink]="['/guild', userData?.guild4Id]" routerLinkActive="active">{{userData.guild4Name}}</a></li>
+                  <li *ngIf="userData?.guild5Id != '00000000-0000-0000-0000-000000000000'"><a [routerLink]="['/guild', userData?.guild5Id]" routerLinkActive="active">{{userData.guild5Name}}</a></li>
+                </ul>
+            </li>
+            <li><a routerLink="/characters" routerLinkActive="active">Characters</a></li>
+            <li><a routerLink="/zones" routerLinkActive="active">Zones</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+      <div class="col-sm-2 no-float sidenav hidden-xs">
+        <h2>{{title}}</h2>
+        <ul class="nav nav-pills nav-stacked">
+          <li><button type="button" class="btn btn-default" *ngIf="!loginStatus" (click)="getToken()">Sign in with Facebook</button></li>
+          <li class="active"><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></li>
+          <li>
+            <a (click)="expandGuild()">Guilds</a>
+              <ul *ngIf="expandGuildBool">
+                <li *ngIf="userData?.guild1Id != '00000000-0000-0000-0000-000000000000'"><a [routerLink]="['/guild', userData?.guild1Id]" routerLinkActive="active">{{userData.guild1Name}}</a></li>
+                <li *ngIf="userData?.guild2Id != '00000000-0000-0000-0000-000000000000'"><a [routerLink]="['/guild', userData?.guild2Id]" routerLinkActive="active">{{userData.guild2Name}}</a></li>
+                <li *ngIf="userData?.guild3Id != '00000000-0000-0000-0000-000000000000'"><a [routerLink]="['/guild', userData?.guild3Id]" routerLinkActive="active">{{userData.guild3Name}}</a></li>
+                <li *ngIf="userData?.guild4Id != '00000000-0000-0000-0000-000000000000'"><a [routerLink]="['/guild', userData?.guild4Id]" routerLinkActive="active">{{userData.guild4Name}}</a></li>
+                <li *ngIf="userData?.guild5Id != '00000000-0000-0000-0000-000000000000'"><a [routerLink]="['/guild', userData?.guild5Id]" routerLinkActive="active">{{userData.guild5Name}}</a></li>
+              </ul>
+          </li>
+          <li><a routerLink="/characters" routerLinkActive="active">Characters</a></li>
+          <li><a routerLink="/zones" routerLinkActive="active">Zones</a></li>
+        </ul>
+      </div>
 
-<nav class="navbar navbar-inverse visible-xs">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-      <a class="navbar-brand" href="#">{{title}}</a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
-        <li class="active"><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></li>
-        <li>
-          <a (click)="expandGuild()">Guilds</a>
-            <ul *ngIf="expandGuildBool">
-              <li *ngIf="userData?.guild1Id != '00000000-0000-0000-0000-000000000000'"><a [routerLink]="['/guild', userData?.guild1Id]" routerLinkActive="active">{{userData.guild1Name}}</a></li>
-              <li *ngIf="userData?.guild2Id != '00000000-0000-0000-0000-000000000000'"><a [routerLink]="['/guild', userData?.guild2Id]" routerLinkActive="active">{{userData.guild2Name}}</a></li>
-              <li *ngIf="userData?.guild3Id != '00000000-0000-0000-0000-000000000000'"><a [routerLink]="['/guild', userData?.guild3Id]" routerLinkActive="active">{{userData.guild3Name}}</a></li>
-              <li *ngIf="userData?.guild4Id != '00000000-0000-0000-0000-000000000000'"><a [routerLink]="['/guild', userData?.guild4Id]" routerLinkActive="active">{{userData.guild4Name}}</a></li>
-              <li *ngIf="userData?.guild5Id != '00000000-0000-0000-0000-000000000000'"><a [routerLink]="['/guild', userData?.guild5Id]" routerLinkActive="active">{{userData.guild5Name}}</a></li>
-            </ul>
-        </li>
-        <li><a routerLink="/characters" routerLinkActive="active">Characters</a></li>
-        <li><a routerLink="/zones" routerLinkActive="active">Zones</a></li>
-      </ul>
+      <div class="col-sm-10 content">
+        <router-outlet></router-outlet>
+      </div>
+</div>-->
+
+<div class="container-fluid app">
+  <div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 top">
+      <div class="row">
+        <div class="col-sm-4"><h2 class="pull-left">Guild Tycoon</h2></div>
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+          <button type="button" class="btn btn-default pull-right valignlogin" *ngIf="!loginStatus" (click)="getToken()">Sign in with Facebook</button>
+          <span *ngIf="loginStatus" class="pull-right valign"><h3>{{userData?.username}}</h3></span>
+        </div>
+      </div>
     </div>
   </div>
-</nav>
 
-<div class="container-fluid">
-  <div class="row content">
-    <div class="col-sm-3 sidenav hidden-xs">
-      <h2>{{title}}</h2>
+  <div class="row">
+
+    <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 navigation">
       <ul class="nav nav-pills nav-stacked">
-        <li class="active"><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></li>
-        <li>
-          <a (click)="expandGuild()">Guilds</a>
-            <ul *ngIf="expandGuildBool">
-              <li *ngIf="userData?.guild1Id != '00000000-0000-0000-0000-000000000000'"><a [routerLink]="['/guild', userData?.guild1Id]" routerLinkActive="active">{{userData.guild1Name}}</a></li>
-              <li *ngIf="userData?.guild2Id != '00000000-0000-0000-0000-000000000000'"><a [routerLink]="['/guild', userData?.guild2Id]" routerLinkActive="active">{{userData.guild2Name}}</a></li>
-              <li *ngIf="userData?.guild3Id != '00000000-0000-0000-0000-000000000000'"><a [routerLink]="['/guild', userData?.guild3Id]" routerLinkActive="active">{{userData.guild3Name}}</a></li>
-              <li *ngIf="userData?.guild4Id != '00000000-0000-0000-0000-000000000000'"><a [routerLink]="['/guild', userData?.guild4Id]" routerLinkActive="active">{{userData.guild4Name}}</a></li>
-              <li *ngIf="userData?.guild5Id != '00000000-0000-0000-0000-000000000000'"><a [routerLink]="['/guild', userData?.guild5Id]" routerLinkActive="active">{{userData.guild5Name}}</a></li>
-            </ul>
-        </li>
-        <li><a routerLink="/characters" routerLinkActive="active">Characters</a></li>
-        <li><a routerLink="/zones" routerLinkActive="active">Zones</a></li>
-      </ul><br>
+        
+          <li class="active"><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></li>
+          <li>
+            <a (click)="expandGuild()">Guilds</a>
+              <ul *ngIf="expandGuildBool">
+                <li *ngIf="userData?.guild1Id != '00000000-0000-0000-0000-000000000000'"><a [routerLink]="['/guild', userData?.guild1Id]" routerLinkActive="active">{{userData.guild1Name}}</a></li>
+                <li *ngIf="userData?.guild2Id != '00000000-0000-0000-0000-000000000000'"><a [routerLink]="['/guild', userData?.guild2Id]" routerLinkActive="active">{{userData.guild2Name}}</a></li>
+                <li *ngIf="userData?.guild3Id != '00000000-0000-0000-0000-000000000000'"><a [routerLink]="['/guild', userData?.guild3Id]" routerLinkActive="active">{{userData.guild3Name}}</a></li>
+                <li *ngIf="userData?.guild4Id != '00000000-0000-0000-0000-000000000000'"><a [routerLink]="['/guild', userData?.guild4Id]" routerLinkActive="active">{{userData.guild4Name}}</a></li>
+                <li *ngIf="userData?.guild5Id != '00000000-0000-0000-0000-000000000000'"><a [routerLink]="['/guild', userData?.guild5Id]" routerLinkActive="active">{{userData.guild5Name}}</a></li>
+              </ul>
+          </li>
+          <li><a routerLink="/characters" routerLinkActive="active">Characters</a></li>
+          <li><a routerLink="/zones" routerLinkActive="active">Zones</a></li>
+      </ul>
     </div>
-    <br>
-    <router-outlet></router-outlet>
+
+    <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10 content">
+      <router-outlet></router-outlet>
+    </div>
 
   </div>
 </div>

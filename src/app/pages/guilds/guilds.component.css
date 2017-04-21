@@ -1,0 +1,7 @@
+.guildTitle{
+    text-align: center;
+}
+
+h2, span, .glyphicon{
+    display:inline;
+}

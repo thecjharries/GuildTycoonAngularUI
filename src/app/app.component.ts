@@ -45,10 +45,14 @@ export class AppComponent {
   
   async getToken(){
     this.token.token = await this.tokenService.getToken();
+    console.log(this.token.token);
     if (this.token.token != null){
       this.loginStatus = true;
       this.userData = this.tokenService.decodeToken(this.token.token);
-      this.getUserGuildInfo();
+      console.log(this.loginStatus);
+      if(this.loginStatus){
+        this.getUserGuildInfo();
+      }
     };
   };
 
