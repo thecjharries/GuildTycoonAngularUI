@@ -65,6 +65,7 @@
         <div class="col-sm-4"></div>
         <div class="col-sm-4">
           <button type="button" class="btn btn-default pull-right valignlogin" *ngIf="!loginStatus" (click)="getToken()">Sign in with Facebook</button>
+          
           <span *ngIf="loginStatus" class="pull-right valign"><h3>{{userData?.username}}</h3></span>
         </div>
       </div>
@@ -89,6 +90,10 @@
           </li>
           <li><a routerLink="/characters" routerLinkActive="active">Characters</a></li>
           <li><a routerLink="/zones" routerLinkActive="active">Zones</a></li>
+      </ul>
+      <ul *ngIf="userData?.role == 'Admin'" class="nav nav-pills nav-stacked">
+        <li><a routerLink="/admin" routerLinkActive="active">Admin</a></li>
+        <li><a routerLink="/charactercards" routerLinkActive="active">Character Cards</a></li>
       </ul>
     </div>
 

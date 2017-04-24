@@ -1,0 +1,34 @@
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    
+    <button type="button" class="btn btn-default" (click)="toggleAdd()">Add</button>
+    
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Strength</th>
+                <th>Agility</th>
+                <th>Dexterity</th>
+                <th>Intelligence</th>
+                <th>Vitality</th>
+                <th>Focus</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngIf="enableAdd">
+                <td><input #name (keyup)="onKey(name)"></td>
+            </tr>
+            <tr *ngFor="let card of characterCards">
+                <td>{{card.name}}</td>
+                <td>{{card.strength}}</td>
+                <td>{{card.agility}}</td>
+                <td>{{card.dexterity}}</td>
+                <td>{{card.intelligence}}</td>
+                <td>{{card.vitality}}</td>
+                <td>{{card.focus}}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+</div>

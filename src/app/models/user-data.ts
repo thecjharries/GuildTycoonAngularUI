@@ -12,4 +12,5 @@ export class UserData {
     iss: string;
     userId: string;
     username: string;
+    role: string;
 }
