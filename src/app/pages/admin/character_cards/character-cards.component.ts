@@ -17,6 +17,7 @@ export class CharacterCardsComponent implements OnInit{
     
     constructor(private _characterCardsService: CharacterCardsService){
         this.enableAdd = false;
+        this.addingCharacterCard = new CharacterCard();
     }
 
     toggleAdd(){
@@ -28,16 +29,62 @@ export class CharacterCardsComponent implements OnInit{
         }
     }
 
-    async ngOnInit() {
+    async createCharacterCard(){
+        await this._characterCardsService.createCard(this.addingCharacterCard);
         this.characterCards = await this._characterCardsService.getCards();
-        console.log(this.characterCards);
+        this.toggleAdd();
     }
 
-    onKey(input) {
-        if(input===this.addingCharacterCard.name){
-            this.addingCharacterCard.name = input;
+    async updateCharacterCard(characterCard: CharacterCard){
+        await this._characterCardsService.updateCard(characterCard);
+        this.characterCards = await this._characterCardsService.getCards();
+        this.toggleEdit(characterCard);
+    }
+
+    async deleteCharacterCard(characterCard: CharacterCard){
+        await this._characterCardsService.deleteCard(characterCard.cardId);
+        this.characterCards = await this._characterCardsService.getCards();
+    }
+
+    async toggleEdit(characterCard: CharacterCard){
+        if(characterCard.editMode == false || characterCard.editMode == null){
+            characterCard.editMode = true;
         }
-        console.log(this.addingCharacterCard.name);
+        else{
+            characterCard.editMode = false;
+        }
+    }
+
+    async ngOnInit() {
+        this.characterCards = await this._characterCardsService.getCards();
+    }
+
+    onKey(input, targetProperty: string, characterCard?: CharacterCard) {
+        if(characterCard != null){
+            this.editSelectedProperty(input, targetProperty, characterCard);
+        }
+        else{
+            this.editSelectedProperty(input, targetProperty, this.addingCharacterCard);
+        }
+        
+    }
+
+    editSelectedProperty(input, targetProperty, characterCard){
+        if(targetProperty=='name'){
+            characterCard.name = input;
+        }else if(targetProperty=='strength'){
+            characterCard.strength = input;
+        }else if(targetProperty=='agility'){
+            characterCard.agility = input;
+        }else if(targetProperty=='dexterity'){
+            characterCard.dexterity = input;
+        }else if(targetProperty=='intelligence'){
+            characterCard.intelligence = input;
+        }else if(targetProperty=='vitality'){
+            characterCard.vitality = input;
+        }else if(targetProperty=='focus'){
+            characterCard.focus = input;
+        }
     }
     
 }

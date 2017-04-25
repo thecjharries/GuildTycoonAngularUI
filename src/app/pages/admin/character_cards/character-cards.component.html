@@ -3,7 +3,8 @@
     
     <button type="button" class="btn btn-default" (click)="toggleAdd()">Add</button>
     
-    <table class="table table-hover">
+    
+    <table style="table-layout:fixed" class="table table-hover">
         <thead>
             <tr>
                 <th>Name</th>
@@ -13,20 +14,57 @@
                 <th>Intelligence</th>
                 <th>Vitality</th>
                 <th>Focus</th>
+                <th>Edit</th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngIf="enableAdd">
-                <td><input #name (keyup)="onKey(name)"></td>
+                <td><input #name (keyup)="onKey(name.value, 'name')"></td>
+                <td><input #strength (keyup)="onKey(strength.value, 'strength')"></td>
+                <td><input #agility (keyup)="onKey(agility.value, 'agility')"></td>
+                <td><input #dexterity (keyup)="onKey(dexterity.value, 'dexterity')"></td>
+                <td><input #intelligence (keyup)="onKey(intelligence.value, 'intelligence')"></td>
+                <td><input #vitality (keyup)="onKey(vitality.value, 'vitality')"></td>
+                <td><input #focus (keyup)="onKey(focus.value, 'focus')"></td>
+                <td><button *ngIf="enableAdd" type="button" class="btn btn-default" (click)="createCharacterCard()">Save</button></td>
             </tr>
             <tr *ngFor="let card of characterCards">
-                <td>{{card.name}}</td>
-                <td>{{card.strength}}</td>
-                <td>{{card.agility}}</td>
-                <td>{{card.dexterity}}</td>
-                <td>{{card.intelligence}}</td>
-                <td>{{card.vitality}}</td>
-                <td>{{card.focus}}</td>
+                <td>
+                    <span *ngIf="!card.editMode">{{card.name}}</span>
+                    <input *ngIf="card.editMode" placeholder="{{card.name}}" #name (keyup)="onKey(name.value, 'name', card)">
+                </td>
+                <td>
+                    <span *ngIf="!card.editMode">{{card.strength}}</span>
+                    <input *ngIf="card.editMode" placeholder="{{card.strength}}" #strength (keyup)="onKey(strength.value, 'strength', card)">
+                </td>
+                <td>
+                    <span *ngIf="!card.editMode">{{card.agility}}</span>
+                    <input *ngIf="card.editMode" placeholder="{{card.agility}}" #agility (keyup)="onKey(agility.value, 'agility', card)">
+                </td>
+                <td>
+                    <span *ngIf="!card.editMode">{{card.dexterity}}</span>
+                    <input *ngIf="card.editMode" placeholder="{{card.dexterity}}" #dexterity (keyup)="onKey(dexterity.value, 'dexterity', card)">
+                </td>
+                <td>
+                    <span *ngIf="!card.editMode">{{card.intelligence}}</span>
+                    <input *ngIf="card.editMode" placeholder="{{card.intelligence}}" #intelligence (keyup)="onKey(intelligence.value, 'intelligence', card)">
+                </td>
+                <td>
+                    <span *ngIf="!card.editMode">{{card.vitality}}</span>
+                    <input *ngIf="card.editMode" placeholder="{{card.vitality}}" #vitality (keyup)="onKey(vitality.value, 'vitality', card)">
+                </td>
+                <td>
+                    <span *ngIf="!card.editMode">{{card.focus}}</span>
+                    <input *ngIf="card.editMode" placeholder="{{card.focus}}" #focus (keyup)="onKey(focus.value, 'focus', card)">
+                </td>
+                <td>
+                    <button *ngIf="!card.editMode" type="button" class="btn btn-default" (click)="toggleEdit(card)">Edit</button>
+                    <button *ngIf="card.editMode" type="button" class="btn btn-default" (click)="updateCharacterCard(card)">Save</button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-default" (click)="deleteCharacterCard(card)">Delete</button>
+                </td>
             </tr>
         </tbody>
     </table>

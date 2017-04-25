@@ -1,4 +1,5 @@
 export class CharacterCard{
+    
     cardId: string;
     strength: number;
     agility: number;
@@ -7,4 +8,5 @@ export class CharacterCard{
     vitality: number;
     focus: number;
     name: string;
+    editMode: boolean;
 }

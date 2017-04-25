@@ -41,12 +41,14 @@ export class ApiService {
             if (success){
                 await this.http.get(this.apiBase + endpoint + stringParameters, {headers: this.headers})
                             .toPromise().then(data => this.response = data.json());
+                
                 return this.response;
             }
         }
         else{
             await this.http.get(this.apiBase + endpoint + stringParameters, {headers: this.headers})
                         .toPromise().then(data => this.response = data.json());
+            
             return this.response;
         }
     }
@@ -63,12 +65,13 @@ export class ApiService {
                 }
             })
         }
-        await this.http.get(this.apiBase + endpoint + stringParameters)
-                       .toPromise().then(data => this.response = data.json());
+        // await this.http.get(this.apiBase + endpoint + stringParameters)
+        //                .toPromise().then(data => this.response = data.json());
+        this.response = await this.http.get(this.apiBase + endpoint + stringParameters, {headers: this.headers});
         return this.response;
     }
 
-    async post(body: any, endpoint: string, parameters: Map<string, string>){
+    async post(body: any, endpoint: string, parameters?: Map<string, string>){
         if(parameters != null){
             var stringParameters = '?';
             var index = 0;
@@ -80,18 +83,27 @@ export class ApiService {
                 }
             })
         }
+        else{
+            var stringParameters="";
+        }
         if (!this.headers.has("Authorization")){
             var success = await this.createAuthorizationHeader(this.headers);
             if (success){
                 await this.http.post(this.apiBase + endpoint + stringParameters, body, {headers: this.headers})
                             .toPromise().then(data => this.response = data.json());
-                return this.response;
+
+                if(this.response != null){
+                    return this.response;
+                }
             }
         }
         else{
-            await this.http.get(this.apiBase + endpoint + stringParameters, {headers: this.headers})
+            await this.http.post(this.apiBase + endpoint + stringParameters, body, {headers: this.headers})
                         .toPromise().then(data => this.response = data.json());
-            return this.response;    
+
+            if(this.response != null){
+                return this.response;
+            }    
         }
     }
 
@@ -105,5 +117,9 @@ export class ApiService {
             console.log("Error: missing user authentication token")
             return false;
         }
+    }
+
+    private handleError() {
+        
     }
 }
