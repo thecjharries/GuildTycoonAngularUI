@@ -1,0 +1,95 @@
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    
+    <button type="button" class="btn btn-default" (click)="toggleAdd()">Add</button>
+    
+    
+    <table style="table-layout:fixed" class="table table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Strength</th>
+                <th>Agility</th>
+                <th>Dexterity</th>
+                <th>Intelligence</th>
+                <th>Vitality</th>
+                <th>Focus</th>
+                <th>Level</th>
+                <th>Major Mob Type</th>
+                <th>Sub Mob Type</th>
+                <th>Regimen</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngIf="enableAdd">
+                <td><input #name (keyup)="onKey(name.value, 'name')"></td>
+                <td><input #strength (keyup)="onKey(strength.value, 'strength')"></td>
+                <td><input #agility (keyup)="onKey(agility.value, 'agility')"></td>
+                <td><input #dexterity (keyup)="onKey(dexterity.value, 'dexterity')"></td>
+                <td><input #intelligence (keyup)="onKey(intelligence.value, 'intelligence')"></td>
+                <td><input #vitality (keyup)="onKey(vitality.value, 'vitality')"></td>
+                <td><input #focus (keyup)="onKey(focus.value, 'focus')"></td>
+                <td><input #level (keyup)="onKey(level.value, 'level')"></td>
+                <td><input #majorMobType (keyup)="onKey(majorMobType.value, 'majorMobType')"></td>
+                <td><input #subMobType (keyup)="onKey(subMobType.value, 'subMobType')"></td>
+                <td><button type="button" class="btn btn-default" (click)="editRegimen()">Edit Regimen</button></td>
+                <td><button *ngIf="enableAdd" type="button" class="btn btn-default" (click)="createMobCard()">Save</button></td>
+            </tr>
+            <tr *ngFor="let mobCard of mobCards">
+                <td>
+                    <span *ngIf="!mobCard.editMode">{{mobCard.name}}</span>
+                    <input *ngIf="mobCard.editMode" placeholder="{{mobCard.name}}" #name (keyup)="onKey(name.value, 'name', mobCard)">
+                </td>
+                <td>
+                    <span *ngIf="!mobCard.editMode">{{mobCard.strength}}</span>
+                    <input *ngIf="mobCard.editMode" placeholder="{{mobCard.strength}}" #strength (keyup)="onKey(strength.value, 'strength', mobCard)">
+                </td>
+                <td>
+                    <span *ngIf="!mobCard.editMode">{{mobCard.agility}}</span>
+                    <input *ngIf="mobCard.editMode" placeholder="{{mobCard.agility}}" #agility (keyup)="onKey(agility.value, 'agility', mobCard)">
+                </td>
+                <td>
+                    <span *ngIf="!mobCard.editMode">{{mobCard.dexterity}}</span>
+                    <input *ngIf="mobCard.editMode" placeholder="{{mobCard.dexterity}}" #dexterity (keyup)="onKey(dexterity.value, 'dexterity', mobCard)">
+                </td>
+                <td>
+                    <span *ngIf="!mobCard.editMode">{{mobCard.intelligence}}</span>
+                    <input *ngIf="mobCard.editMode" placeholder="{{mobCard.intelligence}}" #intelligence (keyup)="onKey(intelligence.value, 'intelligence', mobCard)">
+                </td>
+                <td>
+                    <span *ngIf="!mobCard.editMode">{{mobCard.vitality}}</span>
+                    <input *ngIf="mobCard.editMode" placeholder="{{mobCard.vitality}}" #vitality (keyup)="onKey(vitality.value, 'vitality', mobCard)">
+                </td>
+                <td>
+                    <span *ngIf="!mobCard.editMode">{{mobCard.focus}}</span>
+                    <input *ngIf="mobCard.editMode" placeholder="{{mobCard.focus}}" #focus (keyup)="onKey(focus.value, 'focus', mobCard)">
+                </td>
+                <td>
+                    <span *ngIf="!mobCard.editMode">{{mobCard.level}}</span>
+                    <input *ngIf="mobCard.editMode" placeholder="{{mobCard.level}}" #level (keyup)="onKey(level.value, 'level', mobCard)">
+                </td>
+                <td>
+                    <span *ngIf="!mobCard.editMode">{{mobCard.majorMobType}}</span>
+                    <input *ngIf="mobCard.editMode" placeholder="{{mobCard.majorMobType}}" #majorMobType (keyup)="onKey(majorMobType.value, 'majorMobType', mobCard)">
+                </td>
+                <td>
+                    <span *ngIf="!mobCard.editMode">{{mobCard.subMobType}}</span>
+                    <input *ngIf="mobCard.editMode" placeholder="{{mobCard.subMobType}}" #subMobType (keyup)="onKey(subMobType.value, 'subMobType', mobCard)">
+                </td>
+                <td>
+                    <button type="button" class="btn btn-default" (click)="editRegimen(mobCard)">Edit Regimen</button>
+                </td>
+                <td>
+                    <button *ngIf="!mobCard.editMode" type="button" class="btn btn-default" (click)="toggleEdit(mobCard)">Edit</button>
+                    <button *ngIf="mobCard.editMode" type="button" class="btn btn-default" (click)="updateMobCard(mobCard)">Save</button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-default" (click)="deleteMobCard(mobCard)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+</div>

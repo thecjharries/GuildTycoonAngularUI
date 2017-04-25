@@ -18,6 +18,7 @@ import { MapToIterablePipe, TimeRemainingPipe, VitToHpPipe } from './custom.pipe
 
 import { AdminComponent } from './pages/admin/admin.component';
 import { CharacterCardsComponent } from './pages/admin/character_cards/character-cards.component';
+import { MobCardsComponent } from './pages/admin/mob_cards/mob-cards.component';
 
 import { ApiService } from './services/api.service';
 import { GuildService } from './services/guild.service';
@@ -27,6 +28,7 @@ import { UserService } from './services/user.service';
 import { TokenService } from './services/token.service';
 import { ZoneService } from './services/zone.service';
 import { CharacterCardsService } from './services/character-cards.service';
+import { MobCardsService } from './services/mob-cards.service';
 
 @NgModule({
   declarations: [ AppComponent,
@@ -36,6 +38,7 @@ import { CharacterCardsService } from './services/character-cards.service';
                   ZonesComponent,
                   AdminComponent,
                   CharacterCardsComponent,
+                  MobCardsComponent,
                   MapToIterablePipe,
                   TimeRemainingPipe,
                   VitToHpPipe ],
@@ -55,7 +58,8 @@ import { CharacterCardsService } from './services/character-cards.service';
                UserService,
                TokenService,
                ZoneService,
-               CharacterCardsService ],
+               CharacterCardsService,
+               MobCardsService ],
 
   bootstrap: [ AppComponent ]
 })

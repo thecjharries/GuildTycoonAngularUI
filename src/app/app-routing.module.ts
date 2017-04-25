@@ -7,6 +7,7 @@ import { CharactersComponent } from './pages/characters/characters.component';
 import { ZonesComponent } from './pages/zones/zones.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { CharacterCardsComponent } from './pages/admin/character_cards/character-cards.component';
+import { MobCardsComponent } from './pages/admin/mob_cards/mob-cards.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/dashboard', pathMatch:'full' },
@@ -15,7 +16,8 @@ const routes: Routes = [
     { path: 'characters', component: CharactersComponent },
     { path: 'zones', component: ZonesComponent },
     { path: 'admin', component: AdminComponent },
-    { path: 'charactercards', component: CharacterCardsComponent }
+    { path: 'charactercards', component: CharacterCardsComponent },
+    { path: 'mobcards', component: MobCardsComponent }
 ];
 
 @NgModule({
