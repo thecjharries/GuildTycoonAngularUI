@@ -65,9 +65,8 @@ export class ApiService {
                 }
             })
         }
-        // await this.http.get(this.apiBase + endpoint + stringParameters)
-        //                .toPromise().then(data => this.response = data.json());
-        this.response = await this.http.get(this.apiBase + endpoint + stringParameters, {headers: this.headers});
+        await this.http.get(this.apiBase + endpoint + stringParameters)
+                       .toPromise().then(data => this.response = data.json());
         return this.response;
     }
 

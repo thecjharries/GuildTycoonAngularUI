@@ -92,7 +92,6 @@
                         {{target.name}}
                     </li>
                 </ul>
-                {{regimenAction?.Target}}
             </div>
             <div class="dropdown col-sm-2 col-md-2 col-lg-2">
                 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
@@ -102,7 +101,6 @@
                         {{property.name}}
                     </li>
                 </ul>
-                {{regimenAction?.TargetProperty}}
             </div>
             <div class="dropdown col-sm-2 col-md-2 col-lg-2">
                 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
@@ -112,7 +110,6 @@
                         {{operator.name}}
                     </li>
                 </ul>
-                {{regimenAction?.TargetOperator}}
             </div>
             <div class="dropdown col-sm-2 col-md-2 col-lg-2">
                 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
@@ -122,7 +119,6 @@
                         {{value}}
                     </li>
                 </ul>
-                {{regimenAction?.TargetValue}}
             </div>
             <div class="dropdown col-sm-2 col-md-2 col-lg-2">
                 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
@@ -132,13 +128,29 @@
                         {{using.name}}
                     </li>
                 </ul>
-                {{regimenAction?.UsingSelection}}
             </div>
             <div class="col-sm-2 col-md-2 col-lg-2">
                  <button class="btn btn-primary" type="button" (click)="addRegimenAction()">
                     Add</button>
             </div>
             
+        </div>
+        <div class="row">
+            <div class="col-sm-2 col-md-2 col-lg-2">
+                {{regimenAction?.target}}
+            </div>
+            <div class="col-sm-2 col-md-2 col-lg-2">
+                {{regimenAction?.targetProperty}}
+            </div>
+            <div class="col-sm-2 col-md-2 col-lg-2">
+                {{regimenAction?.targetOperator}}
+            </div>
+            <div class="col-sm-2 col-md-2 col-lg-2">
+                {{regimenAction?.targetValue}}
+            </div>
+            <div class="col-sm-2 col-md-2 col-lg-2">
+                {{regimenAction?.usingSelection}}
+            </div>
         </div>
         <div class="row">
             <!--<table>

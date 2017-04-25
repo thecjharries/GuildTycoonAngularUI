@@ -43,6 +43,7 @@ export class CharactersComponent implements OnInit {
         this.regimenActionTargets = await this._regimenService.getRegimenActionBlock("Target");
         this.regimenActionUsing = await this._regimenService.getRegimenActionBlock("Using");
      }
+
      fight(){
         this._encounterService.dofight();
      }
@@ -92,11 +93,11 @@ export class CharactersComponent implements OnInit {
     }
 
     setTargetValueArray(){
-        if(this.regimenAction.targetOperator.endsWith("Percent")){
-            this.targetValueArray = this.generateArrayValues(100, 10);
-        }
-        else if(this.regimenAction.targetProperty.endsWith("Multiplier")){
+        if(this.regimenAction.targetProperty.endsWith("Multiplier")){
             this.targetValueArray = this.generateArrayValues(35, 1);
+        }
+        else if(this.regimenAction.targetOperator.endsWith("Percent")){
+            this.targetValueArray = this.generateArrayValues(100, 10);
         }
         else{
             this.targetValueArray = this.generateArrayValues(4000, 100);

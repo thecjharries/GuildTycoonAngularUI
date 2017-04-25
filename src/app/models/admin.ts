@@ -14,6 +14,10 @@ export class CharacterCard{
 }
 
 export class MobCard{
+    constructor(){
+        this.regimen = new Regimen();
+        this.statSheet = new StatSheet();
+    }
     mobCardId: string;
     strength: number;
     agility: number;
@@ -30,6 +34,12 @@ export class MobCard{
     statSheet: StatSheet;
     instanceId: string;
     editMode: boolean;
+}
+
+export class UpdateMobCardMessage
+{
+    mobCard: MobCard;
+    regimen: Regimen;
 }
 
 export class MobTypes{

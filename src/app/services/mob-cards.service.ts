@@ -1,7 +1,7 @@
 import { Injectable }    from '@angular/core';
 import { ApiService } from './api.service';
 
-import { MobCard } from '../models/admin';
+import { MobCard, UpdateMobCardMessage } from '../models/admin';
 
 @Injectable()
 export class MobCardsService {
@@ -20,10 +20,14 @@ export class MobCardsService {
     }
 
     async updateCard(mobCard: MobCard){
-        await this._apiService.post(JSON.stringify(mobCard), 'UpdateMobCard');
+        var updateMobCardMessage = new UpdateMobCardMessage();
+        updateMobCardMessage.mobCard = mobCard;
+        updateMobCardMessage.regimen = mobCard.regimen;
+        await this._apiService.post(JSON.stringify(updateMobCardMessage), 'UpdateMobCard');
     }
 
     async deleteCard(cardId: string){
+        
         var params = new Map<string, string>();
         params.set('cardId', cardId);
         await this._apiService.get('DeleteMobCard', params);

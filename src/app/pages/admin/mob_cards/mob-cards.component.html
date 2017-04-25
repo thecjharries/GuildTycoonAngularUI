@@ -2,6 +2,107 @@
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     
     <button type="button" class="btn btn-default" (click)="toggleAdd()">Add</button>
+
+    <!--Regimen-->
+    <div *ngIf="enableRegimenAdd" class="Regimen">
+        <div class="row">
+            <div class="dropdown col-sm-2 col-md-2 col-lg-2">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                    Target</button>
+                <ul class="dropdown-menu">
+                    <li *ngFor="let target of regimenActionTargets" (click)="setRegimenActionTarget(target.name)">
+                        {{target.name}}
+                    </li>
+                </ul>
+            </div>
+            <div class="dropdown col-sm-2 col-md-2 col-lg-2">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                    Property</button>
+                <ul class="dropdown-menu">
+                    <li *ngFor="let property of regimenActionProperties" (click)="setRegimenActionTargetProperty(property.name)">
+                        {{property.name}}
+                    </li>
+                </ul>
+            </div>
+            <div class="dropdown col-sm-2 col-md-2 col-lg-2">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                    Operator</button>
+                <ul class="dropdown-menu">
+                    <li *ngFor="let operator of regimenActionOperators" (click)="setRegimenActionTargetOperator(operator.name)">
+                        {{operator.name}}
+                    </li>
+                </ul>
+            </div>
+            <div class="dropdown col-sm-2 col-md-2 col-lg-2">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                    Value</button>
+                <ul class="dropdown-menu">
+                    <li *ngFor="let value of targetValueArray" (click)="setRegimenActionTargetValue(value)">
+                        {{value}}
+                    </li>
+                </ul>
+            </div>
+            <div class="dropdown col-sm-2 col-md-2 col-lg-2">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                    Using</button>
+                <ul class="dropdown-menu">
+                    <li *ngFor="let using of regimenActionUsing" (click)="setRegimenActionUsing(using.name)">
+                        {{using.name}}
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-2 col-md-2 col-lg-2">
+                    <button class="btn btn-primary" type="button" (click)="addRegimenAction()">
+                        Add
+                    </button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-2 col-md-2 col-lg-2">
+                {{regimenAction?.target}}
+            </div>
+            <div class="col-sm-2 col-md-2 col-lg-2">
+                {{regimenAction?.targetProperty}}
+            </div>
+            <div class="col-sm-2 col-md-2 col-lg-2">
+                {{regimenAction?.targetOperator}}
+            </div>
+            <div class="col-sm-2 col-md-2 col-lg-2">
+                {{regimenAction?.targetValue}}
+            </div>
+            <div class="col-sm-2 col-md-2 col-lg-2">
+                {{regimenAction?.usingSelection}}
+            </div>
+        </div>
+
+        <div class="row">
+            <ul class="regimenStack">
+                <li *ngFor="let action of selectedMobCard?.regimen?.regimenStack; let idx = index">
+                    <div class="row">
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            {{action?.target}}
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            {{action?.targetProperty}}
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            {{action?.targetOperator}}
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            {{action?.targetValue}}
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            {{action?.usingSelection}}
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            <button type="button" class="btn btn-default" (click)="removeRegimenAction(idx)">Remove</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
     
     
     <table style="table-layout:fixed" class="table table-hover">
@@ -79,7 +180,7 @@
                     <input *ngIf="mobCard.editMode" placeholder="{{mobCard.subMobType}}" #subMobType (keyup)="onKey(subMobType.value, 'subMobType', mobCard)">
                 </td>
                 <td>
-                    <button type="button" class="btn btn-default" (click)="editRegimen(mobCard)">Edit Regimen</button>
+                    <button type="button" class="btn btn-default" (click)="toggleEditRegimen(mobCard)">Edit Regimen</button>
                 </td>
                 <td>
                     <button *ngIf="!mobCard.editMode" type="button" class="btn btn-default" (click)="toggleEdit(mobCard)">Edit</button>

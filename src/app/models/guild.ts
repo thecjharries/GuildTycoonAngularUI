@@ -101,6 +101,10 @@ export enum TargetEnumConst{
 }
 export class RegimenAction
 {
+    constructor(){
+        this.targetProperty = "",
+        this.targetOperator = ""
+    }
     target: string;
     targetProperty: String;
     targetOperator: string;
