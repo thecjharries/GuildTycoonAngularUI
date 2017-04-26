@@ -1,8 +1,7 @@
 import { Injectable }    from '@angular/core';
 import { ApiService } from './api.service';
 
-import { Zone, Dungeon, Guild } from '../models/guild'
-import 'rxjs/add/operator/toPromise';
+import { Zone, Dungeon, Guild } from '../models/guild';
 
 @Injectable()
 export class ZoneService {
@@ -15,6 +14,20 @@ export class ZoneService {
     async getZones(){
         this.zones =  await this._apiService.get('GetZone');
         return this.zones;
+    }
+
+    async createZone(zone: Zone){
+        await this._apiService.post(JSON.stringify(zone), 'CreateZone');
+    }
+
+    async updateZone(zone: Zone){
+        await this._apiService.post(JSON.stringify(zone), 'UpdateZone');
+    }
+
+    async deleteZone(zoneId: string){
+        var params = new Map<string, string>();
+        params.set('zoneId', zoneId);
+        await this._apiService.get('DeleteZone', params);
     }
 
     async getDungeon(dungeonId){

@@ -19,6 +19,7 @@ import { MapToIterablePipe, TimeRemainingPipe, VitToHpPipe } from './custom.pipe
 import { AdminComponent } from './pages/admin/admin.component';
 import { CharacterCardsComponent } from './pages/admin/character_cards/character-cards.component';
 import { MobCardsComponent } from './pages/admin/mob_cards/mob-cards.component';
+import { ZonesAdminComponent } from './pages/admin/zones/zones.component';
 
 import { ApiService } from './services/api.service';
 import { GuildService } from './services/guild.service';
@@ -39,6 +40,7 @@ import { MobCardsService } from './services/mob-cards.service';
                   AdminComponent,
                   CharacterCardsComponent,
                   MobCardsComponent,
+                  ZonesAdminComponent,
                   MapToIterablePipe,
                   TimeRemainingPipe,
                   VitToHpPipe ],

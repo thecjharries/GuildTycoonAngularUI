@@ -137,14 +137,18 @@ export class UpdateCharacterMessage
 }
 
 export class Zone{
-    zoneId: string;
-    name: string;
-    regionId: string;
-    parentZoneId: string;
-    dungeonIds: number[];
-    mobCardIds: string;
-    coordX: number;
-    coordY: number;
+    constructor(){
+        this.DungeonIds = [];
+    }
+    ZoneId: string;
+    Name: string;
+    RegionId: string;
+    ParentZoneId: string;
+    DungeonIds: number[];
+    MobCardIds: string[];
+    CoordX: number;
+    CoordY: number;
+    EditMode: boolean;
 }
 
 export class Dungeon{

@@ -85,6 +85,7 @@ export class ApiService {
         else{
             var stringParameters="";
         }
+        console.log(body);
         if (!this.headers.has("Authorization")){
             var success = await this.createAuthorizationHeader(this.headers);
             if (success){
