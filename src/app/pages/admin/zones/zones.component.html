@@ -1,79 +1,98 @@
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     
     <button type="button" class="btn btn-default" (click)="toggleAdd()">Add</button>
-    
-    
-    <table style="table-layout:fixed" class="table table-hover">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Region Id</th>
-                <th>Parent Zone Id</th>
-                <th>Dungeon Ids</th>
-                <th>Mob Card Ids</th>
-                <th>Coord: X</th>
-                <th>Coord: Y</th>
-                <th>Edit</th>
-                <th>Delete</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngIf="enableAdd">
-                <td><input #name placeholder="Name"(keyup)="onKey(name.value, 'name')"></td>
-                <td><input #regionId placeholder="Region ID" (keyup)="onKey(regionId.value, 'regionId')"></td>
-                <td><input #parentZoneId placeholder="Parent Zone ID" (keyup)="onKey(parentZoneId.value, 'parentZoneId')"></td>
-                <td>
-                    <input #dungeonIds placeholder="Dungeon IDs" (keyup)="onKey(dungeonIds.value, 'dungeonIds')">
-                    <button type="button" class="btn btn-default" (click)="addDungeon()">Add</button>
-                    <span *ngFor="let dungeonIds of addingZone.DungeonIds">{{dungeonId}}</span>
-                </td>
-                <td><input #mobCardIds placeholders="Mob Card IDs" (keyup)="onKey(mobCardIds.value, 'mobCardIds')"></td>
-                <td><input #coordX placeholder="Coord X" (keyup)="onKey(coordX.value, 'coordX')"></td>
-                <td><input #coordY placeholder="Coord Y" (keyup)="onKey(coordY.value, 'coordY')"></td>
-                <td><button *ngIf="enableAdd" type="button" class="btn btn-default" (click)="createZone()">Save</button></td>
-            </tr>
-            <tr *ngFor="let zone of zones">
-                <td>
-                    <span *ngIf="!zone.editMode">{{zone.name}}</span>
-                    <input *ngIf="zone.editMode" value="{{zone.name}}" #name (keyup)="onKey(name.value, 'name', zone)">
-                </td>
-                <td>
-                    <span *ngIf="!zone.editMode">{{zone.regionId}}</span>
-                    <input *ngIf="zone.editMode" value="{{zone.regionId}}" #regionId (keyup)="onKey(regionId.value, 'regionId', zone)">
-                </td>
-                <td>
-                    <span *ngIf="!zone.editMode">{{zone.parentZoneId}}</span>
-                    <input *ngIf="zone.editMode" value="{{zone.parentZoneId}}" #parentZoneId (keyup)="onKey(parentZoneId.value, 'parentZoneId', zone)">
-                </td>
-                <td>
-                    
-                    <input *ngIf="zone.editMode" #dungeonIds (keyup)="onKey(dungeonIds.value, 'dungeonIds')">
-                    
-                    <button type="button" class="btn btn-default" (click)="addDungeon(zone)">Add</button>
-                    <span *ngFor="let dungeonIds of zone.DungeonIds">{{dungeonId}}</span>
 
-                </td>
-                <td>
-                    <span *ngIf="!zone.editMode">{{zone.mobCardIds}}</span>
-                    <input *ngIf="zone.editMode" value="{{zone.mobCardIds}}" #mobCardIds (keyup)="onKey(mobCardIds.value, 'mobCardIds', zone)">
-                </td>
-                <td>
-                    <span *ngIf="!zone.editMode">{{zone.coordX}}</span>
-                    <input *ngIf="zone.editMode" value="{{zone.coordX}}" #coordX (keyup)="onKey(CoordX.value, 'coordX', zone)">
-                </td>
-                <td>
-                    <span *ngIf="!zone.editMode">{{zone.coordY}}</span>
-                    <input *ngIf="zone.editMode" value="{{zone.coordY}}" #coordY (keyup)="onKey(CoordY.value, 'coordY', zone)">
-                </td>
-                <td>
-                    <button *ngIf="!zone.editMode" type="button" class="btn btn-default" (click)="toggleEdit(zone)">Edit</button>
-                    <button *ngIf="zone.editMode" type="button" class="btn btn-default" (click)="updateZone(zone)">Save</button>
-                </td>
-                <td>
-                    <button type="button" class="btn btn-default" (click)="deleteZone(zone)">Delete</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div *ngIf="selectedZone.editMode" class="row">
+        
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <span *ngFor="let dungeonId of selectedZone?.dungeonIds">{{dungeonId}}</span>
+            </div>
+
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <input  #dungeonId (keyup)="onKey(dungeonId.value, 'dungeonId')">     
+                <button type="button" class="btn btn-default" (click)="addDungeon()">Add</button>
+            </div>
+            
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <span *ngFor="let mobCardId of selectedZone?.mobCardIds">{{mobCardId}}</span>
+            </div>
+
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <input  #mobCardId (keyup)="onKey(mobCardId.value, 'mobCardId')">     
+                <button type="button" class="btn btn-default" (click)="addMobCard()">Add</button>
+            </div>
+        </div>
+        
+    </div>
+    
+    <div class="row">
+        <table style="table-layout:fixed" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Region Id</th>
+                    <th>Parent Zone Id</th>
+                    <th>Dungeon Ids</th>
+                    <th>Mob Card Ids</th>
+                    <th>Coord: X</th>
+                    <th>Coord: Y</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngIf="enableAdd">
+                    <td><input #name placeholder="Name"(keyup)="onKey(name.value, 'name')"></td>
+                    <td><input #regionId placeholder="Region ID" (keyup)="onKey(regionId.value, 'regionId')"></td>
+                    <td><input #parentZoneId placeholder="Parent Zone ID" (keyup)="onKey(parentZoneId.value, 'parentZoneId')"></td>
+                    <td><input #mobCardIds placeholders="Mob Card IDs" (keyup)="onKey(mobCardIds.value, 'mobCardIds')"></td>
+                    <td><input #coordX placeholder="Coord X" (keyup)="onKey(coordX.value, 'coordX')"></td>
+                    <td><input #coordY placeholder="Coord Y" (keyup)="onKey(coordY.value, 'coordY')"></td>
+                    <td><button *ngIf="enableAdd" type="button" class="btn btn-default" (click)="createZone()">Save</button></td>
+                </tr>
+                <tr *ngFor="let zone of zones">
+                    <td>
+                        <span *ngIf="!zone.editMode">{{zone.name}}</span>
+                        <input *ngIf="zone.editMode" value="{{zone.name}}" #name (keyup)="onKey(name.value, 'name', zone)">
+                    </td>
+                    <td>
+                        <span *ngIf="!zone.editMode">{{zone.regionId}}</span>
+                        <input *ngIf="zone.editMode" value="{{zone.regionId}}" #regionId (keyup)="onKey(regionId.value, 'regionId', zone)">
+                    </td>
+                    <td>
+                        <span *ngIf="!zone.editMode">{{zone.parentZoneId}}</span>
+                        <input *ngIf="zone.editMode" value="{{zone.parentZoneId}}" #parentZoneId (keyup)="onKey(parentZoneId.value, 'parentZoneId', zone)">
+                    </td>
+                    <td>
+                        <span *ngFor="let dungeonId of zone.dungeonIds">{{dungeonId}}</span>                    
+                    </td>
+                    <td>
+                        <span *ngIf="!zone.editMode">{{zone.mobCardIds}}</span>
+                    </td>
+                    <td>
+                        <span *ngIf="!zone.editMode">{{zone.coordX}}</span>
+                        <input *ngIf="zone.editMode" value="{{zone.coordX}}" #coordX (keyup)="onKey(coordX.value, 'coordX', zone)">
+                    </td>
+                    <td>
+                        <span *ngIf="!zone.editMode">{{zone.coordY}}</span>
+                        <input *ngIf="zone.editMode" value="{{zone.coordY}}" #coordY (keyup)="onKey(coordY.value, 'coordY', zone)">
+                    </td>
+                    <td>
+                        <button *ngIf="!zone.editMode" type="button" class="btn btn-default" (click)="toggleEdit(zone)">Edit</button>
+                        <button *ngIf="zone.editMode" type="button" class="btn btn-default" (click)="updateZone(zone)">Save</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-default" (click)="deleteZone(zone)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
     
 </div>

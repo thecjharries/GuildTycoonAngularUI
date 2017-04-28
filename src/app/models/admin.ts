@@ -1,4 +1,5 @@
 import { StatSheet, Regimen, TargetEnumConst, RegimenAction, RegimenActionBlock } from './guild'
+import { Type } from "serializer.ts/Decorators";
 
 export class CharacterCard{
     

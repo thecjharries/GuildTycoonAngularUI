@@ -4,7 +4,7 @@ import { Zone } from '../../../models/guild';
 import { ZoneService } from '../../../services/zone.service';
 
 @Component({
-    selector: 'zones',
+    selector: 'zonesAdmin',
     templateUrl: './zones.component.html',
     styleUrls: ['./zones.component.css']
 })
@@ -15,6 +15,8 @@ export class ZonesAdminComponent implements OnInit{
     private enableAdd: boolean;
     addingZone = new Zone();
     addingDungeonId: number;
+    addingMobCardId: string;
+    selectedZone = new Zone();
     
     constructor(private _zoneService: ZoneService){
         this.enableAdd = false;
@@ -23,6 +25,7 @@ export class ZonesAdminComponent implements OnInit{
     toggleAdd(){
         if(this.enableAdd == false){
             this.enableAdd = true;
+            this.selectedZone = new Zone();
         }
         else{
             this.enableAdd = false;
@@ -30,28 +33,29 @@ export class ZonesAdminComponent implements OnInit{
     }
 
     async createZone(){
-        await this._zoneService.createZone(this.addingZone);
+        await this._zoneService.createZone(this.selectedZone);
         this.zones = await this._zoneService.getZones();
         this.toggleAdd();
     }
 
     async updateZone(zone: Zone){
-        await this._zoneService.updateZone(zone);
+        await this._zoneService.updateZone(this.selectedZone);
         this.zones = await this._zoneService.getZones();
         this.toggleEdit(zone);
     }
 
     async deleteZone(zone: Zone){
-        await this._zoneService.deleteZone(zone.ZoneId);
+        await this._zoneService.deleteZone(zone.zoneId);
         this.zones = await this._zoneService.getZones();
     }
 
     async toggleEdit(zone: Zone){
-        if(zone.EditMode == false || zone.EditMode == null){
-            zone.EditMode = true;
+        this.selectedZone = zone;
+        if(zone.editMode == false || zone.editMode == null){
+            zone.editMode = true;
         }
         else{
-            zone.EditMode = false;
+            zone.editMode = false;
         }
     }
 
@@ -61,10 +65,20 @@ export class ZonesAdminComponent implements OnInit{
 
     addDungeon(zone?: Zone){
         if(zone == null){
-            this.addingZone.DungeonIds.push(this.addingDungeonId);
+            this.selectedZone.dungeonIds.push(this.addingDungeonId);
         }
         else{
-            zone.DungeonIds.push(this.addingDungeonId);
+            zone.dungeonIds.push(this.addingDungeonId);
+        }
+        console.log(this.selectedZone);
+    }
+
+    addMobCard(zone?: Zone){
+        if(zone == null){
+            this.selectedZone.mobCardIds.push(this.addingMobCardId);
+        }
+        else{
+            zone.mobCardIds.push(this.addingMobCardId);
         }
     }
 
@@ -73,26 +87,26 @@ export class ZonesAdminComponent implements OnInit{
             this.editSelectedProperty(input, targetProperty, zone);
         }
         else{
-            this.editSelectedProperty(input, targetProperty, this.addingZone);
+            this.editSelectedProperty(input, targetProperty, this.selectedZone);
         }
         
     }
 
     editSelectedProperty(input, targetProperty, zone){
         if(targetProperty=='name'){
-            zone.Name = input;
+            this.selectedZone.name = input;
         }else if(targetProperty=='regionId'){
-            zone.RegionId = input;
+            this.selectedZone.regionId = input;
         }else if(targetProperty=='parentZoneId'){
-            zone.ParentZoneId = input;
-        }else if(targetProperty=='dungeonIds'){
-            this.addingDungeonId = input;
-        }else if(targetProperty=='mobCardIds'){
-            zone.MobCardIds = input;
+            this.selectedZone.parentZoneId = input;
+        }else if(targetProperty=='dungeonId'){
+            this.addingDungeonId = +input;
+        }else if(targetProperty=='mobCardId'){
+            this.addingMobCardId = input;
         }else if(targetProperty=='coordX'){
-            zone.CoordX = input;
+            this.selectedZone.coordX = input;
         }else if(targetProperty=='coordY'){
-            zone.CoordY = input;
+            this.selectedZone.coordY = input;
         }
     }
 }

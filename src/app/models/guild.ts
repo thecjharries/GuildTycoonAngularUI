@@ -1,3 +1,5 @@
+import { Type } from "serializer.ts/Decorators";
+
 export class Guild{
     constructor(){
         this.teams = [];
@@ -137,18 +139,15 @@ export class UpdateCharacterMessage
 }
 
 export class Zone{
-    constructor(){
-        this.DungeonIds = [];
-    }
-    ZoneId: string;
-    Name: string;
-    RegionId: string;
-    ParentZoneId: string;
-    DungeonIds: number[];
-    MobCardIds: string[];
-    CoordX: number;
-    CoordY: number;
-    EditMode: boolean;
+    zoneId: string;
+    name: string;
+    regionId: string;
+    parentZoneId: string;
+    dungeonIds: number[] = [];
+    mobCardIds: string[] = [];
+    coordX: number;
+    coordY: number;
+    editMode: boolean = false;
 }
 
 export class Dungeon{

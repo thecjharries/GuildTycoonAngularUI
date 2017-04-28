@@ -1,5 +1,6 @@
 import { Injectable }    from '@angular/core';
 import { ApiService } from './api.service';
+import { serialize } from "serializer.ts/Serializer";
 
 import { Zone, Dungeon, Guild } from '../models/guild';
 
