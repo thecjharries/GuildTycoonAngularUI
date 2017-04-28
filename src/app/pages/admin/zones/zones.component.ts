@@ -70,7 +70,6 @@ export class ZonesAdminComponent implements OnInit{
         else{
             zone.dungeonIds.push(this.addingDungeonId);
         }
-        console.log(this.selectedZone);
     }
 
     addMobCard(zone?: Zone){

@@ -19,11 +19,10 @@ export class GuildsComponent implements OnInit, OnDestroy {
     guild = new Guild();
     editMode = false;
     date: number;
-    timeRemaining: number;
     timerId;
     sub;
     selectedTeam: Team;
-    selectedTeamCharacters: Character[];
+    selectedTeamCharacters: Character[] = [];
     selectedCharacter: Character;
 
     constructor(
@@ -33,14 +32,15 @@ export class GuildsComponent implements OnInit, OnDestroy {
         private location: Location
     )
     {
-        this.selectedTeamCharacters = [];
         this.date = (new Date()).valueOf();
     }
   
     updateDate() {
         var now = (new Date()).valueOf();
-        var end = (new Date(this.selectedTeam.primaryActionFinish)).valueOf();
-        this.timeRemaining = Math.floor((end-now) / 1000);
+        for(let team of this.guild.teams){
+            var end = (new Date(team.primaryActionFinish)).valueOf();
+            team.timeRemaining = Math.floor((end-now)/1000)
+        }
     }
     
     ngOnDestroy() {
@@ -140,6 +140,14 @@ export class GuildsComponent implements OnInit, OnDestroy {
         for(var i=1;i<=Object.keys(this.selectedTeam.units).length;i++){
             this.selectedTeamCharacters[i]= this.guild.characters.find(x => x.unitId == this.selectedTeam.units[i]);
         }
+    }
+
+    createRange(number){
+        var items: number[] = [];
+        for(var i = 1; i <= number; i++){
+            items.push(i);
+        }
+        return items;
     }
 }
 

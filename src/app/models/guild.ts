@@ -76,6 +76,7 @@ export class Team{
     units: string[];
     primaryActionFinish: Date;
     actionType: number;
+    timeRemaining: number;
 }
 
 export class CharacterCard{
