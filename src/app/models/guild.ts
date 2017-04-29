@@ -156,7 +156,8 @@ export class Dungeon{
     zoneId: string;
     name: string;
     difficultyRating: number;
-    waves: string[];
-    loot: Item[];
-    dungeomMobCardIds: string[];           
+    waves: string[][] = [];
+    loot: string[] = [];
+    dungeomMobCardIds: string[]; 
+    editMode: boolean = false;          
 }

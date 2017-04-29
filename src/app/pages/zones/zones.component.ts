@@ -33,8 +33,7 @@ export class ZonesComponent implements OnInit{
         }
     }
 
-    async sendTeam(teamId: number, dungeonId: number){
-        this.guild = await this._zoneService.sendTeam(this.guild.guildId, teamId, dungeonId, this.selectedZone.zoneId);
+    async attemptDungeon(teamId: number, dungeonId: number){
+        this.guild = await this._zoneService.attemptDungeon(this.guild.guildId, teamId, dungeonId);
     }
-
 }

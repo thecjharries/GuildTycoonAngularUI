@@ -6,7 +6,8 @@ import { Zone, Dungeon, Guild } from '../models/guild';
 
 @Injectable()
 export class ZoneService {
-    zones: Zone[];
+    zones: Zone[] = [];
+    dungeons: Dungeon[] = [];
     dungeon: Dungeon;
     guild: Guild;
     constructor(private _apiService: ApiService) {
@@ -38,13 +39,31 @@ export class ZoneService {
         return this.dungeon;
     }
 
-    async sendTeam(guildId: string, teamId: number, dungeonId: number, zoneId: string){
+    async getDungeons(){
+        this.dungeons =  await this._apiService.get('GetDungeon');
+        return this.dungeons;
+    }
+
+    async createDungeon(dungeon: Dungeon){
+        await this._apiService.post(JSON.stringify(dungeon), 'CreateDungeon');
+    }
+
+    async updateDungeon(dungeon: Dungeon){
+        await this._apiService.post(JSON.stringify(dungeon), 'UpdateDungeon');
+    }
+
+    async deleteDungeon(dungeonId: number){
+        var params = new Map<string, string>();
+        params.set('dungeonId', dungeonId.toString());
+        await this._apiService.get('DeleteDungeon', params);
+    }
+
+    async attemptDungeon(guildId: string, teamId: number, dungeonId: number){
         var params = new Map<string, string>();
         params.set('guildId', guildId);
         params.set('teamId', teamId.toString());
         params.set('dungeonId', dungeonId.toString());
-        params.set('zoneId', zoneId);
-        this.guild = await this._apiService.get('RunPseudoDungeon', params);
+        this.guild = await this._apiService.get('AttemptDungeon', params);
         return this.guild;
     }
 

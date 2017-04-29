@@ -1,0 +1,101 @@
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    
+    <button type="button" class="btn btn-default" (click)="toggleAdd()">Add</button>
+
+    <div *ngIf="selectedDungeon.editMode" class="row">
+        
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <div *ngFor="let wave of selectedDungeon?.waves">
+                    <span *ngFor="let unitId of wave.unitIds">{{unitId}}</span>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <input  #mobCardId (keyup)="onKey(mobCardId.value, 'mobCardId')">     
+                <button type="button" class="btn btn-default" (click)="addMobCard()">Add</button>
+            </div>
+            
+            
+            <button type="button" class="btn btn-default" (click)="addWave()">Add Wave</button>
+            
+
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <span *ngFor="let recipeId of selectedDungeon?.loot">{{recipeId}}</span>
+            </div>
+
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <input  #recipeId (keyup)="onKey(recipeId.value, 'recipeId')">     
+                <button type="button" class="btn btn-default" (click)="addLoot()">Add</button>
+            </div>
+        </div>
+        
+    </div>
+    
+    <div class="row">
+        <table style="table-layout:fixed" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Dungeon Id</th>
+                    <th>Zone Id</th>
+                    <th>Difficulty</th>
+                    <th>Waves</th>
+                    <th>Loot</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngIf="enableAdd">
+                    <td><input #name placeholder="Name"(keyup)="onKey(name.value, 'name')"></td>
+                    <td><input #dungeonId placeholder="Dungeon ID" (keyup)="onKey(dungeonId.value, 'dungeonId')"></td>
+                    <td><input #zoneId placeholder="Zone ID" (keyup)="onKey(zoneId.value, 'zoneId')"></td>
+                    <td><input #difficultyRating placeholders="Difficulty Rating" (keyup)="onKey(difficultyRating.value, 'difficultyRating')"></td>
+                    <td>Add after creation</td>
+                    <td>Add after creation</td>
+                    <td><button *ngIf="enableAdd" type="button" class="btn btn-default" (click)="createZone()">Save</button></td>
+                </tr>
+                <tr *ngFor="let dungeon of dungeons">
+                    <td>
+                        <span *ngIf="!dungeon.editMode">{{dungeon.name}}</span>
+                        <input *ngIf="dungeon.editMode" value="{{dungeon.name}}" #name (keyup)="onKey(name.value, 'name')">
+                    </td>
+                    <td>
+                        <span *ngIf="!dungeon.editMode">{{dungeon.dungeonId}}</span>
+                        <input *ngIf="dungeon.editMode" value="{{dungeon.dungeonId}}" #regionId (keyup)="onKey(dungeonId.value, 'dungeonId')">
+                    </td>
+                    <td>
+                        <span *ngIf="!dungeon.editMode">{{dungeon.zoneId}}</span>
+                        <input *ngIf="dungeon.editMode" value="{{dungeon.zoneId}}" #zoneId (keyup)="onKey(zoneId.value, 'zoneId')">
+                    </td>
+                    <td>
+                        <span *ngIf="!dungeon.editMode">{{dungeon.difficultyRating}}</span>
+                        <input #difficultyRating placeholders="Difficulty Rating" (keyup)="onKey(difficultyRating.value, 'difficultyRating')">
+                    </td>
+                    <td>
+                        <div *ngFor="let wave of selectedDungeon?.waves">
+                            <span *ngFor="let unitId of wave.unitIds">{{unitId}}</span>
+                        </div>                 
+                    </td>
+                    <td>
+                        <span *ngFor="let recipeId of dungeon.loot">{{recipeId}}</span>
+                    </td>
+                    <td>
+                        <button *ngIf="!dungeon.editMode" type="button" class="btn btn-default" (click)="toggleEdit(dungeon)">Edit</button>
+                        <button *ngIf="dungeon.editMode" type="button" class="btn btn-default" (click)="updateDungeon(dungeon)">Save</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-default" (click)="deleteDungeon(dungeon)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    
+</div>
