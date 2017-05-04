@@ -34,6 +34,7 @@ export class ZonesComponent implements OnInit{
     }
 
     async attemptDungeon(teamId: number, dungeonId: number){
-        this.guild = await this._zoneService.attemptDungeon(this.guild.guildId, teamId, dungeonId);
+        console.log(await this._zoneService.attemptDungeon(this.guild.guildId, teamId, dungeonId));
+        
     }
 }
