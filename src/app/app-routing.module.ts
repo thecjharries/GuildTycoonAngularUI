@@ -14,7 +14,7 @@ import { DungeonsComponent } from './pages/admin/dungeons/dungeons.component';
 const routes: Routes = [
     { path: '', redirectTo: '/dashboard', pathMatch:'full' },
     { path: 'dashboard', component: DashboardComponent },
-    { path: 'guild/:id', component: GuildsComponent },
+    { path: 'guild', component: GuildsComponent },
     { path: 'characters', component: CharactersComponent },
     { path: 'zones', component: ZonesComponent },
     { path: 'admin', component: AdminComponent },

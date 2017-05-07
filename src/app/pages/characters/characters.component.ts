@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 
 import { Guild, Character, Item, RegimenAction, Regimen } from '../../models/guild';
 
@@ -14,9 +15,11 @@ import { EncounterService } from '../../services/encounter.service';
 
 export class CharactersComponent implements OnInit {
     guild = new Guild();
+    guildSubscription: Subscription;
+    hasCharacters = false;
     selectedCharacter = new Character();
     selectedCharacterEquipment = new Map<string, Item>();
-    itemsForEquipmentSlot: Item[];
+    itemsForEquipmentSlot: Item[] = [];
     itemSlotNames= new Map<string, string>();
 
     regimenActionProperties = [];
@@ -28,25 +31,37 @@ export class CharactersComponent implements OnInit {
     targetValueArray = [];
 
     constructor(private _guildService: GuildService, private _regimenService: RegimenService, private _encounterService: EncounterService) {
-        this.itemsForEquipmentSlot = []
-        this.guild = _guildService.getCurrentGuild();
         this.generateSlotNamesMap();
     }
 
-
     async ngOnInit() {
-        this.selectedCharacter = this.guild.characters[0];
-        this.getEquipment(this.selectedCharacter);
-        this.regimenAction = new RegimenAction();
-        this.regimenActionProperties = await this._regimenService.getRegimenActionBlock("Property");
-        this.regimenActionOperators = await this._regimenService.getRegimenActionBlock("Operator");
-        this.regimenActionTargets = await this._regimenService.getRegimenActionBlock("Target");
-        this.regimenActionUsing = await this._regimenService.getRegimenActionBlock("Using");
-     }
+        this.guildSubscription = this._guildService.selectedGuild$.subscribe(guild => {this.guild = guild; this.populateCharacterDetail()} );
+        
+    }
 
-     fight(){
+    async populateCharacterDetail(){
+        if(this.guild.characters.length != 0){
+            this.hasCharacters = true;
+            this.selectedCharacter = this.guild.characters[0];
+            this.getEquipment(this.selectedCharacter);
+            this.regimenAction = new RegimenAction();
+            this.regimenActionProperties = await this._regimenService.getRegimenActionBlock("Property");
+            this.regimenActionOperators = await this._regimenService.getRegimenActionBlock("Operator");
+            this.regimenActionTargets = await this._regimenService.getRegimenActionBlock("Target");
+            this.regimenActionUsing = await this._regimenService.getRegimenActionBlock("Using");
+        }
+        else{
+            this.hasCharacters = false;
+        }
+    }
+
+    ngOnDestroy() {
+        this.guildSubscription.unsubscribe();
+    }
+
+    fight(){
         this._encounterService.dofight();
-     }
+    }
 
     onSelect(character: Character): void {
         this.selectedCharacter = character;

@@ -1,15 +1,25 @@
 import { Injectable }    from '@angular/core';
 import { ApiService } from './api.service';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { Guild, Team, Character, UpdateCharacterMessage } from '../models/guild'
 
-import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class GuildService {
     private guild: Guild;
 
+    // Observable navItem source
+    private _selectedGuildSource = new BehaviorSubject<Guild>(new Guild());
+    // Observable navItem stream
+    selectedGuild$ = this._selectedGuildSource.asObservable();
+
     constructor(private apiService: ApiService) {
+    }
+
+    async selectGuild(guildId: string){
+        var guild = await this.getGuild(guildId)
+        this._selectedGuildSource.next(guild);
     }
 
     async getGuild(guildId: string){

@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core'
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
+import { Subscription } from 'rxjs/Subscription';
 
 import { Guild, Character, CharacterCard, Team } from '../../models/guild';
 
@@ -17,6 +18,7 @@ import 'rxjs/add/operator/switchMap';
 
 export class GuildsComponent implements OnInit, OnDestroy {
     guild = new Guild();
+    guildSubscription: Subscription;
     editMode = false;
     date: number;
     timerId;
@@ -26,7 +28,7 @@ export class GuildsComponent implements OnInit, OnDestroy {
     selectedCharacter: Character;
 
     constructor(
-        private guildService: GuildService,
+        private _guildService: GuildService,
         private _zoneService: ZoneService,
         private route: ActivatedRoute,
         private location: Location
@@ -44,22 +46,24 @@ export class GuildsComponent implements OnInit, OnDestroy {
     }
     
     ngOnDestroy() {
-        clearInterval(this.timerId)
+        clearInterval(this.timerId);
+        this.guildSubscription.unsubscribe();
     }
 
     ngOnInit(): void{
-        this.sub = this.route.params.subscribe(params => {
-            this.paramsChanged(params['id']);
-        });
+        // this.sub = this.route.params.subscribe(params => {
+        //     this.paramsChanged(params['id']);
+        // });
         this.timerId = setInterval(() => this.updateDate(), 1000);
+        this.guildSubscription = this._guildService.selectedGuild$.subscribe(guild => this.guild = guild);
     }
 
     async pullCharacterCard(){
-        this.guild = await this.guildService.pullCharacterCard(this.guild.guildId);
+        this.guild = await this._guildService.pullCharacterCard(this.guild.guildId);
     }
 
     async redeemCharacterCard(card: CharacterCard){
-        this.guild = await this.guildService.redeemCharacterCard(this.guild.guildId, card.cardId);
+        this.guild = await this._guildService.redeemCharacterCard(this.guild.guildId, card.cardId);
     }
 
     selectTeam(teamId: number){
@@ -91,11 +95,11 @@ export class GuildsComponent implements OnInit, OnDestroy {
         }else{
             this.guild.teams[this.selectedTeam.teamId - 1].units = this.selectedTeam.units;
         }
-        this.guild = await this.guildService.setTeam(this.guild.guildId, this.guild.teams);
+        this.guild = await this._guildService.setTeam(this.guild.guildId, this.guild.teams);
     }
 
     async paramsChanged(id) {
-        this.guild = await this.guildService.getGuild(id);
+        this.guild = await this._guildService.getGuild(id);
         this.selectedTeam = this.guild.teams[0];
     }
 
@@ -117,7 +121,7 @@ export class GuildsComponent implements OnInit, OnDestroy {
         }
         else{
             this.editMode = false;
-            await this.guildService.updateGuild(this.guild.guildId, this.guild);
+            await this._guildService.updateGuild(this.guild.guildId, this.guild);
         }
     }
 
@@ -131,7 +135,7 @@ export class GuildsComponent implements OnInit, OnDestroy {
         }
         else{
             this.selectedCharacter.editMode = false;
-            await this.guildService.updateCharacter(this.guild.guildId, this.selectedCharacter);
+            await this._guildService.updateCharacter(this.guild.guildId, this.selectedCharacter);
         }
     }
 

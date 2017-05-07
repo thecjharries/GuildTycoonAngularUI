@@ -1,14 +1,10 @@
 import { Type } from "serializer.ts/Decorators";
 
 export class Guild{
-    constructor(){
-        this.teams = [];
-        this.characters = [];
-    }
     guildId: string;
     name: string;
-    teams: Team[];
-    characters: Character[];
+    teams: Team[] = [];
+    characters: Character[] = [];
     guildInventory: GuildInventory;
 }
 

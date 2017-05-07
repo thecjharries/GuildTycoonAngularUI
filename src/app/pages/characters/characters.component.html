@@ -1,14 +1,16 @@
 <div class="col-sm-9">
+    <div *ngIf="!hasCharacters">
+        <h1>Guild has no characters</h1>
+    </div>
     <!--List of characters-->
-    <div class="col-sm-3 col-md-3 col-lg-3">
+    <div *ngIf="hasCharacters" class="col-sm-3 col-md-3 col-lg-3">
         <li *ngFor="let character of guild.characters" (click)="onSelect(character)"
             [class.selected]="character === selectedCharacter">
             <span>{{character?.name}}</span>
         </li>
-        <button class="btn btn-primary" type="button" (click)="fight()">Fight</button>
     </div>
     <!--Details-->
-    <div class="col-sm-8 col-sm-offset-1 col-md-8 col-md-offset-1 col-lg-8 col-lg-offset-1">
+    <div *ngIf="hasCharacters" class="col-sm-8 col-sm-offset-1 col-md-8 col-md-offset-1 col-lg-8 col-lg-offset-1">
         <div class="row">
         <!--Equipment Layout-->
             <div>Name: {{selectedCharacter?.name}}</div>
@@ -59,8 +61,8 @@
         <!--Stats-->
         <div class="row">
             <ul>
-                <li>Level: {{selectedCharacter.level}}</li>
-                <li>Team #: {{selectedCharacter.teamId}}</li>
+                <li>Level: {{selectedCharacter?.level}}</li>
+                <li>Team #: {{selectedCharacter?.teamId}}</li>
             </ul>
         </div>
         <div class="row">
@@ -68,16 +70,16 @@
                 <div style="text-align:center"><p>Base</p></div>
                 <div class="col-sm-2 col-md-2 col-lg-2">
                     <ul>
-                        <li>Strength: {{selectedCharacter.stats.base.strength}}</li>
-                        <li>Agility: {{selectedCharacter.stats.base.agility}}</li>
-                        <li>Dexterity: {{selectedCharacter.stats.base.dexterity}}</li>
+                        <li>Strength: {{selectedCharacter.stats?.base.strength}}</li>
+                        <li>Agility: {{selectedCharacter.stats?.base.agility}}</li>
+                        <li>Dexterity: {{selectedCharacter.stats?.base.dexterity}}</li>
                     </ul>
                 </div>
                 <div class="col-sm-2 col-md-2 col-lg-2">
                     <ul>
-                        <li>Intelligence: {{selectedCharacter.stats.base.intelligence}}</li>
-                        <li>Vitality: {{selectedCharacter.stats.base.vitality}}</li>
-                        <li>Focus: {{selectedCharacter.stats.base.focus}}</li>
+                        <li>Intelligence: {{selectedCharacter.stats?.base.intelligence}}</li>
+                        <li>Vitality: {{selectedCharacter.stats?.base.vitality}}</li>
+                        <li>Focus: {{selectedCharacter.stats?.base.focus}}</li>
                     </ul>
                 </div>
             </div>

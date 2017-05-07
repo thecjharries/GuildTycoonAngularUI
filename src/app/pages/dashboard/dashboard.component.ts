@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core'
-import { UserService } from '../../services/user.service'
+import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 
-import { UserData } from '../../models/user-data'
+import { UserData } from '../../models/user-data';
+import { Guild } from '../../models/guild';
+
+import { UserService } from '../../services/user.service';
+import { GuildService } from '../../services/guild.service';
 
 @Component({
     selector: 'my-dashboard',
@@ -12,17 +16,25 @@ import { UserData } from '../../models/user-data'
 export class DashboardComponent implements OnInit{
     userData: UserData;
     name: string;
+    guild = new Guild();
+    guildSubscription: Subscription;
     enteringName1 = false;
     enteringName2 = false;
     enteringName3 = false;
     enteringName4 = false;
     enteringName5 = false;
-    constructor(private _userService: UserService){
+    constructor(private _userService: UserService, private _guildService: GuildService,){
 
     }
     async ngOnInit() {
         this.userData = await this._userService.getUser();
+        this.guildSubscription = this._guildService.selectedGuild$.subscribe(guild => this.guild = guild);
     }
+
+    ngOnDestroy() {
+        this.guildSubscription.unsubscribe();
+    }
+
     async createGuild(slotNumber: number){
         this.toggleEditing(slotNumber);
         this.userData = await this._userService.createGuild(this.name, slotNumber.toString())

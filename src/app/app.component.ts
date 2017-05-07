@@ -1,14 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Headers, Http } from '@angular/http';
 import { Token } from './models/token';
 import { UserData } from './models/user-data'
+import { Guild } from './models/guild';
 
 import 'rxjs/add/operator/toPromise';
 
 import { TokenService } from './services/token.service';
 import { CookieService } from 'angular2-cookie/core';
 import { UserService } from './services/user.service';
+import { GuildService } from './services/guild.service';
 
 
 @Component({
@@ -17,32 +19,35 @@ import { UserService } from './services/user.service';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'Guild Tycoon';
-  token: Token;
+  token = new Token();
   loginStatus: boolean;
   expandGuildBool = false;
-  userData: UserData;
+  userData = new UserData();
 
   constructor(
       private tokenService: TokenService, 
       private _userService: UserService,
+      private _guildService: GuildService,
       private http: Http, 
       private _cookieService: CookieService
     ){
-    this.userData = new UserData();
-    this.token = new Token();
-    this.token.token = this._cookieService.get("id_token"); 
+      this.token.token = this._cookieService.get("id_token"); 
 
-    if (this.token.token != undefined){
-      this.userData = this.tokenService.decodeToken(this.token.token);
-      this.loginStatus = true;
-    }   
-    else {
-      this.loginStatus = false;
+      if (this.token.token != undefined){
+        this.userData = this.tokenService.decodeToken(this.token.token);
+        this.loginStatus = true;
+      }   
+      else {
+        this.loginStatus = false;
+      };
     };
-  };
   
+  async ngOnInit() {
+      this.userData = await this._userService.getUser();
+  }
+
   async getToken(){
     this.token.token = await this.tokenService.getToken();
     console.log(this.token.token);
@@ -55,6 +60,10 @@ export class AppComponent {
       }
     };
   };
+
+  selectGuild(guildId: string){
+    this._guildService.selectGuild(guildId);
+  }
 
   expandGuild(){
     if (this.expandGuildBool == false){
