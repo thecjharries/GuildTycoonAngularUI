@@ -14,19 +14,36 @@
     </div>
 
     <div class="row">
+        <div class="row teamsTitle">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <span>Teams</span>
+            </div>
+        </div>
         
-        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            <div *ngFor="let team of createRange(5); let i = index">
-                <div class = "row">
-                    <button type="button" class="btn btn-default" (click)="selectTeam(i+1)">Team {{i+1}}</button>
-                </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <button *ngFor="let team of createRange(5); let i = index" type="button" class="btn btn-default" (click)="selectTeam(i+1)">Team {{i+1}}</button>
             </div>
         </div>
 
-        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-            <ul>
-                <li *ngFor="let i of [1, 2, 3, 4, 5]">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div *ngFor="let i of [1, 2, 3, 4, 5]" class="col-sm-2 well">
                     <div class="dropdown">
+                        <span>Slot {{i}}: </span>
+                        
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            {{selectedTeamCharacters[i]?.name}}
+                        </button>
+                        
+                            <ul class="dropdown-menu dropdown-menu-left">
+                                <li (click)="assignCharacter(null, i)">Remove</li>
+                                <li *ngFor="let character of guild?.characters" (click)="assignCharacter(character, i)">
+                                    {{character?.name}}
+                                </li>
+                            </ul>
+                    </div>
+                    <!--<div class="dropdown">
                         <li data-toggle="dropdown">Character {{i}}: {{selectedTeamCharacters[i]?.name}}</li>
                         <ul class="dropdown-menu dropdown-menu-left">
                             <li (click)="assignCharacter(null, i)">Remove</li>
@@ -34,48 +51,47 @@
                                 {{character?.name}}
                             </li>
                         </ul>
-                    </div>
-                </li>
-                <li>
+                    </div>-->
                     
-                    <button type="button" class="btn btn-default" (click)="setTeam()">Save</button>
-                    
-                </li>
-            </ul>
+                </div>
+            </div>
+            <button type="button" class="btn btn-default" (click)="setTeam()">Save Changes</button>
         </div>
 
     </div>
 
 
-    <div class="row">
-        <span>Team Action Summary</span>
+    <div class="row">        
+        <div class="row teamActionSummaryTitle">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <span>Team Action Summary</span>
+            </div>
+        </div>
         <div *ngFor="let team of guild.teams" class="col-sm-2 well">
             <div class="row">
                 <span>Team {{team.teamId}}</span>
             </div>
-            <div class="row">
+            <!--<div class="row">
                 <span>Zone {{team.currentZone}}</span>
-            </div>
+            </div>-->
             <div class="row">
                 <span>Dungeon {{team.dungeonId}}</span>
             </div>
             <div class="row">
                 <span *ngIf="team.timeRemaining > 0">{{team.timeRemaining}} seconds remaining</span>
                 <span *ngIf="team.timeRemaining <= 0">Task Complete</span>
+                <button type="button" class="btn btn-default" (click)="completeDungeon(team.teamId)">Complete</button>
             </div>
-            <button type="button" class="btn btn-default" (click)="completeDungeon(team.teamId)">Complete</button>
         </div>
-        <!--<ul>
-            <li>{{selectedTeam?.teamId}}</li>
-            <li>{{selectedTeam?.currentZone}}</li>
-            <li>{{selectedTeam?.dungeonId}}</li>
-            <li>{{timeRemaining}}</li>
-            
-            
-        </ul>-->
     </div>
+
     <!--Character Summary-->
     <div class="row">
+        <div class="row characterTitle">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <span>Characters</span>
+            </div>
+        </div>
         <div *ngFor="let character of guild.characters; let i = index" class="col-sm-2 well">
             
             <div class="row">
@@ -114,13 +130,53 @@
     </div>
 
     <div class="row">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" (click)="pullCharacterCard()">
-            Pull New Character</button>
-        <li *ngFor="let card of guild?.guildInventory?.characterCards">
+        <div class="row cardTitle">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <span>Card Inventory</span>
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" (click)="pullCharacterCard()">
+                    Pull New Character</button>
+            </div>
+        </div>
+        <div *ngFor="let card of guild?.guildInventory?.characterCards; let i = index" class="col-sm-2 well">
+            
+            <div class="row">
+                <span>{{card?.name}}</span>
+            </div>
+
+            <div class="row">
+                <span>HP: {{card?.vitality | vitToHp}}</span>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <span>S: {{card?.strength}}</span>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <span>A: {{card?.agility}}</span>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <span>D: {{card?.dexterity}}</span>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <span>I: {{card?.intelligence}}</span>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <span>V: {{card?.vitality}}</span>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <span>F: {{card?.focus}}</span>
+                </div>
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" (click)="redeemCharacterCard(card)">
+                    Redeem</button>
+            </div>
+
+        </div>
+
+        <!--<li *ngFor="let card of guild?.guildInventory?.characterCards">
             <span>{{card.name}}</span>
             <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" (click)="redeemCharacterCard(card)">
                 Redeem</button>
-        </li>
+        </li>-->
     </div>
         
 </div>

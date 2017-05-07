@@ -1,23 +1,52 @@
-<div class="col-sm-9">
+<div class="col-sm-12">
     <div *ngIf="!hasCharacters">
         <h1>Guild has no characters</h1>
     </div>
     <!--List of characters-->
     <div *ngIf="hasCharacters" class="col-sm-3 col-md-3 col-lg-3">
-        <li *ngFor="let character of guild.characters" (click)="onSelect(character)"
+        <div *ngFor="let character of guild.characters" class="well" (click)="onSelect(character)"
             [class.selected]="character === selectedCharacter">
             <span>{{character?.name}}</span>
-        </li>
+        </div>
     </div>
     <!--Details-->
     <div *ngIf="hasCharacters" class="col-sm-8 col-sm-offset-1 col-md-8 col-md-offset-1 col-lg-8 col-lg-offset-1">
+        <div class="row characterTitle">
+            <h4>{{selectedCharacter?.name}}</h4>
+        </div>
+
         <div class="row">
         <!--Equipment Layout-->
-            <div>Name: {{selectedCharacter?.name}}</div>
             <div class="col-sm-3 col-md-3 col-lg-3">
                 <ul>
                     <div *ngFor="let itemSlot of itemSlotNames | mapToIterable">
-                        <li *ngIf="itemSlot.key % 2 != 0">
+                        <div class="row">
+                            <div *ngIf="itemSlot.key % 2 != 0" class="well">
+                                <span>{{itemSlot.value}}: </span>
+                                <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" (click)="getItemsForEquipmentSlot(itemSlot.key)">
+                                        <span *ngIf="selectedCharacterEquipment?.get(itemSlot.key)?.name != null">
+                                            {{selectedCharacterEquipment?.get(itemSlot.key)?.name}}</span>
+                                        <span *ngIf="selectedCharacterEquipment?.get(itemSlot.key)?.name == null">Empty</span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li *ngFor="let item of itemsForEquipmentSlot" (click)="equipItem(item)">
+                                            {{item?.name}}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>                    
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6">
+                <p style="text-align:center">Picture of character</p>
+            </div>
+            <div class="col-sm-3 col-md-3 col-lg-3">
+                <div *ngFor="let itemSlot of itemSlotNames | mapToIterable">
+                    <div class="row">
+                        <div *ngIf="itemSlot.key % 2 == 0" class="well">
                             <span>{{itemSlot.value}}: </span>
                             <div class="dropdown">
                                 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" (click)="getItemsForEquipmentSlot(itemSlot.key)">
@@ -31,30 +60,8 @@
                                     </li>
                                 </ul>
                             </div>
-                        </li>                    
+                        </div>                    
                     </div>
-                </ul>
-            </div>
-            <div class="col-sm-6 col-md-6 col-lg-6">
-                <p style="text-align:center">Picture of character</p>
-            </div>
-            <div class="col-sm-3 col-md-3 col-lg-3">
-                <div *ngFor="let itemSlot of itemSlotNames | mapToIterable">
-                    <li *ngIf="itemSlot.key % 2 == 0">
-                        <span>{{itemSlot.value}}: </span>
-                        <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" (click)="getItemsForEquipmentSlot(itemSlot.key)">
-                                <span *ngIf="selectedCharacterEquipment?.get(itemSlot.key)?.name != null">
-                                    {{selectedCharacterEquipment?.get(itemSlot.key)?.name}}</span>
-                                <span *ngIf="selectedCharacterEquipment?.get(itemSlot.key)?.name == null">Empty</span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li *ngFor="let item of itemsForEquipmentSlot" (click)="equipItem(item)">
-                                    {{item?.name}}
-                                </li>
-                            </ul>
-                        </div>
-                    </li>                    
                 </div>
             </div>
         </div>

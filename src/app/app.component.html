@@ -16,6 +16,16 @@
   </div>
 
   <div class="row">
+    <ul *ngIf="userData?.role == 'Admin'" class="nav nav-tabs nav-justified navAdmin">
+        <li><a routerLink="/admin" routerLinkActive="active">Admin</a></li>
+        <li><a routerLink="/charactercards" routerLinkActive="active">Character Cards</a></li>
+        <li><a routerLink="/mobcards" routerLinkActive="active">Mob Cards</a></li>
+        <li><a routerLink="/zonesAdmin" routerLinkActive="active">Zones</a></li>
+        <li><a routerLink="/dungeons" routerLinkActive="active">Dungeons</a></li>
+      </ul>
+  </div>
+
+  <div class="row">
     <ul class="nav nav-tabs nav-justified navPages">
       <li><a routerLink="/dashboard" routerLinkActive="link-active">Dashboard</a></li>
       <li><a routerLink="/guild" routerLinkActive="link-active">Guild</a></li>
@@ -62,7 +72,7 @@
       </ul>
     </div>-->
 
-    <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10 content">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 content">
         <router-outlet></router-outlet>
     </div>
 
