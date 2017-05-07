@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 
 import { UserData } from '../../models/user-data';
 import { Zone, Dungeon, Guild } from '../../models/guild';
@@ -14,19 +15,25 @@ import { GuildService } from '../../services/guild.service';
 export class ZonesComponent implements OnInit{
     zones: Zone[];
     selectedZone: Zone;
-    selectedZoneDungeons: Dungeon[];
+    selectedZoneDungeons: Dungeon[] = [];
     guild = new Guild();
+    guildSubscription: Subscription;
     constructor(private _zoneService: ZoneService, private _guildService: GuildService){
         this.zones = [];
-        this.selectedZoneDungeons = [];
     }
+
     async ngOnInit() {
         this.zones = await this._zoneService.getZones();
-        this.guild = await this._guildService.getCurrentGuild();
+        this.guildSubscription = this._guildService.selectedGuild$.subscribe(guild => this.guild = guild);
+    }
+
+    ngOnDestroy() {
+        this.guildSubscription.unsubscribe();
     }
 
     async setSelectedZone(zone: Zone){
         this.selectedZone = zone;
+        this.selectedZoneDungeons = [];
         for(var dungeonId of this.selectedZone.dungeonIds){
             var dungeon = await this._zoneService.getDungeon(dungeonId);
             this.selectedZoneDungeons.push(dungeon);

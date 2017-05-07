@@ -6,6 +6,7 @@ export class Guild{
     teams: Team[] = [];
     characters: Character[] = [];
     guildInventory: GuildInventory;
+    isActive = false;
 }
 
 export class Character{

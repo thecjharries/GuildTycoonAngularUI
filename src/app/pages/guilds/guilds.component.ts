@@ -58,6 +58,9 @@ export class GuildsComponent implements OnInit, OnDestroy {
         this.guildSubscription = this._guildService.selectedGuild$.subscribe(guild => this.guild = guild);
     }
 
+    // async paramsChanged(id) {
+
+    // }
     async pullCharacterCard(){
         this.guild = await this._guildService.pullCharacterCard(this.guild.guildId);
     }
@@ -98,10 +101,6 @@ export class GuildsComponent implements OnInit, OnDestroy {
         this.guild = await this._guildService.setTeam(this.guild.guildId, this.guild.teams);
     }
 
-    async paramsChanged(id) {
-        this.guild = await this._guildService.getGuild(id);
-        this.selectedTeam = this.guild.teams[0];
-    }
 
     onKey(name: string) {
         this.guild.name = name;

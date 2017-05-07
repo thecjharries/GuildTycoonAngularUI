@@ -1,16 +1,40 @@
 .app{
-    background-color: grey;
+    background-color: #6585A9;
 }
 .content{
     padding: 10px 0 0 0;
 }
+
+.guildSelector a, a:hover{
+    background-color:#6585A9;
+    border: 0;
+    color:#333333; 
+}
+
+.guildSelector a:active{
+    text-decoration: underline;
+}
+
 .navigation{
     background-color: lightgray;
     padding: 10px 0 0 0;
     height: 100vh;
 }
+
+.navPages a{
+    background-color: #45688F;
+    border: 0;
+    border-radius: 0;
+    color:#333333;
+}
+
+.navPages .link-active{
+    background-color:#6585A9;
+}
+
 .top{
-    background-color: darkgrey;
+    background-color: #091D34;
+    border-radius:0;
     box-shadow: 0 0 20px black;
     margin-bottom: 0px;
     z-index: 1;

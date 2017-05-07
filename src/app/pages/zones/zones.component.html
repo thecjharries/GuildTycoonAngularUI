@@ -18,9 +18,15 @@
                 <li *ngFor="let dungeon of selectedZoneDungeons">
                     {{dungeon?.name}}
                     
-                    <button *ngFor="let team of guild.teams; let i = index" type="button" class="btn btn-default" (click)="attemptDungeon(i+1, dungeon.dungeonId)">
-                        Send Team {{i+1}}
-                    </button>
+                    <ul *ngFor="let team of guild?.teams; let i = index">
+                        <li *ngIf="team.dungeonId == 0">
+                            <button  type="button" class="btn btn-default" (click)="attemptDungeon(i+1, dungeon.dungeonId)">
+                                Send Team {{i+1}}
+                            </button>
+
+                        </li>
+                        
+                    </ul>
                     
                 </li>
             </ul>
