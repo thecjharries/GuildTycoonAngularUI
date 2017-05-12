@@ -14,34 +14,30 @@ export class GuildService {
     // Observable navItem stream
     selectedGuild$ = this._selectedGuildSource.asObservable();
 
-    constructor(private apiService: ApiService) {
+    constructor(private _apiService: ApiService) {
     }
 
     async selectGuild(guildId: string){
-        var guild = await this.getGuild(guildId)
-        this._selectedGuildSource.next(guild);
+        this._selectedGuildSource.next(await this.getGuild(guildId));
     }
 
     async getGuild(guildId: string){
         var params = new Map<string, string>();
         params.set("guildId", guildId);
-        this.guild = await this.apiService.get('GetGuild', params);
-        return this.guild;
+        return await this._apiService.get('GetGuild', params);
     }
 
     async pullCharacterCard(guildId: string){
         var params = new Map<string, string>();
         params.set("guildId", guildId);
-        this.guild = await this.apiService.get('PullCharacterCard', params);
-        return this.guild;
+        this._selectedGuildSource.next(await this._apiService.get('PullCharacterCard', params));
     }
 
     async redeemCharacterCard(guildId: string, cardId: string){
         var params = new Map<string, string>();
         params.set('guildId', guildId);
         params.set('cardId', cardId);
-        this.guild = await this.apiService.get('redeemCharacterCard', params);
-        return this.guild;
+        this._selectedGuildSource.next(await this._apiService.get('redeemCharacterCard', params));
     }
 
     getCurrentGuild(){
@@ -53,22 +49,19 @@ export class GuildService {
         params.set('guildId', guildId);
         params.set('itemId', itemId);
         params.set('unitId', unitId);
-        this.guild = await this.apiService.get('EquipItem', params);
-        return this.guild;
+        this._selectedGuildSource.next(await this._apiService.get('EquipItem', params));
     }
 
     async setTeam(guildId: string, teams: Team[]){
         var params = new Map<string, string>();
         params.set('guildId', guildId);
-        this.guild = await this.apiService.post(JSON.stringify(teams), 'SetTeams', params);
-        return this.guild;
+        this._selectedGuildSource.next(await this._apiService.post(JSON.stringify(teams), 'SetTeams', params));
     }
 
     async updateGuild(guildId:string, guild:Guild){
         var params = new Map<string,string>();
         params.set('guildId', guildId);
-        this.guild = await this.apiService.post(JSON.stringify(guild), 'UpdateGuild', params);
-        return this.guild;
+        this._selectedGuildSource.next(await this._apiService.post(JSON.stringify(guild), 'UpdateGuild', params));
     }
 
     async updateCharacter(guildId:string, character: Character){
@@ -79,7 +72,22 @@ export class GuildService {
         updateCharacterMessage.Regimen = character.regimen;
         var params = new Map<string, string>();
         params.set("guildId", guildId);
-        this.guild = await this.apiService.post(JSON.stringify(updateCharacterMessage), 'UpdateCharacter', params );
-        return this.guild;
+        this._selectedGuildSource.next(await this._apiService.post(JSON.stringify(updateCharacterMessage), 'UpdateCharacter', params ));
     }
+
+    async attemptDungeon(guildId: string, teamId: number, dungeonId: number){
+        var params = new Map<string, string>();
+        params.set('guildId', guildId);
+        params.set('teamId', teamId.toString());
+        params.set('dungeonId', dungeonId.toString());
+        this._selectedGuildSource.next(await this._apiService.get('AttemptDungeon', params));
+    }
+
+    async completeDungeon(guildId: string, teamId: number){
+        var params = new Map<string, string>();
+        params.set('guildId', guildId);
+        params.set('teamId', teamId.toString());
+        this._selectedGuildSource.next(await this._apiService.get('CompletePseudoDungeon', params));
+    }
+ 
 }

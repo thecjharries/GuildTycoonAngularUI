@@ -20,7 +20,7 @@
                     {{dungeon?.name}}
                     
                     <span *ngFor="let team of guild?.teams; let i = index">
-                        <button *ngIf="team.dungeonId == 0" type="button" class="btn btn-default" (click)="attemptDungeon(i+1, dungeon.dungeonId)">
+                        <button *ngIf="team.dungeonId == 0 && team.units.size > 0" type="button" class="btn btn-default" (click)="attemptDungeon(i+1, dungeon.dungeonId)">
                             Send Team {{i+1}}
                         </button>
                     </span>

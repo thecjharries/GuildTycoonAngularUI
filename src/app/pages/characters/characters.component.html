@@ -92,7 +92,109 @@
             </div>
         </div>
         <!--Regimen-->
-        <div class="row">
+        <div class="row regimenActionStack">
+            <span>Regimen Action Stack</span>
+            <br/>
+            <button class="btn btn-primary" type="button" (click)="createRegimenAction()">
+                <span *ngIf="!addingRegimenAction">New Action</span>
+                <span *ngIf="addingRegimenAction">Cancel</span>
+            </button>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Order</th>
+                        <th>Ally/Enemy</th>
+                        <th>Select By</th>
+                        <th>Comparison</th>
+                        <th>Comparison Value</th>
+                        <th>Action</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngIf="addingRegimenAction">
+                        <td></td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                    {{regimenAction.target}} <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li *ngFor="let target of regimenActionTargets" (click)="setRegimenActionTarget(target.name)">
+                                        {{target.name}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                    {{regimenAction.targetProperty}} <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li *ngFor="let property of regimenActionProperties" (click)="setRegimenActionTargetProperty(property.name)">
+                                        {{property.name}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                    {{regimenAction.targetOperator}} <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li *ngFor="let operator of regimenActionOperators" (click)="setRegimenActionTargetOperator(operator.name)">
+                                        {{operator.name}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                    {{regimenAction.targetValue}} <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li *ngFor="let value of targetValueArray" (click)="setRegimenActionTargetValue(value)">
+                                        {{value}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                    {{regimenAction.usingSelection}} <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li *ngFor="let using of regimenActionUsing" (click)="setRegimenActionUsing(using.name)">
+                                        {{using.name}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" type="button" (click)="addRegimenAction()">
+                                Add
+                            </button>
+                        </td>
+                    </tr>
+                    <tr *ngFor="let action of selectedCharacter.regimen?.regimenStack; let idx = index">
+                        <td>{{idx + 1}}</td>
+                        <td>{{action?.target}}</td>
+                        <td>{{action?.targetProperty}}</td>
+                        <td>{{action?.targetOperator}}</td>
+                        <td>{{action?.targetValue}}</td>
+                        <td>{{action?.usingSelection}}</td>
+                        <td><button type="button" class="btn btn-default" (click)="removeRegimenAction(idx)">Remove</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+
+        <!--<div class="row">
             <div class="dropdown col-sm-2 col-md-2 col-lg-2">
                 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
                     Target</button>
@@ -143,8 +245,8 @@
                     Add</button>
             </div>
             
-        </div>
-        <div class="row">
+        </div>-->
+        <!--<div class="row">
             <div class="col-sm-2 col-md-2 col-lg-2">
                 {{regimenAction?.target}}
             </div>
@@ -162,15 +264,6 @@
             </div>
         </div>
         <div class="row">
-            <!--<table>
-                <tr *ngFor="let action of selectedCharacter.regimen?.regimenStack">
-                    <td>{{action?.target}} </td>
-                    <td>{{action?.targetProperty}} </td>
-                    <td>{{action?.targetOperator}} </td>
-                    <td>{{action?.targetValue}} </td>
-                    <td>{{action?.usingSelection}} </td>
-                </tr>
-            </table>-->
             <ul class="regimenStack">
                 <li *ngFor="let action of selectedCharacter.regimen?.regimenStack; let idx = index">
                     <div class="row">
@@ -195,5 +288,5 @@
                     </div>
                 </li>
             </ul>
-        </div>
+        </div>-->
 </div>

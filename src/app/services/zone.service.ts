@@ -58,22 +58,6 @@ export class ZoneService {
         await this._apiService.get('DeleteDungeon', params);
     }
 
-    async attemptDungeon(guildId: string, teamId: number, dungeonId: number){
-        var params = new Map<string, string>();
-        params.set('guildId', guildId);
-        params.set('teamId', teamId.toString());
-        params.set('dungeonId', dungeonId.toString());
-        this.guild = await this._apiService.get('AttemptDungeon', params);
-        return this.guild;
-    }
 
-    async completeDungeon(guildId: string, teamId: number){
-        var params = new Map<string, string>();
-        params.set('guildId', guildId);
-        params.set('teamId', teamId.toString());
-        this.guild = await this._apiService.get('CompletePseudoDungeon', params);
-        return this.guild;
-    }
- 
     
 }

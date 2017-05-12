@@ -26,7 +26,6 @@ export class GuildsComponent implements OnInit, OnDestroy {
     selectedTeam: Team;
     selectedTeamCharacters: Character[] = [];
     selectedCharacter: Character;
-
     constructor(
         private _guildService: GuildService,
         private _zoneService: ZoneService,
@@ -51,22 +50,26 @@ export class GuildsComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void{
-        // this.sub = this.route.params.subscribe(params => {
-        //     this.paramsChanged(params['id']);
-        // });
         this.timerId = setInterval(() => this.updateDate(), 1000);
-        this.guildSubscription = this._guildService.selectedGuild$.subscribe(guild => this.guild = guild);
+        this.guildSubscription = this._guildService.selectedGuild$.subscribe(guild => {
+            this.guild = guild;
+            if(this.guild.guildId != undefined){
+                this.selectedTeam = this.guild.teams[0];
+                this.rebuildTeam();
+            }
+        });
     }
+
 
     // async paramsChanged(id) {
 
     // }
     async pullCharacterCard(){
-        this.guild = await this._guildService.pullCharacterCard(this.guild.guildId);
+        await this._guildService.pullCharacterCard(this.guild.guildId);
     }
 
     async redeemCharacterCard(card: CharacterCard){
-        this.guild = await this._guildService.redeemCharacterCard(this.guild.guildId, card.cardId);
+        await this._guildService.redeemCharacterCard(this.guild.guildId, card.cardId);
     }
 
     selectTeam(teamId: number){
@@ -81,6 +84,8 @@ export class GuildsComponent implements OnInit, OnDestroy {
     }
 
     assignCharacter(character: Character, slotId: number){
+        console.log(this.selectedTeam)
+        console.log(slotId);
         if(character == null){
             this.selectedTeam.units[slotId] = "00000000-0000-0000-0000-000000000000";
         }
@@ -95,10 +100,15 @@ export class GuildsComponent implements OnInit, OnDestroy {
         if (this.guild.teams[this.selectedTeam.teamId - 1] == null){
             this.guild.teams[this.selectedTeam.teamId - 1] = new Team(this.selectedTeam.teamId);
             this.guild.teams[this.selectedTeam.teamId - 1].units = this.selectedTeam.units;
+            this.guild.teams[this.selectedTeam.teamId - 1].dungeonId = 0;
+            this.guild.teams[this.selectedTeam.teamId - 1].actionType = 0;
+            this.guild.teams[this.selectedTeam.teamId - 1].currentZone = "00000000-0000-0000-0000-000000000000";
+            
         }else{
             this.guild.teams[this.selectedTeam.teamId - 1].units = this.selectedTeam.units;
         }
-        this.guild = await this._guildService.setTeam(this.guild.guildId, this.guild.teams);
+        
+        await this._guildService.setTeam(this.guild.guildId, this.guild.teams);
     }
 
 
@@ -111,7 +121,7 @@ export class GuildsComponent implements OnInit, OnDestroy {
     }
 
     async completeDungeon(teamId:number){
-        this.guild = await this._zoneService.completeDungeon(this.guild.guildId, teamId);
+        await this._guildService.completeDungeon(this.guild.guildId, teamId);
     }
     
     async editModeToggle(){

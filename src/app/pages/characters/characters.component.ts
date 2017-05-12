@@ -30,6 +30,8 @@ export class CharactersComponent implements OnInit {
 
     targetValueArray = [];
 
+    addingRegimenAction = false;
+
     constructor(private _guildService: GuildService, private _regimenService: RegimenService, private _encounterService: EncounterService) {
         this.generateSlotNamesMap();
     }
@@ -144,6 +146,22 @@ export class CharactersComponent implements OnInit {
         this.itemSlotNames.set("14", "Ammo");
     }
 
+    createRegimenAction(){
+        if(this.addingRegimenAction == false){
+            this.addingRegimenAction = true;
+            this.regimenAction = new RegimenAction();
+            this.regimenAction.target = "Enemy";
+            this.regimenAction.targetProperty = "HP";
+            this.regimenAction.targetOperator = "GreaterThan";
+            this.regimenAction.targetValue = "0";
+            this.regimenAction.usingSelection = "NormalAttack";
+            this.setTargetValueArray();
+        }
+        else{
+            this.addingRegimenAction = false;
+        }
+    }
+
     async addRegimenAction(){
         if(this.selectedCharacter.regimen == null){
             this.selectedCharacter.regimen = new Regimen();
@@ -151,6 +169,7 @@ export class CharactersComponent implements OnInit {
         this.selectedCharacter.regimen.regimenStack.push(this.regimenAction)
         this.regimenAction = new RegimenAction();
         await this._guildService.updateCharacter(this.guild.guildId, this.selectedCharacter);
+        this.addingRegimenAction = false;
     }
 
     async removeRegimenAction(index: number){

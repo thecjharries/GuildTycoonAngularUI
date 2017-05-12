@@ -4,6 +4,7 @@ import { Headers, Http } from '@angular/http';
 import { Token } from './models/token';
 import { UserData } from './models/user-data'
 import { Guild } from './models/guild';
+import { Subscription } from 'rxjs/Subscription';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -21,10 +22,12 @@ import { GuildService } from './services/guild.service';
 
 export class AppComponent implements OnInit{
   title = 'Guild Tycoon';
+  guild = new Guild();
   token = new Token();
   loginStatus: boolean;
   expandGuildBool = false;
   userData = new UserData();
+  guildSubscription: Subscription;
 
   constructor(
       private tokenService: TokenService, 
@@ -46,6 +49,7 @@ export class AppComponent implements OnInit{
   
   async ngOnInit() {
       this.userData = await this._userService.getUser();
+      this.guildSubscription = this._guildService.selectedGuild$.subscribe(guild => this.guild = guild);
   }
 
   async getToken(){
@@ -61,8 +65,8 @@ export class AppComponent implements OnInit{
     };
   };
 
-  selectGuild(guildId: string){
-    this._guildService.selectGuild(guildId);
+  async selectGuild(guildId: string){
+    await this._guildService.selectGuild(guildId);
   }
 
   expandGuild(){

@@ -64,13 +64,12 @@ export class Item{
 export class Team{
     constructor(teamId: number){
         this.teamId = teamId;
-        this.units = [];
     }
     currentZone: string;
     dungeonId: number;
     teamId: number;
     name: string;
-    units: string[];
+    units = new Map<number, string>();
     primaryActionFinish: Date;
     actionType: number;
     timeRemaining: number;
