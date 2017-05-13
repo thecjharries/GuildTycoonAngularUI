@@ -150,8 +150,10 @@ export class GuildsComponent implements OnInit, OnDestroy {
 
     rebuildTeam(){
         this.selectedTeamCharacters = []
-        for(var i=1;i<=Object.keys(this.selectedTeam.units).length;i++){
-            this.selectedTeamCharacters[i]= this.guild.characters.find(x => x.unitId == this.selectedTeam.units[i]);
+        if(this.selectedTeam.units != undefined){
+            for(var i=1;i<=Object.keys(this.selectedTeam.units).length;i++){
+                this.selectedTeamCharacters[i]= this.guild.characters.find(x => x.unitId == this.selectedTeam.units[i]);
+            }
         }
     }
 
