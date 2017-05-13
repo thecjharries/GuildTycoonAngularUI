@@ -36,11 +36,11 @@
 
   <div class="row">
     <ul class="nav nav-tabs nav-justified guildSelector">
-      <li *ngIf="userData?.guild1Id != '00000000-0000-0000-0000-000000000000'" (click)="selectGuild(userData.guild1Id)"><a>{{userData.guild1Name}}</a></li>
-      <li *ngIf="userData?.guild2Id != '00000000-0000-0000-0000-000000000000'" (click)="selectGuild(userData.guild2Id)"><a>{{userData.guild2Name}}</a></li>
-      <li *ngIf="userData?.guild3Id != '00000000-0000-0000-0000-000000000000'" (click)="selectGuild(userData.guild3Id)"><a>{{userData.guild3Name}}</a></li>
-      <li *ngIf="userData?.guild4Id != '00000000-0000-0000-0000-000000000000'" (click)="selectGuild(userData.guild4Id)"><a>{{userData.guild4Name}}</a></li>
-      <li *ngIf="userData?.guild5Id != '00000000-0000-0000-0000-000000000000'" (click)="selectGuild(userData.guild5Id)"><a>{{userData.guild5Name}}</a></li>
+      <li *ngIf="userData?.guild1Id != '00000000-0000-0000-0000-000000000000'" (click)="selectGuild(userData.guild1Id)"><a>{{userData?.guild1Name}}</a></li>
+      <li *ngIf="userData?.guild2Id != '00000000-0000-0000-0000-000000000000'" (click)="selectGuild(userData.guild2Id)"><a>{{userData?.guild2Name}}</a></li>
+      <li *ngIf="userData?.guild3Id != '00000000-0000-0000-0000-000000000000'" (click)="selectGuild(userData.guild3Id)"><a>{{userData?.guild3Name}}</a></li>
+      <li *ngIf="userData?.guild4Id != '00000000-0000-0000-0000-000000000000'" (click)="selectGuild(userData.guild4Id)"><a>{{userData?.guild4Name}}</a></li>
+      <li *ngIf="userData?.guild5Id != '00000000-0000-0000-0000-000000000000'" (click)="selectGuild(userData.guild5Id)"><a>{{userData?.guild5Name}}</a></li>
     </ul>  
   </div>
 

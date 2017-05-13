@@ -53,6 +53,9 @@ export class GuildsComponent implements OnInit, OnDestroy {
         this.timerId = setInterval(() => this.updateDate(), 1000);
         this.guildSubscription = this._guildService.selectedGuild$.subscribe(guild => {
             this.guild = guild;
+            if(this.guild.teams[0] == undefined){
+                this.guild.teams[0] = new Team(1);
+            }
             if(this.guild.guildId != undefined){
                 this.selectedTeam = this.guild.teams[0];
                 this.rebuildTeam();
@@ -150,10 +153,8 @@ export class GuildsComponent implements OnInit, OnDestroy {
 
     rebuildTeam(){
         this.selectedTeamCharacters = []
-        if(this.selectedTeam.units != undefined){
-            for(var i=1;i<=Object.keys(this.selectedTeam.units).length;i++){
-                this.selectedTeamCharacters[i]= this.guild.characters.find(x => x.unitId == this.selectedTeam.units[i]);
-            }
+        for(var i=1;i<=Object.keys(this.selectedTeam.units).length;i++){
+            this.selectedTeamCharacters[i]= this.guild.characters.find(x => x.unitId == this.selectedTeam.units[i]);
         }
     }
 

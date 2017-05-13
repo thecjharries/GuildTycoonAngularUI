@@ -13,7 +13,7 @@ export class ApiService {
     response;
     private headers = new Headers({'Content-Type': 'application/json'});
     private apiBase = 'http://guildtycoon-api-dev.azurewebsites.net/';  // URL to web api
-    // private apiBase = 'http://localhost:5000/';  // URL to web api*/
+    //private apiBase = 'http://localhost:5000/';  // URL to web api*/
 
     constructor(private http: Http, private _cookieService: CookieService) {
         this.token = new Token();

@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit{
     name: string;
     guild = new Guild();
     guildSubscription: Subscription;
+    userSubscription: Subscription;
     enteringName1 = false;
     enteringName2 = false;
     enteringName3 = false;
@@ -27,21 +28,24 @@ export class DashboardComponent implements OnInit{
 
     }
     async ngOnInit() {
-        this.userData = await this._userService.getUser();
         this.guildSubscription = this._guildService.selectedGuild$.subscribe(guild => this.guild = guild);
+        this.userSubscription = this._userService.userData$.subscribe(userData => this.userData = userData);
     }
 
     ngOnDestroy() {
         this.guildSubscription.unsubscribe();
+        this.userSubscription.unsubscribe();
     }
 
     async createGuild(slotNumber: number){
         this.toggleEditing(slotNumber);
-        this.userData = await this._userService.createGuild(this.name, slotNumber.toString())
+        await this._userService.createGuild(this.name, slotNumber.toString());
+        await this._userService.getUser();
     }
 
     async deleteGuild(guildId: string){
-        this.userData = await this._userService.deleteGuild(guildId)
+        await this._userService.deleteGuild(guildId)
+        await this._userService.getUser();
     }
 
     toggleEditing(slotNumber: number){
