@@ -41,3 +41,11 @@ export class VitToHpPipe implements PipeTransform{
         return result;
     }
 }
+
+@Pipe({ name: 'mapSize'})
+export class MapSizePipe implements PipeTransform{
+    transform(value:Map<number, string>, args?: any[]): number{
+        var result = Object.keys(value).length;
+        return result;
+    }
+}
