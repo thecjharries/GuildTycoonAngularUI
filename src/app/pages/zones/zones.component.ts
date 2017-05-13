@@ -25,7 +25,7 @@ export class ZonesComponent implements OnInit{
     async ngOnInit() {
         this.zones = await this._zoneService.getZones();
         this.guildSubscription = this._guildService.selectedGuild$.subscribe(guild => this.guild = guild);
-        
+        console.log(this.guild.teams);
     }
 
     ngOnDestroy() {
@@ -39,12 +39,9 @@ export class ZonesComponent implements OnInit{
             var dungeon = await this._zoneService.getDungeon(dungeonId);
             this.selectedZoneDungeons.push(dungeon);
         }
-        console.log(this.guild.teams[0].units);
     }
 
     async attemptDungeon(teamId: number, dungeonId: number){
         await this._guildService.attemptDungeon(this.guild.guildId, teamId, dungeonId); 
     }
-
-
 }

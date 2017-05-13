@@ -14,7 +14,7 @@ import { DashboardComponent }   from './pages/dashboard/dashboard.component';
 import { GuildsComponent } from './pages/guilds/guilds.component';
 import { CharactersComponent } from './pages/characters/characters.component';
 import { ZonesComponent } from './pages/zones/zones.component';
-import { MapToIterablePipe, TimeRemainingPipe, VitToHpPipe, MapSizePipe } from './custom.pipes';
+import { MapToIterablePipe, TimeRemainingPipe, VitToHpPipe } from './custom.pipes';
 
 import { AdminComponent } from './pages/admin/admin.component';
 import { CharacterCardsComponent } from './pages/admin/character_cards/character-cards.component';
@@ -45,8 +45,7 @@ import { MobCardsService } from './services/mob-cards.service';
                   DungeonsComponent,
                   MapToIterablePipe,
                   TimeRemainingPipe,
-                  VitToHpPipe,
-                  MapSizePipe ],
+                  VitToHpPipe ],
 
   imports: [ BrowserModule,
              AlertModule.forRoot(),
