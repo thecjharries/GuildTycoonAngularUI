@@ -88,10 +88,7 @@ export class CharacterCard{
 
 export class Regimen
 {
-    constructor(){
-        this.regimenStack = [];
-    }
-    regimenStack: RegimenAction[];
+    regimenStack: RegimenAction[] = [];
 }
 export enum TargetEnumConst{
     Ally,
@@ -105,7 +102,7 @@ export class RegimenAction
         this.targetOperator = ""
     }
     target: string;
-    targetProperty: String;
+    targetProperty: string;
     targetOperator: string;
     targetValue: string;
     isActive: boolean;

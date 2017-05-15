@@ -37,14 +37,32 @@ export class CharactersComponent implements OnInit {
     }
 
     async ngOnInit() {
-        this.guildSubscription = this._guildService.selectedGuild$.subscribe(guild => {this.guild = guild; this.populateCharacterDetail()} );
+        this.guildSubscription = this._guildService.selectedGuild$.subscribe(guild => {
+            this.guild = guild; 
+            if(this.selectedCharacter != undefined){
+                this.populateCharacterDetail(this.selectedCharacter.unitId)
+            }
+            else{
+                this.populateCharacterDetail();
+            }
+        });
         
     }
 
-    async populateCharacterDetail(){
-        if(this.guild.characters.length != 0){
+    async populateCharacterDetail(selectedCharacterId?: string){
+        if(selectedCharacterId != undefined){
+            this.selectedCharacter = this.guild.characters.find(x => x.unitId == selectedCharacterId);
             this.hasCharacters = true;
+            this.getEquipment(this.selectedCharacter);
+            this.regimenAction = new RegimenAction();
+            this.regimenActionProperties = await this._regimenService.getRegimenActionBlock("Property");
+            this.regimenActionOperators = await this._regimenService.getRegimenActionBlock("Operator");
+            this.regimenActionTargets = await this._regimenService.getRegimenActionBlock("Target");
+            this.regimenActionUsing = await this._regimenService.getRegimenActionBlock("Using");
+        }
+        else if(this.guild.characters.length != 0){
             this.selectedCharacter = this.guild.characters[0];
+            this.hasCharacters = true;
             this.getEquipment(this.selectedCharacter);
             this.regimenAction = new RegimenAction();
             this.regimenActionProperties = await this._regimenService.getRegimenActionBlock("Property");
@@ -172,9 +190,29 @@ export class CharactersComponent implements OnInit {
         this.addingRegimenAction = false;
     }
 
+    async regimenActionUp(idx:number){
+        this.move(idx, idx - 1, this.selectedCharacter.regimen.regimenStack);
+    }
+
+    async regimenActionDown(idx:number){
+        this.move(idx, idx + 1, this.selectedCharacter.regimen.regimenStack);
+    }
+
     async removeRegimenAction(index: number){
         this.selectedCharacter.regimen.regimenStack.splice(index, 1);
         await this._guildService.updateCharacter(this.guild.guildId, this.selectedCharacter);
     }
 
+    async move (old_index, new_index, array) {
+        if (new_index < array.length && new_index >= 0){
+            // if (new_index >= array.length) {
+            //     var k = new_index - array.length;
+            //     while ((k--) + 1) {
+            //         array.push(undefined);
+            //     }
+            // }
+            array.splice(new_index, 0, array.splice(old_index, 1)[0]);
+            await this._guildService.updateCharacter(this.guild.guildId, this.selectedCharacter);
+        }
+    };
 }

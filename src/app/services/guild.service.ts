@@ -65,14 +65,15 @@ export class GuildService {
     }
 
     async updateCharacter(guildId:string, character: Character){
-        var updateCharacterMessage = new UpdateCharacterMessage();
-        updateCharacterMessage.GuildId = guildId;
-        updateCharacterMessage.Name = character.name;
-        updateCharacterMessage.UnitId = character.unitId;
-        updateCharacterMessage.Regimen = character.regimen;
+        // var updateCharacterMessage = new UpdateCharacterMessage();
+        // updateCharacterMessage.GuildId = guildId;
+        // updateCharacterMessage.Name = character.name;
+        // updateCharacterMessage.UnitId = character.unitId;
+        // updateCharacterMessage.Regimen = character.regimen;
+        character.regimen.regimenStack.reverse();
         var params = new Map<string, string>();
         params.set("guildId", guildId);
-        this._selectedGuildSource.next(await this._apiService.post(JSON.stringify(updateCharacterMessage), 'UpdateCharacter', params ));
+        this._selectedGuildSource.next(await this._apiService.post(JSON.stringify(character), 'UpdateCharacter', params ));
     }
 
     async attemptDungeon(guildId: string, teamId: number, dungeonId: number){
