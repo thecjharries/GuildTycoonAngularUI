@@ -46,20 +46,14 @@
                                 {{character?.name}}
                             </li>
                         </ul>
+                    </div>                    
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <button type="button" class="btn btn-default" (click)="setTeam()">Save Changes</button>
                     </div>
-                    <!--<div class="dropdown">
-                        <li data-toggle="dropdown">Character {{i}}: {{selectedTeamCharacters[i]?.name}}</li>
-                        <ul class="dropdown-menu dropdown-menu-left">
-                            <li (click)="assignCharacter(null, i)">Remove</li>
-                            <li *ngFor="let character of guild?.characters" (click)="assignCharacter(character, i)">
-                                {{character?.name}}
-                            </li>
-                        </ul>
-                    </div>-->
-                    
                 </div>
             </div>
-            <button type="button" class="btn btn-default" (click)="setTeam()">Save Changes</button>
         </div>
 
     </div>
@@ -225,5 +219,40 @@
                 Redeem</button>
         </li>-->
     </div>
-        
+    
+    <div class="row guildHistory">
+        <div class="row guildHistoryTitle">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <span>Guild History</span>
+                <button type="button" class="btn btn-default" (click)="getGuildHistory(guild?.guildId)">Load/Refresh</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                <div *ngFor="let history of guildHistories; let idx = index">
+                    <div class="row well">
+                        <span (click)="viewReceipt(idx, history.receiptType)">{{history.createdOn | date:'EEEE, MMMM dd, y, hh:mm:ss a'}}</span>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="fightReceipt.Success != null" class="well col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                <div class="row">
+                    <span>Player Win?: {{fightReceipt?.Success}}</span>
+                </div>
+                <div class="row">
+                    <span>Gold: {{fightReceipt?.Gold}}</span>
+                </div>
+                <div class="row">
+                    <div *ngFor="let wave of fightReceipt.FightLog; let idx = index">
+                        <span>Wave: {{idx + 1}}</span>
+                        <div *ngFor="let event of wave">
+                            <span>{{event.Message}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>

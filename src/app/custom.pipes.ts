@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { FightReceipt } from './models/receipts';
 
 @Pipe({ name: 'mapToIterable' })
 export class MapToIterablePipe implements PipeTransform {
@@ -50,5 +51,15 @@ export class MapSizePipe implements PipeTransform{
             count = count + 1;
         }
         return count;
+    }
+}
+
+@Pipe({ name: 'convertReceipt'})
+export class ConvertReceiptPipe implements PipeTransform{
+    transform(value:string, args?: string): Object[]{
+        if(args = "Fight"){
+            var fightReceipt = new FightReceipt();
+            return Object.assign(fightReceipt, JSON.parse(value));
+        }
     }
 }

@@ -3,7 +3,8 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import { Subscription } from 'rxjs/Subscription';
 
-import { Guild, Character, CharacterCard, Team } from '../../models/guild';
+import { Guild, GuildHistory, Character, CharacterCard, Team } from '../../models/guild';
+import { FightEvent, FightReceipt } from '../../models/receipts'
 
 import { GuildService } from '../../services/guild.service';
 import { ZoneService } from '../../services/zone.service';
@@ -17,12 +18,17 @@ import 'rxjs/add/operator/switchMap';
 })
 
 export class GuildsComponent implements OnInit, OnDestroy {
+    
     guild = new Guild();
+    guildHistories: GuildHistory[] = [];
     guildSubscription: Subscription;
     editMode = false;
     date: number;
+    fightReceipt = new FightReceipt();
+    
     timerId;
     sub;
+
     selectedTeam: Team;
     selectedTeamCharacters: Character[] = [];
     selectedCharacter: Character;
@@ -164,6 +170,20 @@ export class GuildsComponent implements OnInit, OnDestroy {
             items.push(i);
         }
         return items;
+    }
+
+    async getGuildHistory(guildId: string){
+        this.guildHistories = await this._guildService.getGuildHistory(guildId);
+    }
+
+    async viewReceipt(index: number, receiptType: string){
+        console.log(index);
+        console.log(receiptType);
+        console.log(this.guildHistories[index]);
+        if (receiptType == "Fight"){
+           Object.assign(this.fightReceipt, JSON.parse(this.guildHistories[index].receipt));
+        }
+        console.log(this.fightReceipt);
     }
 }
 

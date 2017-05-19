@@ -1,12 +1,7 @@
-import { Type } from "serializer.ts/Decorators";
-
-export class Guild{
-    guildId: string;
-    name: string;
-    teams: Team[] = [];
-    characters: Character[] = [];
-    guildInventory: GuildInventory;
-    isActive = false;
+export enum TargetEnumConst{
+    Ally,
+    Enemy,
+    Both
 }
 
 export class Character{
@@ -26,23 +21,46 @@ export class Character{
     editMode: boolean;
 }
 
-export class StatSheet{
-    base: StatTypes;
-}
-
-export class StatTypes{
-    base: RawStats;
-    effective: RawStats;
-    current: RawStats;
-}
-
-export class RawStats{
+export class CharacterCard{
+    cardId: string;
     strength: number;
     agility: number;
     dexterity: number;
     intelligence: number;
     vitality: number;
     focus: number;
+    name: string;
+}
+
+export class Consumable{
+}
+
+export class Dungeon{
+    dungeonId: number;
+    zoneId: string;
+    name: string;
+    difficultyRating: number;
+    waves: string[][] = [];
+    loot: string[] = [];
+    dungeomMobCardIds: string[]; 
+    editMode: boolean = false;          
+}
+
+export class Guild{
+    guildId: string;
+    name: string;
+    teams: Team[] = [];
+    characters: Character[] = [];
+    guildInventory: GuildInventory;
+    isActive = false;
+}
+
+export class GuildHistory{
+    guildHistoryId: string;
+    guildId: string;
+    createdOn: Date;
+    receipt: string;
+    receiptType: string;
 }
 
 export class GuildInventory{
@@ -61,40 +79,20 @@ export class Item{
     itemTypeId: string;
 }
 
-export class Team{
-    constructor(teamId: number){
-        this.teamId = teamId;
-    }
-    currentZone: string;
-    dungeonId: number;
-    teamId: number;
-    name: string;
-    units = new Map<number, string>();
-    primaryActionFinish: Date;
-    actionType: number;
-    timeRemaining: number;
-}
-
-export class CharacterCard{
-    cardId: string;
+export class RawStats{
     strength: number;
     agility: number;
     dexterity: number;
     intelligence: number;
     vitality: number;
     focus: number;
-    name: string;
 }
 
 export class Regimen
 {
     regimenStack: RegimenAction[] = [];
 }
-export enum TargetEnumConst{
-    Ally,
-    Enemy,
-    Both
-}
+
 export class RegimenAction
 {
     constructor(){
@@ -116,12 +114,33 @@ export class RegimenActionBlock
     Type: string;
 }
 
-export class Consumable{
+export class Skill{
 
 }
 
-export class Skill{
+export class StatSheet{
+    base: StatTypes;
+}
 
+export class StatTypes{
+    base: RawStats;
+    effective: RawStats;
+    current: RawStats;
+}
+
+
+export class Team{
+    constructor(teamId: number){
+        this.teamId = teamId;
+    }
+    currentZone: string;
+    dungeonId: number;
+    teamId: number;
+    name: string;
+    units = new Map<number, string>();
+    primaryActionFinish: Date;
+    actionType: number;
+    timeRemaining: number;
 }
 
 export class UpdateCharacterMessage
@@ -144,13 +163,3 @@ export class Zone{
     editMode: boolean = false;
 }
 
-export class Dungeon{
-    dungeonId: number;
-    zoneId: string;
-    name: string;
-    difficultyRating: number;
-    waves: string[][] = [];
-    loot: string[] = [];
-    dungeomMobCardIds: string[]; 
-    editMode: boolean = false;          
-}

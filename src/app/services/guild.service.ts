@@ -90,5 +90,11 @@ export class GuildService {
         params.set('teamId', teamId.toString());
         this._selectedGuildSource.next(await this._apiService.get('CompletePseudoDungeon', params));
     }
+
+    async getGuildHistory(guildId: string){
+        var params = new Map<string, string>();
+        params.set('guildId', guildId);
+        return await this._apiService.get('GuildHistory', params);
+    }
  
 }
