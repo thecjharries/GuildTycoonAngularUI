@@ -22,40 +22,10 @@
                 <span>Teams</span>
             </div>
         </div>
-        
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <button *ngFor="let team of createRange(5); let i = index" type="button" class="btn btn-default" (click)="selectTeam(i+1)">Team {{i+1}}</button>
-            </div>
-        </div>
 
         <div class="row">
-            <div  class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div *ngFor="let i of [1, 2, 3, 4, 5]" class="col-sm-2 well">
-                    <div class="dropdown">
-                        <span>Slot {{i}}: </span>
-                        
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                            <span *ngIf="selectedTeamCharacters[i] != null">{{selectedTeamCharacters[i]?.name}}</span>
-                            <span *ngIf="selectedTeamCharacters[i] == null">Empty</span>
-                        </button>
-                        
-                        <ul class="dropdown-menu dropdown-menu-left">
-                            <li (click)="assignCharacter(null, i)">Remove</li>
-                            <li *ngFor="let character of guild?.characters" (click)="assignCharacter(character, i)">
-                                {{character?.name}}
-                            </li>
-                        </ul>
-                    </div>                    
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <button type="button" class="btn btn-default" (click)="setTeam()">Save Changes</button>
-                    </div>
-                </div>
-            </div>
+            <teams></teams>
         </div>
-
     </div>
 
 

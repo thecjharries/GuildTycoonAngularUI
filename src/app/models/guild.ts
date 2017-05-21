@@ -130,8 +130,10 @@ export class StatTypes{
 
 
 export class Team{
-    constructor(teamId: number){
-        this.teamId = teamId;
+    constructor(teamId?: number){
+        if(teamId != null){
+            this.teamId = teamId;
+        }
     }
     currentZone: string;
     dungeonId: number;

@@ -21,6 +21,7 @@ import { CharacterCardsComponent } from './pages/admin/character_cards/character
 import { MobCardsComponent } from './pages/admin/mob_cards/mob-cards.component';
 import { ZonesAdminComponent } from './pages/admin/zones/zones.component';
 import { DungeonsComponent } from './pages/admin/dungeons/dungeons.component';
+import { TeamsModule } from './modules/teams/teams.module';
 
 import { ApiService } from './services/api.service';
 import { GuildService } from './services/guild.service';
@@ -52,6 +53,7 @@ import { MobCardsService } from './services/mob-cards.service';
   imports: [ BrowserModule,
              AlertModule.forRoot(),
              HttpModule,
+             TeamsModule,
              AppRoutingModule ],
 
   providers: [ FacebookService,
